@@ -7,7 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.Auto;
-import frc.robot.commands.ExampleCommand;
+//import frc.robot.commands.ExampleCommand;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.*;
 
@@ -60,3 +60,16 @@ public class RobotContainer {
     return m_autonomous;
   }
 }
+
+
+
+//private final XboxController m_joystick = new XboxController(0);
+//  final JoystickButton l2 = new JoystickButton(m_joystick, 9);
+//  final JoystickButton r2 = new JoystickButton(m_joystick, 10);
+//  final JoystickButton l1 = new JoystickButton(m_joystick, 11);
+//  final JoystickButton r1 = new JoystickButton(m_joystick, 12);
+//  r1.whenPressed(new PrepareToPickup(m_claw, m_wrist, m_elevator));
+//  r2.whenPressed(new Pickup(m_claw, m_wrist, m_elevator));
+//  l1.whenPressed(new Place(m_claw, m_wrist, m_elevator));
+//  l2.whenPressed(new Autonomous(m_drivetrain, m_claw, m_wrist, m_elevator));
+// The XboxController class provides named indicies for each of the buttons that you can access with XboxController.Button.kX.value. The rumble feature of the controller can be controlled by using XboxController.setRumble(GenericHID.RumbleType.kRightRumble, value). Many users do a split stick arcade drive that uses the left stick for just forwards / backwards and the right stick for left / right turning.

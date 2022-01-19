@@ -51,5 +51,7 @@ public class Constants {
     public static Gains kDriveGains = new Gains(0.02, 0.0, 0.45, 0, 0, 0.1);
 
 	 //http://www.ni.com/en-us/innovations/white-papers/06/pid-theory-explained.html
-	
+	 public static double SlowSpeedLimit = 0.25;
+	 public static double StandardSpeedLimit = 0.50;
+	 public static double JoystickSensitivity = .3;
 }
