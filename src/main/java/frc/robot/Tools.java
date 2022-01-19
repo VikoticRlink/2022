@@ -24,4 +24,16 @@ public class Tools {
           return (joystickOutput) ;
         }
       }  
+
+      public static double DeadbandJoystick(double joystickvalue) {   
+        if (Math.abs(joystickvalue)<.1) {
+          return 0;
+        } else if (joystickvalue > .95) {
+          return 1;
+        }else if (joystickvalue < -0.95) {
+          return -1;
+        } else {
+          return joystickvalue;
+        }
+      }
 }
