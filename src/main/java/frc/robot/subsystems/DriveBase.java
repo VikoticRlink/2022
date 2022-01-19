@@ -8,10 +8,18 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveBase extends SubsystemBase {
   /** Creates a new DriveBase. */
+  public Integer leftDriveEncoder;
+  public Integer rightDriveEncoder;
+  private Integer scalingfactor=2;
+
   public DriveBase() {}
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    // This method will be called once per scheduler run I did some more changes.
+  }
+  public void domystuff(){}
+  public Boolean dobetterstuff(Integer left, Integer Right){
+    return false;
   }
 }
