@@ -10,7 +10,6 @@ public class DriveBase extends SubsystemBase {
   /** Creates a new DriveBase. */
   public Integer leftDriveEncoder;
   public Integer rightDriveEncoder;
-  private Integer scalingfactor=2;
 
   public DriveBase() {}
 
