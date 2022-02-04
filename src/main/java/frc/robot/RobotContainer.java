@@ -28,6 +28,7 @@ public class RobotContainer {
   public static Intake m_Intake = new Intake();
   public static Lighting m_Lighting = new Lighting();
   public static Shooter m_Shooter = new Shooter();
+  public static ColorSensor m_colorSensor = new ColorSensor();
 
   //The robot's commands are defined here...
   //private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);

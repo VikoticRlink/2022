@@ -94,6 +94,27 @@ public class DriveBase extends SubsystemBase {
     rightMaster.setSelectedSensorPosition(0, 0, 0);
     leftMaster.setSelectedSensorPosition(0, 0, 0);
   }
+  public double readEncoder(boolean readRight){
+    if (readRight){
+      return rightMaster.getSelectedSensorPosition(0);
+    }else{
+      return leftMaster.getSelectedSensorPosition(0);
+    }
+  }
+  public void driveTo(int Distance){
+    rightMaster.set(TalonFXControlMode.Position, 1);
+    leftMaster.set(TalonFXControlMode.Position, -1 * Distance);
+  
+  }
+  public void drivePosition(double leftInput, double rightInput){
+    rightMaster.set(TalonFXControlMode.Position, rightInput);
+    leftMaster.set(TalonFXControlMode.Position, leftInput);
+  }
+  public void drivePercent(double leftInput, double rightInput){
+    rightMaster.set(TalonFXControlMode.PercentOutput, rightInput);
+    leftMaster.set(TalonFXControlMode.PercentOutput, leftInput);
+  }
+
   public void CoastMode(){
     rightMaster.setNeutralMode(NeutralMode.Coast);
    // rightSlave.setNeutralMode(NeutralMode.Coast);
@@ -107,6 +128,7 @@ public class DriveBase extends SubsystemBase {
    // leftSlave.setNeutralMode(NeutralMode.Brake);
   
   }
+
 }
 // Falcon 500 examples
 //https://github.com/CrossTheRoadElec/Phoenix-Examples-Languages/tree/master/Java%20Talon%20FX%20(Falcon%20500)

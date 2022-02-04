@@ -5,8 +5,17 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.*;
+import frc.robot.RobotContainer;
+
+import javax.lang.model.util.ElementScanner6;
+
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Auto extends CommandBase {
+  int driveStage=0;
+
   /** Creates a new Auto. */
   public Auto() {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -14,11 +23,41 @@ public class Auto extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    RobotContainer.m_DriveBase.resetEncoders();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    
+   switch (driveStage) {
+      case 0: 
+        if (RobotContainer.m_DriveBase.readEncoder(true)< -30000) {
+          RobotContainer.m_DriveBase.drivePercent(0.3, 0.3);
+          }else{
+            RobotContainer.m_DriveBase.drivePercent(0, 0);
+            driveStage = 1;
+          }
+      break;
+      case 1:
+        if (RobotContainer.m_DriveBase.readEncoder(true)> 30000) {
+          RobotContainer.m_DriveBase.drivePercent(-0.3, -0.3);
+        }else {
+          driveStage = 2;
+        }
+      break;
+    case 2:
+      if (RobotContainer.m_DriveBase.readEncoder(true)<120000) {
+        RobotContainer.m_DriveBase.drivePercent(0, 0.5);
+      }else{
+        driveStage = 3;
+        RobotContainer.m_DriveBase.drivePercent(0, 0);
+        RobotContainer.m_DriveBase.resetEncoders();
+      }
+    break;
+   }
+  }
 
   // Called once the command ends or is interrupted.
   @Override
