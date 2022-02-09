@@ -21,9 +21,13 @@ public class Climber extends SubsystemBase {
   /** Creates a new Climber. */
   TalonFX LeftArmMotor = new TalonFX(25);
   TalonFX RightArmMotor = new TalonFX(21);
+
+
   public Climber() {
 
     RightArmMotor.follow(LeftArmMotor);
+    RightArmMotor.setNeutralMode(NeutralMode.Brake);
+    LeftArmMotor.setNeutralMode(NeutralMode.Brake);
   }
 
   @Override

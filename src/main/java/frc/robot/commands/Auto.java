@@ -25,35 +25,38 @@ public class Auto extends CommandBase {
   @Override
   public void initialize() {
     RobotContainer.m_DriveBase.resetEncoders();
+    RobotContainer.m_DriveBase.BrakeMode();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
+    SmartDashboard.putNumber("Auto Drive Stage", driveStage);
    switch (driveStage) {
       case 0: 
-        if (RobotContainer.m_DriveBase.readEncoder(true)< -30000) {
-          RobotContainer.m_DriveBase.drivePercent(0.3, 0.3);
+        if (RobotContainer.m_DriveBase.readEncoder(true) > -30000) {
+          RobotContainer.m_DriveBase.drivePercent(0.1, -0.1);
           }else{
             RobotContainer.m_DriveBase.drivePercent(0, 0);
             driveStage = 1;
           }
       break;
       case 1:
-        if (RobotContainer.m_DriveBase.readEncoder(true)> 30000) {
-          RobotContainer.m_DriveBase.drivePercent(-0.3, -0.3);
+        if (RobotContainer.m_DriveBase.readEncoder(true)< 30000) {
+          RobotContainer.m_DriveBase.drivePercent(-0.3, 0.3);
         }else {
           driveStage = 2;
         }
       break;
     case 2:
       if (RobotContainer.m_DriveBase.readEncoder(true)<120000) {
-        RobotContainer.m_DriveBase.drivePercent(0, 0.5);
+        RobotContainer.m_DriveBase.drivePercent(-0.5, 0.5);
       }else{
         driveStage = 3;
         RobotContainer.m_DriveBase.drivePercent(0, 0);
         RobotContainer.m_DriveBase.resetEncoders();
+        RobotContainer.m_DriveBase.CoastMode();
+        this.isScheduled();
       }
     break;
    }

@@ -37,6 +37,8 @@ public class DriveBase extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run.
+    SmartDashboard.putNumber("Left Drive", leftMaster.getSelectedSensorPosition(0));
+    SmartDashboard.putNumber("Right Drive", rightMaster.getSelectedSensorPosition(0));
     if(RobotState.isEnabled() && RobotState.isTeleop()){
       if(RobotContainer.DriverController.getRightBumper()){
         leftMaster.set(TalonFXControlMode.PercentOutput, Tools.featherJoystick(RobotContainer.DriverController.getLeftY(), Constants.JoystickSensitivity));
@@ -60,7 +62,7 @@ public class DriveBase extends SubsystemBase {
   
   
   private void configDrivebase(){
-    //rightMaster.setNeutralMode(NeutralMode.Brake);
+    rightMaster.setNeutralMode(NeutralMode.Coast);
     rightMaster.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
     rightMaster.setSensorPhase(Constants.kSensorPhase);
     rightMaster.setInverted(Constants.kMotorInvert);
@@ -75,7 +77,7 @@ public class DriveBase extends SubsystemBase {
       rightMaster.config_kI(Constants.kPIDLoopIdx, Constants.kDriveGains.kI, Constants.kTimeoutMs);
       rightMaster.config_kD(Constants.kPIDLoopIdx, Constants.kDriveGains.kD, Constants.kTimeoutMs);
   
-    //leftMaster.setNeutralMode(NeutralMode.Brake);
+    leftMaster.setNeutralMode(NeutralMode.Coast);
     leftMaster.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
     leftMaster.setSensorPhase(Constants.kSensorPhase);
     leftMaster.setInverted(Constants.kMotorInvert);
