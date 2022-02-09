@@ -8,8 +8,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
-import frc.robot.RobotContainer;
-//import com.revrobotics.ColorSensorV3;
+import com.revrobotics.ColorSensorV3;
 
 public class ColorSensor extends SubsystemBase {
   /** Creates a new ColorSensor. */
@@ -17,7 +16,7 @@ public class ColorSensor extends SubsystemBase {
 
   /** Creates a new LightSensor. */
   private final I2C.Port i2cPort = I2C.Port.kOnboard;
-  //private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
+  private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
   //Color calibration values
   private double redCorrection = -0.31;
   private double blueCorrection = -0.19;
@@ -31,7 +30,7 @@ public class ColorSensor extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
 
-    /*
+    
     Color detectedColor = m_colorSensor.getColor();
   //double IR = m_colorSensor.getIR();
   proximity = m_colorSensor.getProximity();
@@ -71,6 +70,6 @@ public class ColorSensor extends SubsystemBase {
     //Detected NA
     DetectedColor="U";
   }
-  */
+  
   }
 }
