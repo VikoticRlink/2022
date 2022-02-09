@@ -32,22 +32,22 @@ public class ColorSensor extends SubsystemBase {
 
     
     Color detectedColor = m_colorSensor.getColor();
-  //double IR = m_colorSensor.getIR();
-  proximity = m_colorSensor.getProximity();
+    double IR = m_colorSensor.getIR();
+    proximity = m_colorSensor.getProximity();
 
-  double myRed = (detectedColor.red + redCorrection) * 255;
-  double myGreen = (detectedColor.green + greenCorrection) * 255;
-  double myBlue = (detectedColor.blue + blueCorrection) * 255;
-    
-  SmartDashboard.putNumber("raw Red", detectedColor.red);
-  SmartDashboard.putNumber("raw Green", detectedColor.green);
-  SmartDashboard.putNumber("raw Blue", detectedColor.blue);
-    
-  SmartDashboard.putNumber("Red", myRed);
-  SmartDashboard.putNumber("Green", myGreen);
-  SmartDashboard.putNumber("Blue", myBlue);
+    double myRed = (detectedColor.red + redCorrection) * 255;
+    double myGreen = (detectedColor.green + greenCorrection) * 255;
+    double myBlue = (detectedColor.blue + blueCorrection) * 255;
 
-  SmartDashboard.putNumber("Proximity", proximity);
+    SmartDashboard.putNumber("raw Red", detectedColor.red);
+    SmartDashboard.putNumber("raw Green", detectedColor.green);
+    SmartDashboard.putNumber("raw Blue", detectedColor.blue);
+
+    SmartDashboard.putNumber("Red", myRed);
+    SmartDashboard.putNumber("Green", myGreen);
+    SmartDashboard.putNumber("Blue", myBlue);
+
+    SmartDashboard.putNumber("Proximity", proximity);
   //SmartDashboard.putNumber("IR", IR);
 
   if((myRed > 30)&& (myBlue < 0) && (myGreen < 0)){
