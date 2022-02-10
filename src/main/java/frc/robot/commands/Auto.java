@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.*;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
 import javax.lang.model.util.ElementScanner6;
@@ -35,6 +36,7 @@ public class Auto extends CommandBase {
    switch (driveStage) {
       case 0: 
         if (RobotContainer.m_DriveBase.readEncoder(true) > -30000) {
+          RobotContainer.m_Intake.getBalls();
           RobotContainer.m_DriveBase.drivePercent(0.1, -0.1);
           }else{
             RobotContainer.m_DriveBase.drivePercent(0, 0);
@@ -51,11 +53,13 @@ public class Auto extends CommandBase {
     case 2:
       if (RobotContainer.m_DriveBase.readEncoder(true)<120000) {
         RobotContainer.m_DriveBase.drivePercent(-0.5, 0.5);
+        RobotContainer.m_Intake.shootBalls();
       }else{
         driveStage = 3;
         RobotContainer.m_DriveBase.drivePercent(0, 0);
         RobotContainer.m_DriveBase.resetEncoders();
         RobotContainer.m_DriveBase.CoastMode();
+        RobotContainer.m_Intake.disableIntake();
         this.isScheduled();
       }
     break;

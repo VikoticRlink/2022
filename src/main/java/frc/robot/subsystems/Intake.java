@@ -28,4 +28,15 @@ public class Intake extends SubsystemBase {
     if(RobotState.isEnabled() && RobotState.isTeleop()){
       IntakeMotor.set(TalonFXControlMode.PercentOutput, -1 * Tools.featherJoystick(RobotContainer.OperatorController.getRightY(), Constants.JoystickSensitivity));
   }
-}}
+}
+
+  public void getBalls(){
+    IntakeMotor.set(TalonFXControlMode.PercentOutput, -0.5);
+  }
+  public void shootBalls(){
+    IntakeMotor.set(TalonFXControlMode.PercentOutput, 1);
+  }
+  public void disableIntake(){
+    IntakeMotor.set(TalonFXControlMode.PercentOutput, 0);
+  }
+}
