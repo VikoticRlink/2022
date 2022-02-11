@@ -21,6 +21,8 @@ public class DriveBase extends SubsystemBase {
   /** Creates a new DriveBase. */
   TalonFX leftMaster = new TalonFX(1);
   TalonFX rightMaster = new TalonFX(2);
+  TalonFX leftSlave = new TalonFX(11);
+  TalonFX rightSlave = new TalonFX(12);
 
   TalonFXConfiguration configs = new TalonFXConfiguration();
 
@@ -28,7 +30,8 @@ public class DriveBase extends SubsystemBase {
     configs.primaryPID.selectedFeedbackSensor = FeedbackDevice.IntegratedSensor;
     leftMaster.configAllSettings(configs);
     rightMaster.configAllSettings(configs);
-
+    leftSlave.follow(leftMaster);
+    rightSlave.follow(rightMaster);
     rightMaster.setSelectedSensorPosition(0, 0, 0);
     leftMaster.setSelectedSensorPosition(0, 0, 0);
     configDrivebase();
