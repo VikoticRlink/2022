@@ -52,6 +52,6 @@ public class Constants {
 
 	 //http://www.ni.com/en-us/innovations/white-papers/06/pid-theory-explained.html
 	 public static double SlowSpeedLimit = 0.25;
-	 public static double StandardSpeedLimit = 0.50;
+	 public static double StandardSpeedLimit = 0.75;
 	 public static double JoystickSensitivity = .3;
 }
