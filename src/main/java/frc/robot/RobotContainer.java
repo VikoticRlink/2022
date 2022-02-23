@@ -6,10 +6,10 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.Auto;
-//import frc.robot.commands.ExampleCommand;
+import edu.wpi.first.wpilibj2.command.button.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.*;
+import frc.robot.commands.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -21,6 +21,11 @@ public class RobotContainer {
   //UI systems are defined here...
   public static XboxController DriverController, OperatorController;
 
+  private JoystickButton OperatorA, OperatorB, OperatorX, OperatorY, OperatorlBump, OperatorrBump, OperatorBack, OperatorStart;
+  private JoystickButton DriverA, DriverB, DriverX, DriverY, DriverlBump, DriverrBump, DriverBack, DriverStart;
+  public static boolean ManualControl;
+  public static Integer DriveDirection = 1;
+
   // The robot's subsystems are defined here...
   //private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   public static Climber m_Climber = new Climber();
@@ -28,6 +33,7 @@ public class RobotContainer {
   public static Intake m_Intake = new Intake();
   public static Lighting m_Lighting = new Lighting();
   public static Shooter m_Shooter = new Shooter();
+  public static Dashboard m_Dashboard = new Dashboard();
 
   //The robot's commands are defined here...
   //private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
@@ -46,8 +52,25 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    ManualControl = false;
     DriverController = new XboxController(0);
     OperatorController = new XboxController(1);
+
+    OperatorA = new JoystickButton(OperatorController, 1);
+    OperatorB = new JoystickButton(OperatorController, 2);
+    OperatorX = new JoystickButton(OperatorController, 3);
+    OperatorY = new JoystickButton(OperatorController, 4);
+    OperatorlBump = new JoystickButton(OperatorController, 5);
+    OperatorrBump = new JoystickButton(OperatorController, 6);
+    OperatorBack = new JoystickButton(OperatorController, 7);
+    OperatorStart = new JoystickButton(OperatorController, 8);
+
+    OperatorX.whenPressed(new LoadAndFire(m_Shooter));
+    OperatorStart.whenPressed(new ManualModeToggle());
+    
+    DriverStart = new JoystickButton(DriverController, 8);
+    DriverStart.whenPressed(new ToggleFrontOfBot());
+  
   }
 
   /**

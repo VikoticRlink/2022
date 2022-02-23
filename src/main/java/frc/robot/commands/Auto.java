@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Auto extends CommandBase {
   int driveStage=0;
+  boolean IsDone;
 
   /** Creates a new Auto. */
   public Auto() {
@@ -27,6 +28,7 @@ public class Auto extends CommandBase {
   public void initialize() {
     RobotContainer.m_DriveBase.resetEncoders();
     RobotContainer.m_DriveBase.BrakeMode();
+    IsDone=false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -61,6 +63,7 @@ public class Auto extends CommandBase {
         RobotContainer.m_DriveBase.CoastMode();
         RobotContainer.m_Intake.disableIntake();
         this.isScheduled();
+        IsDone=true;
       }
     break;
    }
@@ -73,6 +76,6 @@ public class Auto extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return IsDone;
   }
 }

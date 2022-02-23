@@ -4,9 +4,14 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
@@ -20,15 +25,37 @@ import frc.robot.Tools;
 
 public class Shooter extends SubsystemBase {
   TalonFX ShooterMotor = new TalonFX(22);
+  TalonFX ShooterMotorSlave = new TalonFX(18);
   TalonFX IndexMotor = new TalonFX(23);
+  private DigitalInput BallIndexer = new DigitalInput(0);
+  
+  
+  
   /** Creates a new Shooter. */
-  public Shooter() {}
+  
+
+  public boolean Limitswitch_Is_Closed() {
+    return BallIndexer.get();
+  }
+
+
+  public void Run_Index_Motor(int direction) {
+    // Values -1, 0 , 1 accepted | -1 -> Backwards, 0 -> Stop, 1 -> Forwards
+    IndexMotor.set(TalonFXControlMode.PercentOutput, .50 * direction);
+  }
+
+  public void Run_Flywheel_Motor(int run) {
+    // Values 0 , 1 accepted | 0 -> Stop, 1 -> Forwards
+    ShooterMotor.set(TalonFXControlMode.PercentOutput, .50 * run);
+  }
 
   @Override
   public void periodic() {
-    if(RobotState.isEnabled() && RobotState.isTeleop()){
+
+    if(RobotState.isEnabled() && RobotState.isTeleop() && RobotContainer.ManualControl){
       ShooterMotor.set(TalonFXControlMode.PercentOutput, -1 * Tools.featherJoystick(RobotContainer.OperatorController.getRightTriggerAxis(), Constants.JoystickSensitivity));
       IndexMotor.set(TalonFXControlMode.PercentOutput, -1 * Tools.featherJoystick(RobotContainer.OperatorController.getLeftTriggerAxis(), Constants.JoystickSensitivity));
+
   }
     // This method will be called once per scheduler run
   }

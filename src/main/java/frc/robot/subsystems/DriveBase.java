@@ -44,17 +44,17 @@ public class DriveBase extends SubsystemBase {
     SmartDashboard.putNumber("Right Drive", rightMaster.getSelectedSensorPosition(0));
     if(RobotState.isEnabled() && RobotState.isTeleop()){
       if(RobotContainer.DriverController.getRightBumper()){
-        leftMaster.set(TalonFXControlMode.PercentOutput, Tools.featherJoystick(RobotContainer.DriverController.getLeftY(), Constants.JoystickSensitivity));
-        rightMaster.set(TalonFXControlMode.PercentOutput, -1 * Tools.featherJoystick(RobotContainer.DriverController.getRightY(), Constants.JoystickSensitivity));
+        leftMaster.set(TalonFXControlMode.PercentOutput, RobotContainer.DriveDirection * Tools.featherJoystick(RobotContainer.DriverController.getLeftY(), Constants.JoystickSensitivity));
+        rightMaster.set(TalonFXControlMode.PercentOutput, -1 * RobotContainer.DriveDirection * Tools.featherJoystick(RobotContainer.DriverController.getRightY(), Constants.JoystickSensitivity));
         SmartDashboard.putString("Speed", "Turbo");
       }else{
         if(RobotContainer.DriverController.getLeftBumper()){
-          leftMaster.set(TalonFXControlMode.PercentOutput, (Constants.SlowSpeedLimit * Tools.featherJoystick(RobotContainer.DriverController.getLeftY(), Constants.JoystickSensitivity)));
-          rightMaster.set(TalonFXControlMode.PercentOutput, (-1 * Constants.SlowSpeedLimit * Tools.featherJoystick(RobotContainer.DriverController.getRightY(), Constants.JoystickSensitivity)));
+          leftMaster.set(TalonFXControlMode.PercentOutput, (Constants.SlowSpeedLimit * RobotContainer.DriveDirection * Tools.featherJoystick(RobotContainer.DriverController.getLeftY(), Constants.JoystickSensitivity)));
+          rightMaster.set(TalonFXControlMode.PercentOutput, (-1 * Constants.SlowSpeedLimit * RobotContainer.DriveDirection * Tools.featherJoystick(RobotContainer.DriverController.getRightY(), Constants.JoystickSensitivity)));
           SmartDashboard.putString("Speed", "Slow");
         }else{
-          leftMaster.set(TalonFXControlMode.PercentOutput, (Constants.StandardSpeedLimit * Tools.featherJoystick(RobotContainer.DriverController.getLeftY(), Constants.JoystickSensitivity)));
-          rightMaster.set(TalonFXControlMode.PercentOutput, (-1 * Constants.StandardSpeedLimit * Tools.featherJoystick(RobotContainer.DriverController.getRightY(), Constants.JoystickSensitivity)));
+          leftMaster.set(TalonFXControlMode.PercentOutput, (Constants.StandardSpeedLimit * RobotContainer.DriveDirection * Tools.featherJoystick(RobotContainer.DriverController.getLeftY(), Constants.JoystickSensitivity)));
+          rightMaster.set(TalonFXControlMode.PercentOutput, (-1 * Constants.StandardSpeedLimit * RobotContainer.DriveDirection * Tools.featherJoystick(RobotContainer.DriverController.getRightY(), Constants.JoystickSensitivity)));
           SmartDashboard.putString("Speed", "Normal");
         }
       }

@@ -19,7 +19,10 @@ import frc.robot.Tools;
 
 public class Intake extends SubsystemBase {
   /** Creates a new Intake. */
-  TalonFX IntakeMotor = new TalonFX(24);
+  TalonFX IntakeMotor = new TalonFX(20);
+  TalonFX IntakeActuator = new TalonFX(31);
+  TalonFX IntakeActuatorSlave = new TalonFX(32); // Will be only one motor when it goes to production
+
   public Intake() {}
 
   @Override
