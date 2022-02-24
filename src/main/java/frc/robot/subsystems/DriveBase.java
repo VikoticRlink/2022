@@ -141,3 +141,7 @@ public class DriveBase extends SubsystemBase {
 }
 // Falcon 500 examples
 //https://github.com/CrossTheRoadElec/Phoenix-Examples-Languages/tree/master/Java%20Talon%20FX%20(Falcon%20500)
+//Gyro info
+//https://docs.wpilib.org/en/stable/docs/software/hardware-apis/sensors/gyros-software.html
+//Pathweaver
+//https://docs.wpilib.org/en/stable/docs/software/pathplanning/pathweaver/introduction.html
