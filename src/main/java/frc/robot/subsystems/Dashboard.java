@@ -16,11 +16,13 @@ public class Dashboard extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    // We should look at Shuffleboard as our smartdashboard.
+    // https://docs.wpilib.org/en/stable/docs/software/dashboards/shuffleboard/getting-started/shuffleboard-tour.html
+
     
     SmartDashboard.putBoolean("Drive Direction", (RobotContainer.DriveDirection == 1));
     SmartDashboard.putBoolean("Manual Mode", RobotContainer.ManualControl);
     SmartDashboard.putBoolean("Ball Indexed", RobotContainer.m_Shooter.Limitswitch_Is_Closed());
-    
     SmartDashboard.putNumber("Bot Heading", RobotContainer.m_DriveBase.BotHeading());
   }
 }
