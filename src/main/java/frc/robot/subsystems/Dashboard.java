@@ -22,6 +22,7 @@ public class Dashboard extends SubsystemBase {
     
     SmartDashboard.putBoolean("Drive Direction", (RobotContainer.DriveDirection == 1));
     SmartDashboard.putBoolean("Manual Mode", RobotContainer.ManualControl);
+    
     SmartDashboard.putBoolean("Ball Indexed", RobotContainer.m_Shooter.Limitswitch_Is_Closed());
     SmartDashboard.putNumber("Bot Heading", RobotContainer.m_DriveBase.BotHeading());
   }
