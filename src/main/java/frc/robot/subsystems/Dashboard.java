@@ -21,5 +21,6 @@ public class Dashboard extends SubsystemBase {
     SmartDashboard.putBoolean("Manual Mode", RobotContainer.ManualControl);
     SmartDashboard.putBoolean("Ball Indexed", RobotContainer.m_Shooter.Limitswitch_Is_Closed());
     
+    SmartDashboard.putNumber("Bot Heading", RobotContainer.m_DriveBase.BotHeading());
   }
 }

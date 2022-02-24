@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -19,6 +20,7 @@ import frc.robot.Tools;
 
 public class DriveBase extends SubsystemBase {
   /** Creates a new DriveBase. */
+  ADXRS450_Gyro gyro = new ADXRS450_Gyro();
   TalonFX leftMaster = new TalonFX(1);
   TalonFX rightMaster = new TalonFX(2);
   TalonFX leftSlave = new TalonFX(11);
@@ -133,7 +135,9 @@ public class DriveBase extends SubsystemBase {
    // leftSlave.setNeutralMode(NeutralMode.Brake);
   
   }
-
+  public double BotHeading(){
+    return gyro.getAngle();
+  }
 }
 // Falcon 500 examples
 //https://github.com/CrossTheRoadElec/Phoenix-Examples-Languages/tree/master/Java%20Talon%20FX%20(Falcon%20500)
