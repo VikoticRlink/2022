@@ -4,7 +4,11 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.interfaces.Gyro; 
 import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -20,7 +24,7 @@ import frc.robot.Tools;
 
 public class DriveBase extends SubsystemBase {
   /** Creates a new DriveBase. */
-  ADXRS450_Gyro gyro = new ADXRS450_Gyro();
+  private final Gyro m_gyro = new ADXRS450_Gyro();
   TalonFX leftMaster = new TalonFX(1);
   TalonFX rightMaster = new TalonFX(2);
   TalonFX leftSlave = new TalonFX(11);
@@ -136,7 +140,7 @@ public class DriveBase extends SubsystemBase {
   
   }
   public double BotHeading(){
-    return gyro.getAngle(); 
+    return m_gyro.getRotation2d().getDegrees();
   }
 }
 // Falcon 500 examples
