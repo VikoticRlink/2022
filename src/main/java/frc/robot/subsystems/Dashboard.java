@@ -5,13 +5,18 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+//import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotContainer;
-
+import frc.robot.commands.*;
 
 public class Dashboard extends SubsystemBase {
   /** Creates a new Dashboard. */
-  public Dashboard() {}
+  public Dashboard() {
+    SmartDashboard.putData("Fire Ball", new FireBall(RobotContainer.m_Shooter));
+    SmartDashboard.putData("Intake Ball", new IntakeBall());
+
+  }
 
   @Override
   public void periodic() {
