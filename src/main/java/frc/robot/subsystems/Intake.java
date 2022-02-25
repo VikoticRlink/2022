@@ -22,7 +22,15 @@ public class Intake extends SubsystemBase {
   TalonFX IntakeMotor = new TalonFX(20);
   TalonFX IntakeActuator = new TalonFX(31);
   TalonFX IntakeActuatorSlave = new TalonFX(32); // Will be only one motor when it goes to production
+/*Soft Limits
+Soft limits can be used to disable motor drive when the “Sensor Position” is outside of a specified range. Forward throttle will be disabled if the “Sensor Position” is greater than the Forward Soft Limit. Reverse throttle will be disabled if the “Sensor Position” is less than the Reverse Soft Limit. The respective Soft Limit Enable must be enabled for this feature to take effect.
 
+ Talon configured to have soft limits 10000 native units in either direction and enabled 
+rightMaster.configForwardSoftLimitThreshold(10000, 0);
+rightMaster.configReverseSoftLimitThreshold(-10000, 0);
+rightMaster.configForwardSoftLimitEnable(true, 0);
+rightMaster.configReverseSoftLimitEnable(true, 0);
+*/
   public Intake() {}
 
   @Override

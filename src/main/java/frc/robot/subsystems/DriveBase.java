@@ -7,7 +7,10 @@ package frc.robot.subsystems;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.interfaces.Gyro; 
 import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -36,6 +39,10 @@ public class DriveBase extends SubsystemBase {
   WPI_TalonFX rightSlave = new WPI_TalonFX(12);
   //https://readthedocs.org/projects/phoenix-documentation/downloads/pdf/latest/ pg 151
 
+
+  //private final DifferentialDrive m_drive = new DifferentialDrive(leftMaster, rightMaster);
+  private final DifferentialDriveOdometry m_odometry;
+
   TalonFXConfiguration configs = new TalonFXConfiguration();
 
   public DriveBase() {
@@ -48,11 +55,14 @@ public class DriveBase extends SubsystemBase {
     leftMaster.setSelectedSensorPosition(0, 0, 0);
     configDrivebase();
     m_gyro.calibrate();
+    m_odometry = new DifferentialDriveOdometry(m_gyro.getRotation2d());
   }
 
   @Override
   public void periodic() {
-
+    /*m_odometry.update(
+        m_gyro.getRotation2d(), m_leftEncoder.getDistance(), m_rightEncoder.getDistance());
+        */
     // This method will be called once per scheduler run.
     SmartDashboard.putNumber("Left Drive", leftMaster.getSelectedSensorPosition(0));
     SmartDashboard.putNumber("Right Drive", rightMaster.getSelectedSensorPosition(0));
