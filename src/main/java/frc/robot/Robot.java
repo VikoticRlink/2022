@@ -4,6 +4,13 @@
 
 package frc.robot;
 
+import java.io.IOException;
+import java.nio.file.Path;
+
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryUtil;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -16,7 +23,10 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-
+  //*** Pathweaver */
+  //String trajectoryJSON = "paths/YourPath.wpilib.json";
+  //Trajectory trajectory = new Trajectory();
+  //**--End Pathweaver */
   private RobotContainer m_robotContainer;
 
   /**
@@ -28,6 +38,14 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+      //*** Pathweaver */
+    //try {
+    //  Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
+    //  trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
+    //} catch (IOException ex) {
+    //  DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
+    //}
+     //**--End Pathweaver */
   }
 
   /**
