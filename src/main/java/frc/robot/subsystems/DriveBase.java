@@ -34,8 +34,7 @@ public class DriveBase extends SubsystemBase {
   WPI_TalonFX rightMaster = new WPI_TalonFX(2);
   WPI_TalonFX leftSlave = new WPI_TalonFX(11);
   WPI_TalonFX rightSlave = new WPI_TalonFX(12);
-
-  
+  //https://readthedocs.org/projects/phoenix-documentation/downloads/pdf/latest/ pg 151
 
   TalonFXConfiguration configs = new TalonFXConfiguration();
 
