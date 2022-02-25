@@ -39,14 +39,14 @@ public class Shooter extends SubsystemBase {
   }
 
 
-  public void Run_Index_Motor(int direction) {
+  public void Run_Index_Motor(double direction) {
     // Values -1, 0 , 1 accepted | -1 -> Backwards, 0 -> Stop, 1 -> Forwards
     IndexMotor.set(TalonFXControlMode.PercentOutput, .50 * direction);
   }
 
-  public void Run_Flywheel_Motor(int run) {
+  public void Run_Flywheel_Motor(double run) {
     // Values 0 , 1 accepted | 0 -> Stop, 1 -> Forwards
-    ShooterMotor.set(TalonFXControlMode.PercentOutput, .50 * run);
+    ShooterMotor.set(TalonFXControlMode.PercentOutput, 1 * run);
   }
 
   @Override

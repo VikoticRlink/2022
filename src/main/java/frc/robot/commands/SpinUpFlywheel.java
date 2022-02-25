@@ -15,7 +15,7 @@ public class SpinUpFlywheel extends CommandBase {
   /** Creates a new SpinUpFlywheel. */
   public SpinUpFlywheel(Shooter shooter_subsystem) {
     m_shooter = shooter_subsystem;
-    m_executeclock = 250;
+    m_executeclock = 50;
 
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -23,7 +23,6 @@ public class SpinUpFlywheel extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_shooter.Run_Flywheel_Motor(1);
 
   }
 
@@ -32,6 +31,7 @@ public class SpinUpFlywheel extends CommandBase {
   public void execute() {
     m_executeclock = m_executeclock - 1;
 
+    m_shooter.Run_Flywheel_Motor(1);
 
   }
 

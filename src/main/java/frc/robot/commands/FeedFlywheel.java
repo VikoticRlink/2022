@@ -7,6 +7,8 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 
 
 public class FeedFlywheel extends CommandBase {
@@ -15,11 +17,12 @@ public class FeedFlywheel extends CommandBase {
   private final Shooter m_shooter;
   private int m_countdown;
   private boolean m_lastLimitSwitch;
-  private boolean m_thisLimitSwitch;
+  private boolean m_isFinished;
 
   public FeedFlywheel(Shooter shooter_subsystem) {
     m_shooter = shooter_subsystem;
     m_countdown = 2;
+    m_isFinished = false;
     m_lastLimitSwitch = false;
 
     // Use addRequirements() here to declare subsystem dependencies.
@@ -32,14 +35,17 @@ public class FeedFlywheel extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-   
-    m_shooter.Run_Index_Motor(1);
-    m_thisLimitSwitch = m_shooter.Limitswitch_Is_Closed();
-    if (m_lastLimitSwitch != m_thisLimitSwitch)
+    SmartDashboard.putNumber("Flywheel Index", m_countdown);
+    m_shooter.Run_Index_Motor(.35);
+    boolean thisLimitSwitch = m_shooter.Limitswitch_Is_Closed();
+    SmartDashboard.putBoolean("ourtest", m_shooter.Limitswitch_Is_Closed());
+    if (m_lastLimitSwitch != thisLimitSwitch)
     {
-      m_countdown = m_countdown - 1;
+      m_countdown -= 1;
+      m_isFinished = m_countdown < 1;
     }
-    m_lastLimitSwitch = m_thisLimitSwitch;
+    
+    m_lastLimitSwitch = thisLimitSwitch;
   }
 
   // Called once the command ends or is interrupted.
@@ -53,6 +59,6 @@ public class FeedFlywheel extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_countdown == 0;
+    return m_isFinished;
   }
 }
