@@ -17,6 +17,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -25,10 +26,16 @@ import frc.robot.Tools;
 public class DriveBase extends SubsystemBase {
   /** Creates a new DriveBase. */
   private final Gyro m_gyro = new ADXRS450_Gyro();
-  TalonFX leftMaster = new TalonFX(1);
-  TalonFX rightMaster = new TalonFX(2);
-  TalonFX leftSlave = new TalonFX(11);
-  TalonFX rightSlave = new TalonFX(12);
+  //TalonFX leftMaster = new TalonFX(1);
+  //TalonFX rightMaster = new TalonFX(2);
+  //TalonFX leftSlave = new TalonFX(11);
+  //TalonFX rightSlave = new TalonFX(12);
+  WPI_TalonFX leftMaster = new WPI_TalonFX(1);
+  WPI_TalonFX rightMaster = new WPI_TalonFX(2);
+  WPI_TalonFX leftSlave = new WPI_TalonFX(11);
+  WPI_TalonFX rightSlave = new WPI_TalonFX(12);
+
+  
 
   TalonFXConfiguration configs = new TalonFXConfiguration();
 
