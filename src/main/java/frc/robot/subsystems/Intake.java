@@ -28,7 +28,7 @@ public class Intake extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    if(RobotState.isEnabled() && RobotState.isTeleop()){
+    if(RobotState.isEnabled() && RobotState.isTeleop() && RobotContainer.ManualControl){
       IntakeMotor.set(TalonFXControlMode.PercentOutput, -1 * Tools.featherJoystick(RobotContainer.OperatorController.getRightY(), Constants.JoystickSensitivity));
   }
 }
