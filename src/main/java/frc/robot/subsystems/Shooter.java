@@ -46,7 +46,7 @@ public class Shooter extends SubsystemBase {
 
   public void Run_Flywheel_Motor(double run) {
     // Values 0 , 1 accepted | 0 -> Stop, 1 -> Forwards
-    ShooterMotor.set(TalonFXControlMode.PercentOutput, 1 * run);
+    ShooterMotor.set(TalonFXControlMode.PercentOutput, -1 * run);
   }
 
   @Override

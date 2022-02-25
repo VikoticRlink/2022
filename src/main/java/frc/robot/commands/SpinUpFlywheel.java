@@ -15,7 +15,7 @@ public class SpinUpFlywheel extends CommandBase {
   /** Creates a new SpinUpFlywheel. */
   public SpinUpFlywheel(Shooter shooter_subsystem) {
     m_shooter = shooter_subsystem;
-    m_executeclock = 50;
+    m_executeclock = 150;
 
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -42,6 +42,6 @@ public class SpinUpFlywheel extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_executeclock == 0;
+    return m_executeclock <= 0;
   }
 }

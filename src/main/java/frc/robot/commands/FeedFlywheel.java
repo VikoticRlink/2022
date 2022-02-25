@@ -36,7 +36,7 @@ public class FeedFlywheel extends CommandBase {
   @Override
   public void execute() {
     SmartDashboard.putNumber("Flywheel Index", m_countdown);
-    m_shooter.Run_Index_Motor(.35);
+    m_shooter.Run_Index_Motor(.75);
     boolean thisLimitSwitch = m_shooter.Limitswitch_Is_Closed();
     SmartDashboard.putBoolean("ourtest", m_shooter.Limitswitch_Is_Closed());
     if (m_lastLimitSwitch != thisLimitSwitch)
