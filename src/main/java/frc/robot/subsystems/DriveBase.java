@@ -41,10 +41,12 @@ public class DriveBase extends SubsystemBase {
     rightMaster.setSelectedSensorPosition(0, 0, 0);
     leftMaster.setSelectedSensorPosition(0, 0, 0);
     configDrivebase();
+    m_gyro.calibrate();
   }
 
   @Override
   public void periodic() {
+
     // This method will be called once per scheduler run.
     SmartDashboard.putNumber("Left Drive", leftMaster.getSelectedSensorPosition(0));
     SmartDashboard.putNumber("Right Drive", rightMaster.getSelectedSensorPosition(0));

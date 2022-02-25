@@ -35,11 +35,13 @@ public class Intake extends SubsystemBase {
 
   public void getBalls(){
     IntakeMotor.set(TalonFXControlMode.PercentOutput, -0.5);
+    RobotContainer.m_Shooter.Run_Index_Motor(1);
   }
   public void shootBalls(){
     IntakeMotor.set(TalonFXControlMode.PercentOutput, 1);
   }
   public void disableIntake(){
     IntakeMotor.set(TalonFXControlMode.PercentOutput, 0);
+    RobotContainer.m_Shooter.Run_Index_Motor(0);
   }
 }
