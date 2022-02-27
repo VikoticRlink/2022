@@ -12,15 +12,15 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.Tools;
 
 public class Climber extends SubsystemBase {
   /** Creates a new Climber. */
-  TalonFX LeftArmMotor = new TalonFX(25);
-  TalonFX RightArmMotor = new TalonFX(21);
+  WPI_TalonFX LeftArmMotor = new WPI_TalonFX(25);
+  WPI_TalonFX RightArmMotor = new WPI_TalonFX(21);
 
 
   public Climber() {

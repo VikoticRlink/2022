@@ -17,16 +17,16 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.Tools;
 
 
 public class Shooter extends SubsystemBase {
-  TalonFX ShooterMotor = new TalonFX(22);
-  TalonFX ShooterMotorSlave = new TalonFX(18);
-  TalonFX IndexMotor = new TalonFX(23);
+  WPI_TalonFX ShooterMotor = new WPI_TalonFX(22);
+  WPI_TalonFX ShooterMotorSlave = new WPI_TalonFX(18);
+  WPI_TalonFX IndexMotor = new WPI_TalonFX(23);
   private DigitalInput BallIndexer = new DigitalInput(0);
   
   
