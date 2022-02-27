@@ -21,16 +21,18 @@ public class FeedFlywheel extends CommandBase {
 
   public FeedFlywheel(Shooter shooter_subsystem) {
     m_shooter = shooter_subsystem;
-    m_countdown = 2;
-    m_isFinished = false;
-    m_lastLimitSwitch = false;
+
 
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    m_countdown = 2;
+    m_isFinished = false;
+    m_lastLimitSwitch = false;
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override

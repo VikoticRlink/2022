@@ -32,10 +32,15 @@ public class Shooter extends SubsystemBase {
   
   
   /** Creates a new Shooter. */
-  
+  public Shooter()
+  {
+    ShooterMotorSlave.follow(ShooterMotor); 
+    ShooterMotorSlave.setInverted(Constants.kMotorInvert);
+  }
 
   public boolean Limitswitch_Is_Closed() {
-    return BallIndexer.get();
+    return RobotContainer.OperatorController.getBButton();
+    //return BallIndexer.get();
   }
 
 

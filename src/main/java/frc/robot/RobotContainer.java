@@ -23,7 +23,7 @@ public class RobotContainer {
 
   private JoystickButton OperatorA, OperatorB, OperatorX, OperatorY, OperatorlBump, OperatorrBump, OperatorBack, OperatorStart;
   private JoystickButton DriverA, DriverB, DriverX, DriverY, DriverlBump, DriverrBump, DriverBack, DriverStart;
-  public static boolean ManualControl;
+  public static boolean ManualControl = false;
   public static Integer DriveDirection = 1;
 
   // The robot's subsystems are defined here...
@@ -52,7 +52,6 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    ManualControl = false;
     DriverController = new XboxController(0);
     OperatorController = new XboxController(1);
 
@@ -65,8 +64,8 @@ public class RobotContainer {
     OperatorBack = new JoystickButton(OperatorController, 7);
     OperatorStart = new JoystickButton(OperatorController, 8);
 
-    OperatorX.whenPressed(new LoadAndFire(m_Shooter));
     OperatorStart.whenPressed(new ManualModeToggle());
+    OperatorX.whenPressed(new LoadAndFire(m_Shooter));
     OperatorA.whenHeld(new IntakeBall(RobotContainer.m_Intake));
     
     DriverStart = new JoystickButton(DriverController, 8);

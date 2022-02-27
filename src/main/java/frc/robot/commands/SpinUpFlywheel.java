@@ -15,7 +15,7 @@ public class SpinUpFlywheel extends CommandBase {
   /** Creates a new SpinUpFlywheel. */
   public SpinUpFlywheel(Shooter shooter_subsystem) {
     m_shooter = shooter_subsystem;
-    m_executeclock = 150;
+   
 
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -23,7 +23,7 @@ public class SpinUpFlywheel extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
+    m_executeclock = 150;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -38,6 +38,7 @@ public class SpinUpFlywheel extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {}
+  
 
   // Returns true when the command should end.
   @Override

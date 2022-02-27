@@ -55,7 +55,7 @@ public class Auto extends CommandBase {
     case 2:
       if (RobotContainer.m_DriveBase.readEncoder(true)<120000) {
         RobotContainer.m_DriveBase.drivePercent(-0.5, 0.5);
-        RobotContainer.m_Intake.shootBalls();
+      //Shoot Ball Here
       }else{
         driveStage = 3;
         RobotContainer.m_DriveBase.drivePercent(0, 0);
