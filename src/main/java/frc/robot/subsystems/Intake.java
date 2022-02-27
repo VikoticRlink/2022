@@ -32,12 +32,17 @@ rightMaster.configReverseSoftLimitThreshold(-10000, 0);
 rightMaster.configForwardSoftLimitEnable(true, 0);
 rightMaster.configReverseSoftLimitEnable(true, 0);
 */
-  public Intake() {}
+  public Intake() {
+    IntakeActuator.configForwardSoftLimitThreshold(10000, 0);
+    IntakeActuator.configReverseSoftLimitThreshold(-10000, 0);
+    IntakeActuator.configForwardSoftLimitEnable(true, 0);
+    IntakeActuator.configReverseSoftLimitEnable(true, 0);
+  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    if(RobotState.isEnabled() && RobotState.isTeleop()){
+    if(RobotState.isEnabled() && RobotState.isTeleop() && RobotContainer.ManualControl){
       IntakeMotor.set(TalonFXControlMode.PercentOutput, -1 * Tools.featherJoystick(RobotContainer.OperatorController.getRightY(), Constants.JoystickSensitivity));
   }
 }
@@ -50,5 +55,8 @@ rightMaster.configReverseSoftLimitEnable(true, 0);
   public void disableIntake(){
     IntakeMotor.set(TalonFXControlMode.PercentOutput, 0);
     RobotContainer.m_Shooter.Run_Index_Motor(0);
+  }
+  public double readEncoder(){      
+    return IntakeActuator.getSelectedSensorPosition(0);
   }
 }

@@ -32,5 +32,6 @@ public class Dashboard extends SubsystemBase {
     
     SmartDashboard.putBoolean("Ball Indexed", RobotContainer.m_Shooter.Limitswitch_Is_Closed());
     SmartDashboard.putNumber("Bot Heading", RobotContainer.m_DriveBase.BotHeading());
+    SmartDashboard.putNumber("Intake Actuater", RobotContainer.m_Intake.readEncoder());
   }
 }
