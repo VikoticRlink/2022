@@ -53,6 +53,7 @@ public class Lighting extends SubsystemBase {
         case "Blue 3":
           AutoColor(false, 3);
           break;
+      }
     }
     
     if(RobotState.isEnabled() && RobotState.isTeleop()){
