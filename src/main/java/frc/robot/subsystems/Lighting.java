@@ -5,9 +5,12 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Robot;
+import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.RobotState;
+import edu.wpi.first.wpilibj.util.Color8Bit;
 
 public class Lighting extends SubsystemBase {
   /** Creates a new Lighting. */
@@ -29,39 +32,31 @@ public class Lighting extends SubsystemBase {
       LEDRY();
     }
     if(RobotState.isDisabled()){
-      All_LEDRainbow();
+      //All_LEDRainbow();
+      
+      switch(RobotContainer.m_chooser.getSelected().getName()){
+        case "Red 1":
+          AutoColor(true, 1);
+          break;
+        case "Red 2":
+          AutoColor(true, 2);
+          break;
+        case "Red 3":
+          AutoColor(true, 3);
+          break;
+        case "Blue 1":
+          AutoColor(false, 1);
+          break;
+        case "Blue 2":
+          AutoColor(false, 2);
+          break;
+        case "Blue 3":
+          AutoColor(false, 3);
+          break;
     }
     
     if(RobotState.isEnabled() && RobotState.isTeleop()){
       All_LEDRainbow();
-      /*if (RobotContainer.m_ColorSensor.proximity>200){
-        switch(RobotContainer.m_ColorSensor.DetectedColor){
-          case "R":
-            Body_LEDColor(255, 0, 0);
-            break;
-          case "G":
-            Body_LEDColor(0, 255, 0);
-            break;
-          case "B":
-            Body_LEDColor(0, 0, 255);
-            break;
-          case "Y":
-            Body_LEDColor(255, 255, 0);
-            break;
-          case "U":
-            Body_LEDColor(255, 255, 255);
-            break;
-          default:
-            Body_LEDColor(255, 255, 255);
-            break;
-        }
-      }else{
-        if(DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Blue){
-          Body_ShowAlliance(0,0,255);
-        }else {
-          Body_ShowAlliance(255,0,0);
-        }
-      }*/
     }
   }
   private void LEDRY(){
@@ -85,7 +80,27 @@ public class Lighting extends SubsystemBase {
       m_rainbowFirstPixelHue %= 180;
     m_led.setData(m_ledBuffer);
   }
-
+  private void AutoColor(boolean RedSide, int whichAuto){
+    Color8Bit MyLight = new Color8Bit(0, 0, 255);
+    final Color8Bit BlackLight = new Color8Bit(0, 0, 0);
+    boolean[][] colorpatern = {{true, false, false, false, false},{true, true, false, false, false},{true, true, true, false, false}};
+    int mycounter=0;
+    if(RedSide){
+      MyLight = new Color8Bit(255, 0, 0);
+    }
+  
+    for (var i = 0; i < m_ledBuffer.getLength(); i++) {
+      if(colorpatern[whichAuto-1][mycounter]){
+          m_ledBuffer.setLED(i, MyLight);
+        }else{
+          m_ledBuffer.setLED(i, BlackLight);
+        }
+        mycounter++;
+        if(mycounter>=5){mycounter=0;}
+      }
+      
+    m_led.setData(m_ledBuffer);
+  }
 }
 /*
 Lighting mode ideas:

@@ -45,7 +45,7 @@ public class RobotContainer {
   private final AutoBlueOne Blue1 = new AutoBlueOne();
   private final AutoBlueTwo Blue2 = new AutoBlueTwo();
   private final AutoBlueThree Blue3 = new AutoBlueThree();
-  SendableChooser<Command> m_chooser = new SendableChooser<>();
+  public static SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
