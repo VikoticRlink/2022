@@ -50,6 +50,10 @@ public class DriveBase extends SubsystemBase {
     // This method will be called once per scheduler run.
     SmartDashboard.putNumber("Left Drive", leftMaster.getSelectedSensorPosition(0));
     SmartDashboard.putNumber("Right Drive", rightMaster.getSelectedSensorPosition(0));
+    
+    
+    //If  drivedirection is true, controls need to be flipped.
+    
     if(RobotState.isEnabled() && RobotState.isTeleop()){
       if(RobotContainer.DriverController.getRightBumper()){
         leftMaster.set(TalonFXControlMode.PercentOutput, RobotContainer.DriveDirection * Tools.featherJoystick(RobotContainer.DriverController.getLeftY(), Constants.JoystickSensitivity));
