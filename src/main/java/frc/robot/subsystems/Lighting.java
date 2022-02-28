@@ -87,3 +87,15 @@ public class Lighting extends SubsystemBase {
   }
 
 }
+/*
+Lighting mode ideas:
+Auto settings - Chasing, matches Aliance color and auto number
+Auto running - Chasing red/yellow?
+Teleop - Rainbow
+Manual controls - all white
+Endgame mode - Alternating red/yellow? Red/Yellow up and down meter?
+
+Postions:
+Shooter, lights up in shooting motion when run
+Along wheels, follows movement direction?
+*/
