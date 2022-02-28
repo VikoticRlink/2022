@@ -76,11 +76,10 @@ public class Constants {
 		public static final DifferentialDriveKinematics kDriveKinematics =
 			new DifferentialDriveKinematics(kTrackwidthMeters);
 	
-		public static final int kEncoderCPR = 1024;
-		public static final double kWheelDiameterMeters = 0.15;
-		public static final double kEncoderDistancePerPulse =
-			// Assumes the encoders are directly mounted on the wheel shafts
-			(kWheelDiameterMeters * Math.PI) / (double) kEncoderCPR;
+		public static final int kEncoderCPR = 512;
+		public static final double kGearBox = 8.45; //Defined 2/27/2022
+		public static final double kWheelDiameterMeters = 0.1018;  //Measured 2/27/2022
+		public static final double kEncoderDistancePerPulse = (kWheelDiameterMeters * Math.PI) / (double) kEncoderCPR * kGearBox;
 	
 		// These are example values only - DO NOT USE THESE FOR YOUR OWN ROBOT!
 		// These characterization values MUST be determined either experimentally or theoretically
@@ -107,5 +106,7 @@ public class Constants {
 		public static final double kRamseteB = 2;
 		public static final double kRamseteZeta = 0.7;
 	  }
+
+	  
 
 }
