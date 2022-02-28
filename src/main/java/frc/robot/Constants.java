@@ -76,7 +76,7 @@ public class Constants {
 		public static final DifferentialDriveKinematics kDriveKinematics =
 			new DifferentialDriveKinematics(kTrackwidthMeters);
 	
-		public static final int kEncoderCPR = 512;
+		public static final int kEncoderCPR = 2048;
 		public static final double kGearBox = 8.45; //Defined 2/27/2022
 		public static final double kWheelDiameterMeters = 0.1018;  //Measured 2/27/2022
 		public static final double kEncoderDistancePerPulse = (kWheelDiameterMeters * Math.PI) / (double) kEncoderCPR * kGearBox;
@@ -86,6 +86,7 @@ public class Constants {
 		// for *your* robot's drive.
 		// The Robot Characterization Toolsuite provides a convenient tool for obtaining these
 		// values for your robot.
+		//https://github.com/frc6421/characterization-notes/blob/main/DataAnalyze_20210704.png
 		public static final double ksVolts = 0.22;
 		public static final double kvVoltSecondsPerMeter = 1.98;
 		public static final double kaVoltSecondsSquaredPerMeter = 0.2;

@@ -28,6 +28,8 @@ public class DriveBase extends SubsystemBase {
   WPI_TalonFX rightSlave = new WPI_TalonFX(12);
 //https://docs.wpilib.org/en/stable/docs/software/pathplanning/trajectory-tutorial/creating-drive-subsystem.html
 //https://github-wiki-see.page/m/frc6421/WarriorBotsJAVABootcamp2021/wiki/4.-Autonomous--with-RamseteCommand
+// alt drivebase config https://github.com/frc6421/WarriorBotsJAVABootcamp2021/blob/main/src/main/java/frc/robot/subsystems/DriveSubsystem.java
+
   TalonFXConfiguration configs = new TalonFXConfiguration();
   private static double DrivePowerModifer=1;
 
