@@ -22,10 +22,10 @@ import frc.robot.Tools;
 public class DriveBase extends SubsystemBase {
   /** Creates a new DriveBase. */
   private final Gyro m_gyro = new ADXRS450_Gyro();
-  WPI_TalonFX leftMaster = new WPI_TalonFX(1);
-  WPI_TalonFX rightMaster = new WPI_TalonFX(2);
-  WPI_TalonFX leftSlave = new WPI_TalonFX(11);
-  WPI_TalonFX rightSlave = new WPI_TalonFX(12);
+  WPI_TalonFX leftMaster = new WPI_TalonFX(Constants.MotorID.leftDriveMaster);
+  WPI_TalonFX rightMaster = new WPI_TalonFX(Constants.MotorID.rightDriveMaster);
+  WPI_TalonFX leftSlave = new WPI_TalonFX(Constants.MotorID.leftDriveSlave);
+  WPI_TalonFX rightSlave = new WPI_TalonFX(Constants.MotorID.rightDriveSlave);
 //https://docs.wpilib.org/en/stable/docs/software/pathplanning/trajectory-tutorial/creating-drive-subsystem.html
 //https://github-wiki-see.page/m/frc6421/WarriorBotsJAVABootcamp2021/wiki/4.-Autonomous--with-RamseteCommand
 // alt drivebase config https://github.com/frc6421/WarriorBotsJAVABootcamp2021/blob/main/src/main/java/frc/robot/subsystems/DriveSubsystem.java

@@ -19,21 +19,24 @@ import frc.robot.Tools;
 
 public class Climber extends SubsystemBase {
   /** Creates a new Climber. */
-  WPI_TalonFX LeftArmMotor = new WPI_TalonFX(25);
-  WPI_TalonFX RightArmMotor = new WPI_TalonFX(21);
+  WPI_TalonFX ClimbMaster = new WPI_TalonFX(Constants.MotorID.climberMaster);
+  WPI_TalonFX ClimbSlave = new WPI_TalonFX(Constants.MotorID.climberSlave);
 
 
   public Climber() {
 
-    RightArmMotor.follow(LeftArmMotor);
-    RightArmMotor.setNeutralMode(NeutralMode.Brake);
-    LeftArmMotor.setNeutralMode(NeutralMode.Brake);
+    ClimbSlave.follow(ClimbMaster);
+    ClimbSlave.setNeutralMode(NeutralMode.Brake);
+    ClimbMaster.setNeutralMode(NeutralMode.Brake);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-  if(RobotState.isEnabled() && RobotState.isTeleop() && RobotContainer.ManualControl){
-      LeftArmMotor.set(TalonFXControlMode.PercentOutput, -1 * Tools.featherJoystick(RobotContainer.OperatorController.getLeftY(), Constants.JoystickSensitivity));
-  }}
+    if(RobotState.isEnabled() && RobotState.isTeleop() && RobotContainer.ManualControl){
+        double climbAmount = Tools.featherJoystick(RobotContainer.OperatorController.getLeftY(), Constants.JoystickSensitivity);
+        climbAmount *= Constants.MotorScaler.kClimberSpeed;
+        ClimbMaster.set(TalonFXControlMode.PercentOutput, -1 * climbAmount);
+    }
+}
 }

@@ -21,14 +21,14 @@ public class DriveBaseNew extends SubsystemBase {
   // The motors on the left side of the drive.
   private final MotorControllerGroup m_leftMotors =
       new MotorControllerGroup(
-          new WPI_TalonFX(1), 
-          new WPI_TalonFX(11));
+          new WPI_TalonFX(Constants.MotorID.leftDriveMaster), 
+          new WPI_TalonFX(Constants.MotorID.leftDriveSlave));
 
   // The motors on the right side of the drive.
   private final MotorControllerGroup m_rightMotors =
       new MotorControllerGroup(
-        new WPI_TalonFX(2),
-        new WPI_TalonFX(12));
+        new WPI_TalonFX(Constants.MotorID.rightDriveMaster),
+        new WPI_TalonFX(Constants.MotorID.rightDriveSlave));
 
   // The robot's drive
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);

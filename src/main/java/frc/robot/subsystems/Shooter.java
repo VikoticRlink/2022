@@ -24,11 +24,11 @@ import frc.robot.Tools;
 
 
 public class Shooter extends SubsystemBase {
-  WPI_TalonFX ShooterMotor = new WPI_TalonFX(22);
-  WPI_TalonFX ShooterMotorSlave = new WPI_TalonFX(18);
-  WPI_TalonFX IndexMotor = new WPI_TalonFX(23);
+  WPI_TalonFX ShooterMotor = new WPI_TalonFX(Constants.MotorID.shooterMaster);
+  WPI_TalonFX ShooterMotorSlave = new WPI_TalonFX(Constants.MotorID.shooterSlave);
+  WPI_TalonFX IndexMotor = new WPI_TalonFX(Constants.MotorID.indexMotor);
   private DigitalInput BallIndexer = new DigitalInput(0);
-  
+  private DigitalInput BallIndexer2 = new DigitalInput(1);
   
   
   /** Creates a new Shooter. */
@@ -42,7 +42,11 @@ public class Shooter extends SubsystemBase {
     return RobotContainer.OperatorController.getBButton();
     //return BallIndexer.get();
   }
-
+  public boolean BallPrimed() {
+    return BallIndexer.get();
+  } public boolean SecondBall() {
+    return BallIndexer2.get();
+  }
 
   public void Run_Index_Motor(double direction) {
     // Values -1, 0 , 1 accepted | -1 -> Backwards, 0 -> Stop, 1 -> Forwards
@@ -58,8 +62,13 @@ public class Shooter extends SubsystemBase {
   public void periodic() {
 
     if(RobotState.isEnabled() && RobotState.isTeleop() && RobotContainer.ManualControl){
-      ShooterMotor.set(TalonFXControlMode.PercentOutput, -1 * Tools.featherJoystick(RobotContainer.OperatorController.getRightTriggerAxis(), Constants.JoystickSensitivity));
-      IndexMotor.set(TalonFXControlMode.PercentOutput, -1 * Tools.featherJoystick(RobotContainer.OperatorController.getLeftTriggerAxis(), Constants.JoystickSensitivity));
+      double shooterAmount = Tools.featherJoystick(RobotContainer.OperatorController.getRightY(), Constants.JoystickSensitivity);
+      double indexAmount = Tools.featherJoystick(RobotContainer.OperatorController.getRightY(), Constants.JoystickSensitivity);
+      shooterAmount *= Constants.MotorScaler.kShooterSpeed;  // Scale the motor speed
+      indexAmount *= Constants.MotorScaler.kIndexSpeed;  // Scale the motor speed
+
+      ShooterMotor.set(TalonFXControlMode.PercentOutput, -1 * shooterAmount);
+      IndexMotor.set(TalonFXControlMode.PercentOutput, -1 * indexAmount);
 
   }
     // This method will be called once per scheduler run

@@ -20,9 +20,8 @@ import frc.robot.Tools;
 
 public class Intake extends SubsystemBase {
   /** Creates a new Intake. */
-  WPI_TalonFX IntakeMotor = new WPI_TalonFX(20);
-  WPI_TalonFX IntakeActuator = new WPI_TalonFX(31);
-  WPI_TalonFX IntakeActuatorSlave = new WPI_TalonFX(32); // Will be only one motor when it goes to production
+  WPI_TalonFX IntakeMotor = new WPI_TalonFX(Constants.MotorID.intakeMotor);
+  WPI_TalonFX IntakeActuator = new WPI_TalonFX(Constants.MotorID.intakeActuator);
 /*Soft Limits
 Soft limits can be used to disable motor drive when the “Sensor Position” is outside of a specified range. Forward throttle will be disabled if the “Sensor Position” is greater than the Forward Soft Limit. Reverse throttle will be disabled if the “Sensor Position” is less than the Reverse Soft Limit. The respective Soft Limit Enable must be enabled for this feature to take effect.
 
@@ -49,8 +48,11 @@ rightMaster.configReverseSoftLimitEnable(true, 0);
     // This method will be called once per scheduler run
     // Motor is currently running at
     if(RobotState.isEnabled() && RobotState.isTeleop() && RobotContainer.ManualControl){
-      double driveAmount = Tools.featherJoystick(RobotContainer.OperatorController.getRightY(), Constants.JoystickSensitivity);
-      driveAmount *= Constants.kIntakeSpeedScaler;  // Scale the motor speed
+      double driveAmount = Tools.featherJoystick(RobotContainer.OperatorController.getRightTriggerAxis(), Constants.JoystickSensitivity);
+      double intakeAmount = Tools.featherJoystick(RobotContainer.OperatorController.getRightY(), Constants.JoystickSensitivity);
+      driveAmount *= Constants.MotorScaler.kIntakeSpeed;  // Scale the motor speed
+      intakeAmount *= Constants.MotorScaler.kIntakeActuator;
+      IntakeActuator.set(TalonFXControlMode.PercentOutput, -1 * intakeAmount);
       IntakeMotor.set(TalonFXControlMode.PercentOutput, -1 * driveAmount);
   }
 }
