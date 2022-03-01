@@ -70,8 +70,8 @@ public class DriveBase extends SubsystemBase {
 
     if(RobotState.isEnabled() && RobotState.isTeleop()){
       if(RobotContainer.DriveDirection==1){
-        leftMaster.set(TalonFXControlMode.PercentOutput, Tools.featherJoystick(RobotContainer.DriverController.getRightY(), Constants.JoystickSensitivity));
-        rightMaster.set(TalonFXControlMode.PercentOutput, -1 * Tools.featherJoystick(RobotContainer.DriverController.getLeftY(), Constants.JoystickSensitivity));
+        leftMaster.set(TalonFXControlMode.PercentOutput, DrivePowerModifer * Tools.featherJoystick(RobotContainer.DriverController.getRightY(), Constants.JoystickSensitivity));
+        rightMaster.set(TalonFXControlMode.PercentOutput, -1 * DrivePowerModifer * Tools.featherJoystick(RobotContainer.DriverController.getLeftY(), Constants.JoystickSensitivity));
       }else{
         leftMaster.set(TalonFXControlMode.PercentOutput, (-1 * DrivePowerModifer * Tools.featherJoystick(RobotContainer.DriverController.getLeftY(), Constants.JoystickSensitivity)));
         rightMaster.set(TalonFXControlMode.PercentOutput, (DrivePowerModifer * Tools.featherJoystick(RobotContainer.DriverController.getRightY(), Constants.JoystickSensitivity)));
