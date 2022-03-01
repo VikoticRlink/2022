@@ -107,6 +107,8 @@ public class Constants {
 		public static final double kRamseteB = 2;
 		public static final double kRamseteZeta = 0.7;
 	  }
+	 	// This is the multiplier for the speed of the intake motor. Normal speed is 1.0
+	 	 public static final double kIntakeSpeedScaler = 0.25;
 
 	  
 

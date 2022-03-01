@@ -33,6 +33,11 @@ rightMaster.configForwardSoftLimitEnable(true, 0);
 rightMaster.configReverseSoftLimitEnable(true, 0);
 */
   public Intake() {
+    // *** ToDo: replace this code once IntakeActuator works.  Right now, we are lying to
+    // ***       the Falcon controller so that we can use the Intake motor in place of
+    // ***       the actuator.
+
+    IntakeMotor.setNeutralMode(NeutralMode.Brake);
     IntakeActuator.configForwardSoftLimitThreshold(10000, 0);
     IntakeActuator.configReverseSoftLimitThreshold(-10000, 0);
     IntakeActuator.configForwardSoftLimitEnable(true, 0);
@@ -42,8 +47,11 @@ rightMaster.configReverseSoftLimitEnable(true, 0);
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    // Motor is currently running at
     if(RobotState.isEnabled() && RobotState.isTeleop() && RobotContainer.ManualControl){
-      IntakeMotor.set(TalonFXControlMode.PercentOutput, -1 * Tools.featherJoystick(RobotContainer.OperatorController.getRightY(), Constants.JoystickSensitivity));
+      double driveAmount = Tools.featherJoystick(RobotContainer.OperatorController.getRightY(), Constants.JoystickSensitivity);
+      driveAmount *= Constants.kIntakeSpeedScaler;  // Scale the motor speed
+      IntakeMotor.set(TalonFXControlMode.PercentOutput, -1 * driveAmount);
   }
 }
 
