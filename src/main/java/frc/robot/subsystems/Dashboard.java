@@ -9,7 +9,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
-import frc.robot.commands.*;
+import frc.robot.commands.IntakeBall;
+import frc.robot.commands.shooter.FireBall;
+import frc.robot.commands.shooter.BackOffFlywheel;
 
 public class Dashboard extends SubsystemBase {
   /** Creates a new Dashboard. */

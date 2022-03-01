@@ -5,6 +5,8 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.shooter.LoadBall;
+import frc.robot.commands.shooter.FireBall;
 import frc.robot.subsystems.Shooter;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -12,18 +14,13 @@ import frc.robot.subsystems.Shooter;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class LoadAndFire extends SequentialCommandGroup {
 
- // public final Shooter m_shooter;
-
-
   /** Creates a new LoadAndFire. */
   public LoadAndFire(Shooter shooter_subsystem) {
 
-    //m_shooter = shooter_subsystem;
-
-
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new LoadBall(shooter_subsystem),
-    new FireBall(shooter_subsystem));
+    addCommands(
+        new LoadBall(shooter_subsystem),
+        new FireBall(shooter_subsystem));
   }
 }
