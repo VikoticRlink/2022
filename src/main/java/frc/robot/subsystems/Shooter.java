@@ -62,8 +62,8 @@ public class Shooter extends SubsystemBase {
   public void periodic() {
 
     if(RobotState.isEnabled() && RobotState.isTeleop() && RobotContainer.ManualControl){
-      double shooterAmount = Tools.featherJoystick(RobotContainer.OperatorController.getRightY(), Constants.JoystickSensitivity);
-      double indexAmount = Tools.featherJoystick(RobotContainer.OperatorController.getRightY(), Constants.JoystickSensitivity);
+      double shooterAmount = Tools.featherJoystick(RobotContainer.OperatorController.getLeftTriggerAxis(), Constants.JoystickSensitivity);
+      double indexAmount = Tools.featherJoystick(RobotContainer.OperatorController.getRightTriggerAxis(), Constants.JoystickSensitivity);
       shooterAmount *= Constants.MotorScaler.kShooterSpeed;  // Scale the motor speed
       indexAmount *= Constants.MotorScaler.kIndexSpeed;  // Scale the motor speed
 
