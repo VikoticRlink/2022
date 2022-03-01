@@ -60,10 +60,10 @@ public class DriveBase extends SubsystemBase {
       SmartDashboard.putString("Speed", "Turbo");
     }else{
       if(RobotContainer.DriverController.getLeftBumper()){
-        DrivePowerModifer = Constants.SlowSpeedLimit ;
+        DrivePowerModifer = Constants.MotorScaler.SlowSpeedLimit ;
         SmartDashboard.putString("Speed", "Slow");
       }else{
-        DrivePowerModifer = Constants.StandardSpeedLimit;
+        DrivePowerModifer = Constants.MotorScaler.StandardSpeedLimit;
         SmartDashboard.putString("Speed", "Normal");
       }
     }
