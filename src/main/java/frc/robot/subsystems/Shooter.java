@@ -68,7 +68,7 @@ public class Shooter extends SubsystemBase {
       indexAmount *= Constants.MotorScaler.kIndexSpeed;  // Scale the motor speed
 
       ShooterMotor.set(TalonFXControlMode.PercentOutput, -1 * shooterAmount);
-      IndexMotor.set(TalonFXControlMode.PercentOutput, -1 * indexAmount);
+      IndexMotor.set(TalonFXControlMode.PercentOutput, indexAmount);
 
   }
     // This method will be called once per scheduler run
