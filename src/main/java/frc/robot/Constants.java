@@ -127,7 +127,7 @@ public class Constants {
 		public static final int shooterMaster = 22;   //SRX 775
 		public static final int shooterSlave = 18;    //SRX 775
 		public static final int intakeActuator = 31;  //Falcon 500
-		public static final int intakeMotor = 23;     //Falcon 500
+		public static final int intakeMotor = 23;     //Falcon 500//SRX 775
 		public static final int indexMotor = 20;      //SRX 775
 	}
 

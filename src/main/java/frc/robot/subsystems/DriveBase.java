@@ -80,8 +80,7 @@ public class DriveBase extends SubsystemBase {
 
   } 
 
-  
-  
+
   private void configDrivebase(){
     rightMaster.setNeutralMode(NeutralMode.Coast);
     rightMaster.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
