@@ -46,9 +46,10 @@ public class Shooter extends SubsystemBase {
     //return BallIndexer.get();
   }
   public boolean BallPrimed() {
-    return BallIndexer.get();
-  } public boolean SecondBall() {
-    return BallIndexer2.get();
+    return !BallIndexer.get();
+  } 
+  public boolean SecondBallPresent() {
+    return !BallIndexer2.get();
   }
 
   public void Run_Index_Motor(double direction) {
