@@ -6,12 +6,8 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
-import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
-import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import frc.robot.Constants;
@@ -41,10 +37,10 @@ public class Intake extends SubsystemBase {
     // Motor is currently running at
     if(RobotState.isEnabled() && RobotState.isTeleop() && RobotContainer.ManualControl){
       double driveAmount = Tools.featherJoystick(RobotContainer.OperatorController.getRightTriggerAxis(), Constants.JoystickSensitivity);
-      double intakeAmount = Tools.featherJoystick(RobotContainer.OperatorController.getRightY(), Constants.JoystickSensitivity);
+      //double intakeAmount = Tools.featherJoystick(RobotContainer.OperatorController.getRightY(), Constants.JoystickSensitivity);
       driveAmount *= Constants.MotorScaler.kIntakeSpeed;  // Scale the motor speed
-      intakeAmount *= Constants.MotorScaler.kIntakeActuator;
-      IntakeActuator.set(TalonFXControlMode.PercentOutput, -1 * intakeAmount);
+     // intakeAmount *= Constants.MotorScaler.kIntakeActuator;
+     // IntakeActuator.set(TalonFXControlMode.PercentOutput, -1 * intakeAmount);
       IntakeMotor.set(TalonFXControlMode.PercentOutput, -1 * driveAmount);
   }
 }

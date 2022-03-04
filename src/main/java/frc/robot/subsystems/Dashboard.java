@@ -5,10 +5,9 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.command.Scheduler;
+//import edu.wpi.first.wpilibj.command.Scheduler;
 //import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.commands.IntakeBall;
 import frc.robot.commands.shooter.FireBall;
@@ -17,9 +16,9 @@ import frc.robot.commands.shooter.BackOffFlywheel;
 public class Dashboard extends SubsystemBase {
   /** Creates a new Dashboard. */
   public Dashboard() {
-  //  SmartDashboard.putData("Fire Ball", new FireBall(RobotContainer.m_Shooter));
+    SmartDashboard.putData("Fire Ball", new FireBall(RobotContainer.m_Shooter));
     SmartDashboard.putData("Intake Ball", new IntakeBall(RobotContainer.m_Intake));
-  //  SmartDashboard.putData("BackOffFlywheel", new BackOffFlywheel(RobotContainer.m_Shooter));
+    SmartDashboard.putData("BackOffFlywheel", new BackOffFlywheel(RobotContainer.m_Shooter));
 //https://docs.wpilib.org/en/stable/docs/software/dashboards/smartdashboard/choosing-an-autonomous-program-from-smartdashboard.html
 
 
@@ -35,6 +34,7 @@ public class Dashboard extends SubsystemBase {
     //SmartDashboard.putString("Auto chooser", RobotContainer.m_chooser.getSelected().getName());
     SmartDashboard.putBoolean("Drive Direction", (RobotContainer.DriveDirection == 1));
     SmartDashboard.putBoolean("Manual Mode", RobotContainer.ManualControl);
+    SmartDashboard.putBoolean("Alliance", RobotContainer.isRedAlliance);
     
     SmartDashboard.putBoolean("Ball Primed", RobotContainer.m_Shooter.BallPrimed());
     SmartDashboard.putBoolean("Second Ball", RobotContainer.m_Shooter.SecondBallPresent());
@@ -53,7 +53,9 @@ PushMotorTemps();
     SmartDashboard.putNumber("Climb Master Temp", RobotContainer.m_Climber.ClimbMaster.getTemperature());
     SmartDashboard.putNumber("Climb Slave Temp", RobotContainer.m_Climber.ClimbSlave.getTemperature());
     SmartDashboard.putNumber("Intake Actuator Temp", RobotContainer.m_Intake.IntakeActuator.getTemperature());
-    SmartDashboard.putNumber("Intake Actuator Slave Temp", RobotContainer.m_Intake.IntakeActuator.getTemperature());
-   }
+    SmartDashboard.putNumber("tRex Master Temp", RobotContainer.m_tRex.tRexMaster.getTemperature());
+    SmartDashboard.putNumber("tRex Slave Temp", RobotContainer.m_tRex.tRexSlave.getTemperature());
+   
+  }
 }
 

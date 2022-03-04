@@ -129,6 +129,8 @@ public class Constants {
 		public static final int intakeActuator = 31;  //Falcon 500
 		public static final int intakeMotor = 23;     //Falcon 500//SRX 775
 		public static final int indexMotor = 20;      //SRX 775
+		public static final int tRexMaster = 4;		  //Falcon 500
+		public static final int tRexSlave = 14;		  //Falcon 500
 	}
 
 }

@@ -43,6 +43,7 @@ public class RobotContainer {
   public static Lighting m_Lighting = new Lighting();
   public static Shooter m_Shooter = new Shooter();
   public static Dashboard m_Dashboard = new Dashboard();
+  public static tRex m_tRex = new tRex();
 
   //The robot's commands are defined here...
   //private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
