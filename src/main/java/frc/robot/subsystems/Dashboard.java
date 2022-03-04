@@ -16,9 +16,9 @@ import frc.robot.commands.shooter.BackOffFlywheel;
 public class Dashboard extends SubsystemBase {
   /** Creates a new Dashboard. */
   public Dashboard() {
-    SmartDashboard.putData("Fire Ball", new FireBall(RobotContainer.m_Shooter));
+  //  SmartDashboard.putData("Fire Ball", new FireBall(RobotContainer.m_Shooter));
     SmartDashboard.putData("Intake Ball", new IntakeBall(RobotContainer.m_Intake));
-    SmartDashboard.putData("BackOffFlywheel", new BackOffFlywheel(RobotContainer.m_Shooter));
+  //  SmartDashboard.putData("BackOffFlywheel", new BackOffFlywheel(RobotContainer.m_Shooter));
 //https://docs.wpilib.org/en/stable/docs/software/dashboards/smartdashboard/choosing-an-autonomous-program-from-smartdashboard.html
 
 
@@ -31,11 +31,11 @@ public class Dashboard extends SubsystemBase {
     // We should look at Shuffleboard as our smartdashboard.
     // https://docs.wpilib.org/en/stable/docs/software/dashboards/shuffleboard/getting-started/shuffleboard-tour.html
 
-    
+    //SmartDashboard.putString("Auto chooser", RobotContainer.m_chooser.getSelected().getName());
     SmartDashboard.putBoolean("Drive Direction", (RobotContainer.DriveDirection == 1));
     SmartDashboard.putBoolean("Manual Mode", RobotContainer.ManualControl);
     
-    SmartDashboard.putBoolean("Ball Indexed", RobotContainer.m_Shooter.Limitswitch_Is_Closed());
+  //  SmartDashboard.putBoolean("Ball Indexed", RobotContainer.m_Shooter.Limitswitch_Is_Closed());
     SmartDashboard.putNumber("Bot Heading", RobotContainer.m_DriveBase.BotHeading());
     SmartDashboard.putNumber("Intake Actuater", RobotContainer.m_Intake.readEncoder());
   }

@@ -20,6 +20,7 @@
       "/LiveWindow/Shooter": "Subsystem",
       "/LiveWindow/Ungrouped/ADXRS450_Gyro[0]": "Gyro",
       "/LiveWindow/Ungrouped/DigitalInput[0]": "Digital Input",
+      "/LiveWindow/Ungrouped/DigitalInput[1]": "Digital Input",
       "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
       "/LiveWindow/Ungrouped/Talon FX [11]": "Motor Controller",
       "/LiveWindow/Ungrouped/Talon FX [12]": "Motor Controller",
@@ -35,7 +36,16 @@
       "/LiveWindow/Ungrouped/Talon FX [32]": "Motor Controller",
       "/SmartDashboard/BackOffFlywheel": "Command",
       "/SmartDashboard/Fire Ball": "Command",
-      "/SmartDashboard/Intake Ball": "Command"
+      "/SmartDashboard/Intake Ball": "Command",
+      "/SmartDashboard/SendableChooser[0]": "String Chooser"
+    }
+  },
+  "NetworkTables": {
+    "SmartDashboard": {
+      "SendableChooser[0]": {
+        "open": true
+      },
+      "open": true
     }
   }
 }

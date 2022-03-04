@@ -24,7 +24,7 @@ public class Climber extends SubsystemBase {
 
 
   public Climber() {
-
+ClimbSlave.setInverted(true);
     ClimbSlave.follow(ClimbMaster);
     ClimbSlave.setNeutralMode(NeutralMode.Brake);
     ClimbMaster.setNeutralMode(NeutralMode.Brake);

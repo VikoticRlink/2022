@@ -35,23 +35,26 @@ public class Lighting extends SubsystemBase {
       //All_LEDRainbow();
       
       switch(RobotContainer.m_chooser.getSelected().getName()){
-        case "Red 1":
+        case "AutoRedOne":
           AutoColor(true, 1);
           break;
-        case "Red 2":
+        case "AutoRedTwo":
           AutoColor(true, 2);
           break;
-        case "Red 3":
+        case "AutoRedThree":
           AutoColor(true, 3);
           break;
-        case "Blue 1":
+        case "AutoBlueOne":
           AutoColor(false, 1);
           break;
-        case "Blue 2":
+        case "AutoBlueTwo":
           AutoColor(false, 2);
           break;
-        case "Blue 3":
+        case "AutoBlueThree":
           AutoColor(false, 3);
+          break;
+        case "Auto":
+          AllGreen();
           break;
       }
     }
@@ -59,6 +62,12 @@ public class Lighting extends SubsystemBase {
     if(RobotState.isEnabled() && RobotState.isTeleop()){
       All_LEDRainbow();
     }
+  }
+  private void AllGreen(){
+    for (var i =0; i< m_ledBuffer.getLength(); i++){
+      m_ledBuffer.setRGB(i, 0, 255, 0);
+    }
+    m_led.setData(m_ledBuffer);
   }
   private void LEDRY(){
       

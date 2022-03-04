@@ -89,7 +89,7 @@ public class RobotContainer {
     OperatorStart = new JoystickButton(OperatorController, 8);
 
     OperatorStart.whenPressed(new ManualModeToggle());
-    OperatorX.whenPressed(new LoadAndFire(m_Shooter));
+   // OperatorX.whenPressed(new LoadAndFire(m_Shooter));
     OperatorA.whenHeld(new IntakeBall(RobotContainer.m_Intake));
     
     DriverStart = new JoystickButton(DriverController, 8);
