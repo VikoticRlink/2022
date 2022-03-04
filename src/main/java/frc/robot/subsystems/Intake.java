@@ -22,25 +22,17 @@ public class Intake extends SubsystemBase {
   /** Creates a new Intake. */
   WPI_TalonFX IntakeMotor = new WPI_TalonFX(Constants.MotorID.intakeMotor);
   WPI_TalonFX IntakeActuator = new WPI_TalonFX(Constants.MotorID.intakeActuator);
-/*Soft Limits
-Soft limits can be used to disable motor drive when the “Sensor Position” is outside of a specified range. Forward throttle will be disabled if the “Sensor Position” is greater than the Forward Soft Limit. Reverse throttle will be disabled if the “Sensor Position” is less than the Reverse Soft Limit. The respective Soft Limit Enable must be enabled for this feature to take effect.
 
- Talon configured to have soft limits 10000 native units in either direction and enabled 
-rightMaster.configForwardSoftLimitThreshold(10000, 0);
-rightMaster.configReverseSoftLimitThreshold(-10000, 0);
-rightMaster.configForwardSoftLimitEnable(true, 0);
-rightMaster.configReverseSoftLimitEnable(true, 0);
-*/
   public Intake() {
     // *** ToDo: replace this code once IntakeActuator works.  Right now, we are lying to
     // ***       the Falcon controller so that we can use the Intake motor in place of
     // ***       the actuator.
 
-    IntakeMotor.setNeutralMode(NeutralMode.Brake);
-    IntakeActuator.configForwardSoftLimitThreshold(10000, 0);
-    IntakeActuator.configReverseSoftLimitThreshold(-10000, 0);
-    IntakeActuator.configForwardSoftLimitEnable(true, 0);
-    IntakeActuator.configReverseSoftLimitEnable(true, 0);
+    IntakeActuator.setNeutralMode(NeutralMode.Brake);
+   // IntakeActuator.configForwardSoftLimitThreshold(0, 0);
+   // IntakeActuator.configReverseSoftLimitThreshold(52000, 0);
+    IntakeActuator.configForwardSoftLimitEnable(false, 0);
+    IntakeActuator.configReverseSoftLimitEnable(false, 0);
   }
 
   @Override

@@ -16,8 +16,11 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
+import com.ctre.phoenix.motorcontrol.WPI_MotorSafetyImplem;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.Tools;
@@ -50,7 +53,7 @@ public class Shooter extends SubsystemBase {
 
   public void Run_Index_Motor(double direction) {
     // Values -1, 0 , 1 accepted | -1 -> Backwards, 0 -> Stop, 1 -> Forwards
-    IndexMotor.set(TalonFXControlMode.PercentOutput, .50 * direction);
+    IndexMotor.set(TalonFXControlMode.PercentOutput, 0.50 * direction);
   }
 
   public void Run_Flywheel_Motor(double run) {
