@@ -6,6 +6,9 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotContainer;
+
+import java.awt.Color;
+
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.RobotState;
@@ -16,9 +19,14 @@ public class Lighting extends SubsystemBase {
   private static AddressableLED m_led;
   private static AddressableLEDBuffer m_ledBuffer;
   private static int m_rainbowFirstPixelHue;
+  private static int l_shootColor;
+  private static int currentColor;
+  static int iPos=0;
+  private static Color8Bit AllianceColor;
+
   public Lighting() {  
     m_led = new AddressableLED(0);
-    m_ledBuffer = new AddressableLEDBuffer(60);
+    m_ledBuffer = new AddressableLEDBuffer(120);
     m_led.setLength(m_ledBuffer.getLength());
     m_led.setData(m_ledBuffer);
     m_led.start();
@@ -27,6 +35,12 @@ public class Lighting extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    if (RobotContainer.isRedAlliance){
+      AllianceColor = new Color8Bit(255,0,0);
+    }else{
+      AllianceColor = new Color8Bit(0,0,255);
+    }
+    
     if(RobotState.isAutonomous()){
       LEDRY();
     }
@@ -60,6 +74,9 @@ public class Lighting extends SubsystemBase {
     
     if(RobotState.isEnabled() && RobotState.isTeleop()){
       All_LEDRainbow();
+      if(RobotContainer.ManualControl){
+        ShootBall();
+      }
     }
   }
   private void AllGreen(){
@@ -110,6 +127,32 @@ public class Lighting extends SubsystemBase {
       
     m_led.setData(m_ledBuffer);
   }
+  private void ShootBall(){
+    int i_ledLength = 20;
+    int i_ledStartA = 30;
+    int i_ledStartB = 50;
+    int ballsize = 4;
+    //int deltaHue = 4;
+    ClearBuffer(i_ledStartA,i_ledLength);
+    ClearBuffer(i_ledStartB,i_ledLength);
+    if (iPos<i_ledLength-ballsize){
+        for (var i=0;i<ballsize;i++)
+        {
+          m_ledBuffer.setLED(iPos+i+i_ledStartA, AllianceColor);
+          m_ledBuffer.setLED(iPos+i+i_ledStartB, AllianceColor);
+         
+        }
+        m_led.setData(m_ledBuffer); 
+        iPos++;
+      }else{iPos=0;}
+  }
+  private void ClearBuffer(int startpoint, int stringlength){
+    
+    for (int i=0;i<stringlength;i++){
+      m_ledBuffer.setRGB(startpoint+i, 0, 0, 0);
+    }
+  }
+  
 }
 /*
 Lighting mode ideas:
