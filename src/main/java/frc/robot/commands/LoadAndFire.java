@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.shooter.LoadBall;
+import frc.robot.RobotContainer;
 import frc.robot.commands.shooter.FireBall;
 import frc.robot.subsystems.Shooter;
 
@@ -16,7 +17,7 @@ public class LoadAndFire extends SequentialCommandGroup {
 
   /** Creates a new LoadAndFire. */
   public LoadAndFire(Shooter shooter_subsystem) {
-
+RobotContainer.RobotShooting = true;
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
