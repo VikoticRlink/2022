@@ -34,6 +34,7 @@ public class RobotContainer {
   public static boolean ManualControl = false;
   public static Integer DriveDirection = 1;
   public static boolean isRedAlliance = false;
+  public static boolean RobotShooting = false;
 
   // The robot's subsystems are defined here...
   //private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();

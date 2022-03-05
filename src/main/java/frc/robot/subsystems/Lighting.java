@@ -40,6 +40,9 @@ public class Lighting extends SubsystemBase {
     }else{
       AllianceColor = new Color8Bit(0,0,255);
     }
+    if(RobotContainer.RobotShooting){
+      ShootBall();
+    }
     
     if(RobotState.isAutonomous()){
       LEDRY();
