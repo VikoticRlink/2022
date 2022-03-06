@@ -116,6 +116,9 @@ public class Constants {
 		public static final double kClimberSpeed = 1.0;
 		public static final double SlowSpeedLimit = 0.25;
 		public static final double StandardSpeedLimit = 0.9;
+		public static final double DriveStandardLimit = 0.9;
+		public static final double DriveMidLimit = 0.6;
+		public static final double DriveSlowLimit = 0.3;
 	}
 	//Motor identification
 	public static final class MotorID{

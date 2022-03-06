@@ -38,7 +38,7 @@ public class Dashboard extends SubsystemBase {
     
     SmartDashboard.putBoolean("Ball Primed", RobotContainer.m_Shooter.BallPrimed());
     SmartDashboard.putBoolean("Second Ball", RobotContainer.m_Shooter.SecondBallPresent());
-    SmartDashboard.putNumber("Bot Heading", RobotContainer.m_DriveBase.BotHeading());
+    SmartDashboard.putNumber("Bot Heading", RobotContainer.m_DriveBase.getHeading());
     SmartDashboard.putNumber("Intake Actuater", RobotContainer.m_Intake.readEncoder());
     
 PushMotorTemps();
@@ -46,10 +46,10 @@ PushMotorTemps();
 
   //Motor Temp records
   private void PushMotorTemps(){
-    SmartDashboard.putNumber("Left Drive Temp", RobotContainer.m_DriveBase.leftMaster.getTemperature());
-    SmartDashboard.putNumber("Left Drive Slave Temp", RobotContainer.m_DriveBase.leftSlave.getTemperature());
-    SmartDashboard.putNumber("Right Drive Temp", RobotContainer.m_DriveBase.rightMaster.getTemperature());
-    SmartDashboard.putNumber("Right Drive Slave Temp", RobotContainer.m_DriveBase.rightSlave.getTemperature());
+    //SmartDashboard.putNumber("Left Drive Temp", RobotContainer.m_DriveBase.leftMaster.getTemperature());
+    //SmartDashboard.putNumber("Left Drive Slave Temp", RobotContainer.m_DriveBase.leftSlave.getTemperature());
+    //SmartDashboard.putNumber("Right Drive Temp", RobotContainer.m_DriveBase.rightMaster.getTemperature());
+    //SmartDashboard.putNumber("Right Drive Slave Temp", RobotContainer.m_DriveBase.rightSlave.getTemperature());
     SmartDashboard.putNumber("Climb Master Temp", RobotContainer.m_Climber.ClimbMaster.getTemperature());
     SmartDashboard.putNumber("Climb Slave Temp", RobotContainer.m_Climber.ClimbSlave.getTemperature());
     SmartDashboard.putNumber("Intake Actuator Temp", RobotContainer.m_Intake.IntakeActuator.getTemperature());

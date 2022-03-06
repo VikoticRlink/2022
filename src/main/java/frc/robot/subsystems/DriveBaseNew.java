@@ -75,14 +75,14 @@ public class DriveBaseNew extends SubsystemBase {
     m_odometry.update(m_gyro.getRotation2d(), m_leftEncoder.getDistance(), m_rightEncoder.getDistance());
 
     if(RobotContainer.DriverController.getRightBumper()){
-      DrivePowerModifer = 1;
-      SmartDashboard.putString("Speed", "Turbo");
+      DrivePowerModifer = Constants.MotorScaler.DriveMidLimit;
+      SmartDashboard.putString("Speed", "Medium");
     }else{
       if(RobotContainer.DriverController.getLeftBumper()){
-        DrivePowerModifer = Constants.MotorScaler.SlowSpeedLimit ;
+        DrivePowerModifer = Constants.MotorScaler.DriveSlowLimit ;
         SmartDashboard.putString("Speed", "Slow");
       }else{
-        DrivePowerModifer = Constants.MotorScaler.StandardSpeedLimit;
+        DrivePowerModifer = Constants.MotorScaler.DriveStandardLimit;
         SmartDashboard.putString("Speed", "Normal");
       }
     }
