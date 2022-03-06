@@ -109,6 +109,7 @@ public class Constants {
 	// This is the multiplier for the speed of the intake motor. Normal speed is 1.0
 	public static final class MotorScaler {
 		public static final double kIntakeActuator = 1.0;
+		public static final double ktRexArms = 1.0;
 		public static final double kIntakeSpeed = 1.0;
 		public static final double kIndexSpeed = 1.0;
 		public static final double kShooterSpeed = 1.0;

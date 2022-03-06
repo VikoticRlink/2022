@@ -29,9 +29,9 @@ public class tRex extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     if(RobotState.isEnabled() && RobotState.isTeleop() && RobotContainer.ManualControl){
-      double climbAmount = Tools.featherJoystick(RobotContainer.OperatorController.getRightY(), Constants.JoystickSensitivity);
-      climbAmount *= Constants.MotorScaler.kClimberSpeed;
-      tRexMaster.set(TalonFXControlMode.PercentOutput, -1 * climbAmount);
+      double armSwing = Tools.featherJoystick(RobotContainer.OperatorController.getRightY(), Constants.JoystickSensitivity);
+      armSwing *= Constants.MotorScaler.ktRexArms;
+      tRexMaster.set(TalonFXControlMode.PercentOutput, -1 * armSwing);
   }
   }
 }
