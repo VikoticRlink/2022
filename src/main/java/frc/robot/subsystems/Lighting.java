@@ -7,8 +7,6 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotContainer;
 
-import java.awt.Color;
-
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.RobotState;
@@ -19,8 +17,8 @@ public class Lighting extends SubsystemBase {
   private static AddressableLED m_led;
   private static AddressableLEDBuffer m_ledBuffer;
   private static int m_rainbowFirstPixelHue;
-  private static int l_shootColor;
-  private static int currentColor;
+  //private static int l_shootColor;
+  //private static int currentColor;
   static int iPos=0;
   private static Color8Bit AllianceColor;
 
