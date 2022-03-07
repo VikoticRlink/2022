@@ -35,19 +35,19 @@ public class DriveBaseNew extends SubsystemBase {
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
 
   // The left-side drive encoder
-  private final Encoder m_leftEncoder = 
-      new Encoder(1,11,true);
-     //   Constants.DriveConstants.kLeftEncoderPorts[0],
-     //   Constants.DriveConstants.kLeftEncoderPorts[1],
-     //   Constants.DriveConstants.kLeftEncoderReversed);
-
+  /*private final Encoder m_leftEncoder = 
+      new Encoder(
+        Constants.DriveConstants.kLeftEncoderPorts[0],
+        Constants.DriveConstants.kLeftEncoderPorts[1],
+        Constants.DriveConstants.kLeftEncoderReversed);
+*/
   // The right-side drive encoder
-  private final Encoder m_rightEncoder =
-      new Encoder(2,12,true);
-    //    Constants.DriveConstants.kRightEncoderPorts[0],
-      //  Constants.DriveConstants.kRightEncoderPorts[1],
-        //Constants.DriveConstants.kRightEncoderReversed);
-
+  /*private final Encoder m_rightEncoder =
+      new Encoder(
+      Constants.DriveConstants.kRightEncoderPorts[0],
+      Constants.DriveConstants.kRightEncoderPorts[1],
+      Constants.DriveConstants.kRightEncoderReversed);
+*/
   // The gyro sensor
   private final Gyro m_gyro = new ADXRS450_Gyro();
 
@@ -63,8 +63,8 @@ public class DriveBaseNew extends SubsystemBase {
     m_rightMotors.setInverted(true);
 
     // Sets the distance per pulse for the encoders
-    m_leftEncoder.setDistancePerPulse(Constants.DriveConstants.kEncoderDistancePerPulse);
-    m_rightEncoder.setDistancePerPulse(Constants.DriveConstants.kEncoderDistancePerPulse);
+    // m_leftEncoder.setDistancePerPulse(Constants.DriveConstants.kEncoderDistancePerPulse);
+    // m_rightEncoder.setDistancePerPulse(Constants.DriveConstants.kEncoderDistancePerPulse);
 
     resetEncoders();
     m_odometry = new DifferentialDriveOdometry(m_gyro.getRotation2d());
@@ -73,7 +73,7 @@ public class DriveBaseNew extends SubsystemBase {
   @Override
   public void periodic() {
     // Update the odometry in the periodic block
-    m_odometry.update(m_gyro.getRotation2d(), m_leftEncoder.getDistance(), m_rightEncoder.getDistance());
+    m_odometry.update(m_gyro.getRotation2d(), leftMaster.getSelectedSensorPosition() * Constants.DriveConstants.kEncoderDistancePerPulse, rightMaster.getSelectedSensorPosition() * Constants.DriveConstants.kEncoderDistancePerPulse);
 
     if(RobotContainer.DriverController.getRightBumper()){
       DrivePowerModifer = Constants.MotorScaler.DriveMidLimit;
@@ -115,7 +115,7 @@ public class DriveBaseNew extends SubsystemBase {
    * @return The current wheel speeds.
    */
   public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-    return new DifferentialDriveWheelSpeeds(m_leftEncoder.getRate(), m_rightEncoder.getRate());
+    return new DifferentialDriveWheelSpeeds(leftMaster.getSelectedSensorVelocity()*10, rightMaster.getSelectedSensorVelocity()*10);
   }
 
   /**
@@ -152,8 +152,8 @@ public class DriveBaseNew extends SubsystemBase {
 
   /** Resets the drive encoders to currently read a position of 0. */
   public void resetEncoders() {
-    m_leftEncoder.reset();
-    m_rightEncoder.reset();
+    rightMaster.setSelectedSensorPosition(0, 0, 0);
+    leftMaster.setSelectedSensorPosition(0, 0, 0);
   }
 
   /**
@@ -162,7 +162,7 @@ public class DriveBaseNew extends SubsystemBase {
    * @return the average of the two encoder readings
    */
   public double getAverageEncoderDistance() {
-    return (m_leftEncoder.getDistance() + m_rightEncoder.getDistance()) / 2.0;
+    return (leftMaster.getSelectedSensorPosition() * Constants.DriveConstants.kEncoderDistancePerPulse + rightMaster.getSelectedSensorPosition() * Constants.DriveConstants.kEncoderDistancePerPulse) / 2.0;
   }
 
   /**
@@ -170,18 +170,18 @@ public class DriveBaseNew extends SubsystemBase {
    *
    * @return the left drive encoder
    */
-  public Encoder getLeftEncoder() {
-    return m_leftEncoder;
-  }
+  //public Encoder getLeftEncoder() {
+  //  return m_leftEncoder;
+  //}
 
   /**
    * Gets the right drive encoder.
    *
    * @return the right drive encoder
    */
-  public Encoder getRightEncoder() {
-    return m_rightEncoder;
-  }
+  //public Encoder getRightEncoder() {
+  //  return m_rightEncoder;
+  //}
 
   /**
    * Sets the max output of the drive. Useful for scaling the drive to drive more slowly.
