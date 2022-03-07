@@ -19,33 +19,34 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveBaseNew extends SubsystemBase {
   // The motors on the left side of the drive.
+  WPI_TalonFX leftMaster = new WPI_TalonFX(Constants.MotorID.leftDriveMaster);
+  WPI_TalonFX rightMaster = new WPI_TalonFX(Constants.MotorID.rightDriveMaster);
+  WPI_TalonFX leftSlave = new WPI_TalonFX(Constants.MotorID.leftDriveSlave);
+  WPI_TalonFX rightSlave = new WPI_TalonFX(Constants.MotorID.rightDriveSlave);
+
   private final MotorControllerGroup m_leftMotors =
-      new MotorControllerGroup(
-          new WPI_TalonFX(Constants.MotorID.leftDriveMaster), 
-          new WPI_TalonFX(Constants.MotorID.leftDriveSlave));
+      new MotorControllerGroup(leftMaster, leftSlave);
 
   // The motors on the right side of the drive.
   private final MotorControllerGroup m_rightMotors =
-      new MotorControllerGroup(
-        new WPI_TalonFX(Constants.MotorID.rightDriveMaster),
-        new WPI_TalonFX(Constants.MotorID.rightDriveSlave));
+      new MotorControllerGroup(rightMaster, rightSlave);
 
   // The robot's drive
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
 
   // The left-side drive encoder
-  private final Encoder m_leftEncoder =
-      new Encoder(
-        Constants.DriveConstants.kLeftEncoderPorts[0],
-        Constants.DriveConstants.kLeftEncoderPorts[1],
-        Constants.DriveConstants.kLeftEncoderReversed);
+  private final Encoder m_leftEncoder = 
+      new Encoder(1,11,true);
+     //   Constants.DriveConstants.kLeftEncoderPorts[0],
+     //   Constants.DriveConstants.kLeftEncoderPorts[1],
+     //   Constants.DriveConstants.kLeftEncoderReversed);
 
   // The right-side drive encoder
   private final Encoder m_rightEncoder =
-      new Encoder(
-        Constants.DriveConstants.kRightEncoderPorts[0],
-        Constants.DriveConstants.kRightEncoderPorts[1],
-        Constants.DriveConstants.kRightEncoderReversed);
+      new Encoder(2,12,true);
+    //    Constants.DriveConstants.kRightEncoderPorts[0],
+      //  Constants.DriveConstants.kRightEncoderPorts[1],
+        //Constants.DriveConstants.kRightEncoderReversed);
 
   // The gyro sensor
   private final Gyro m_gyro = new ADXRS450_Gyro();

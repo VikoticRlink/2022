@@ -27,7 +27,7 @@ public class Auto extends CommandBase {
   @Override
   public void initialize() {
     RobotContainer.m_DriveBase.resetEncoders();
-    RobotContainer.m_DriveBase.BrakeMode();
+   // RobotContainer.m_DriveBase.BrakeMode();
     IsDone=false;
   }
 
@@ -35,7 +35,7 @@ public class Auto extends CommandBase {
   @Override
   public void execute() {
     SmartDashboard.putNumber("Auto Drive Stage", driveStage);
-   switch (driveStage) {
+   /*switch (driveStage) {
       case 0: 
         if (RobotContainer.m_DriveBase.readEncoder(true) > -30000) {
           RobotContainer.m_Intake.getBalls();
@@ -66,7 +66,7 @@ public class Auto extends CommandBase {
         IsDone=true;
       }
     break;
-   }
+   }*/
   }
 
   // Called once the command ends or is interrupted.

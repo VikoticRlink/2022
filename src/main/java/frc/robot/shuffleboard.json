@@ -128,6 +128,116 @@
               "imageWidth": 0,
               "imageHeight": 0
             }
+          },
+          "1,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Intake Ball",
+              "_title": "Intake Ball"
+            }
+          },
+          "0,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Left Drive Slave Temp",
+              "_title": "Left Drive Slave Temp"
+            }
+          },
+          "1,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/BackOffFlywheel",
+              "_title": "BackOffFlywheel"
+            }
+          },
+          "2,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/tRex Master Temp",
+              "_title": "tRex Master Temp"
+            }
+          },
+          "3,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Right Drive Slave Temp",
+              "_title": "Right Drive Slave Temp"
+            }
+          },
+          "4,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Intake Actuator Temp",
+              "_title": "Intake Actuator Temp"
+            }
+          },
+          "5,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Right Drive",
+              "_title": "Right Drive"
+            }
+          },
+          "6,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Left Drive",
+              "_title": "Left Drive"
+            }
+          },
+          "7,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Climb Master Temp",
+              "_title": "Climb Master Temp"
+            }
+          },
+          "8,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Intake Actuater",
+              "_title": "Intake Actuater"
+            }
           }
         }
       }
@@ -280,6 +390,36 @@
                   "_source0": "network_table:///LiveWindow/Ungrouped/Talon FX [14]",
                   "_title": "Talon FX [14]",
                   "Visuals/Orientation": "HORIZONTAL"
+                },
+                {
+                  "_type": "Motor Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Talon FX [5]",
+                  "_title": "Talon FX [5]",
+                  "Visuals/Orientation": "HORIZONTAL"
+                },
+                {
+                  "_type": "Motor Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Talon FX [32]",
+                  "_title": "Talon FX [32]",
+                  "Visuals/Orientation": "HORIZONTAL"
+                },
+                {
+                  "_type": "Motor Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Talon FX [15]",
+                  "_title": "Talon FX [15]",
+                  "Visuals/Orientation": "HORIZONTAL"
+                },
+                {
+                  "_type": "Motor Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Talon FX [16]",
+                  "_title": "Talon FX [16]",
+                  "Visuals/Orientation": "HORIZONTAL"
+                },
+                {
+                  "_type": "Motor Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Talon FX [6]",
+                  "_title": "Talon FX [6]",
+                  "Visuals/Orientation": "HORIZONTAL"
                 }
               ]
             }
@@ -315,7 +455,7 @@
     }
   ],
   "windowGeometry": {
-    "x": -13.0,
+    "x": -7.0,
     "y": 4.0,
     "width": 1376.0,
     "height": 726.0

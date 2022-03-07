@@ -56,14 +56,14 @@ public class DriveBase extends SubsystemBase {
     
     
     if(RobotContainer.DriverController.getRightBumper()){
-      DrivePowerModifer = 1;
-      SmartDashboard.putString("Speed", "Turbo");
+      DrivePowerModifer = Constants.MotorScaler.DriveMidLimit;
+      SmartDashboard.putString("Speed", "Medium");
     }else{
       if(RobotContainer.DriverController.getLeftBumper()){
-        DrivePowerModifer = Constants.MotorScaler.SlowSpeedLimit ;
+        DrivePowerModifer = Constants.MotorScaler.DriveSlowLimit ;
         SmartDashboard.putString("Speed", "Slow");
       }else{
-        DrivePowerModifer = Constants.MotorScaler.StandardSpeedLimit;
+        DrivePowerModifer = Constants.MotorScaler.DriveStandardLimit;
         SmartDashboard.putString("Speed", "Normal");
       }
     }
@@ -150,8 +150,11 @@ public class DriveBase extends SubsystemBase {
    // leftSlave.setNeutralMode(NeutralMode.Brake);
   
   }
-  public double BotHeading(){
+  public double getHeading(){
     return m_gyro.getRotation2d().getDegrees();
+  }
+  public double getTurnRate() {
+    return -m_gyro.getRate();
   }
 }
 // Falcon 500 examples

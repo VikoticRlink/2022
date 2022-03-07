@@ -126,15 +126,15 @@ public class Constants {
 		public static final int leftDriveSlave = 11;  //Falcon 500
 		public static final int rightDriveMaster = 2; //Falcon 500
 		public static final int rightDriveSlave = 12; //Falcon 500
-		public static final int climberMaster = 25;   //Falcon 500
-		public static final int climberSlave = 21;    //Falcon 500
-		public static final int shooterMaster = 22;   //SRX 775
-		public static final int shooterSlave = 18;    //SRX 775
-		public static final int intakeActuator = 31;  //Falcon 500
-		public static final int intakeMotor = 23;     //Falcon 500//SRX 775
-		public static final int indexMotor = 20;      //SRX 775
 		public static final int tRexMaster = 4;		  //Falcon 500
 		public static final int tRexSlave = 14;		  //Falcon 500
+		public static final int climberMaster = 5;    //Falcon 500
+		public static final int climberSlave = 15;    //Falcon 500
+		public static final int shooterMaster = 6;    //SRX 775
+		public static final int shooterSlave = 16;    //SRX 775
+		public static final int intakeMotor = 32;     //SRX 775
+		public static final int indexMotor = 20;      //SRX 775
+		public static final int intakeActuator = 31;  //Falcon 500
 	}
 
 }
