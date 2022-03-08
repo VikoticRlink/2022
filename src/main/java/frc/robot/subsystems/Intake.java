@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
+import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import frc.robot.Constants;
@@ -29,6 +30,7 @@ public class Intake extends SubsystemBase {
    // IntakeActuator.configReverseSoftLimitThreshold(52000, 0);
     IntakeActuator.configForwardSoftLimitEnable(false, 0);
     IntakeActuator.configReverseSoftLimitEnable(false, 0);
+    configIntake();
   }
 
   @Override
@@ -46,6 +48,7 @@ public class Intake extends SubsystemBase {
 }
 
   public void getBalls(){
+    //setIntake(1);
     IntakeMotor.set(TalonFXControlMode.PercentOutput, -1);
     RobotContainer.m_Shooter.Run_Index_Motor(1);
   }
@@ -53,8 +56,29 @@ public class Intake extends SubsystemBase {
   public void disableIntake(){
     IntakeMotor.set(TalonFXControlMode.PercentOutput, 0);
     RobotContainer.m_Shooter.Run_Index_Motor(0);
+    //setIntake(0);
   }
   public double readEncoder(){      
     return IntakeActuator.getSelectedSensorPosition(0);
+  }
+
+  public void setIntake(int GoToPosition){
+    IntakeActuator.set(TalonFXControlMode.Position, Constants.ArmPosition[GoToPosition]);
+  }
+  private void configIntake(){
+    IntakeActuator.setNeutralMode(NeutralMode.Brake);
+    IntakeActuator.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
+    IntakeActuator.setSensorPhase(Constants.kSensorPhase);
+    IntakeActuator.setInverted(Constants.kMotorInvert);
+    IntakeActuator.configNominalOutputForward(0, Constants.kTimeoutMs);
+    IntakeActuator.configNominalOutputReverse(0, Constants.kTimeoutMs);
+    IntakeActuator.configPeakOutputForward(1, Constants.kTimeoutMs);
+    IntakeActuator.configPeakOutputReverse(-1, Constants.kTimeoutMs);
+    IntakeActuator.configAllowableClosedloopError(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs); 
+      /* Config Position Closed Loop gains in slot0, tsypically kF stays zero. */
+      IntakeActuator.config_kF(Constants.kPIDLoopIdx, Constants.kArmGains.kF, Constants.kTimeoutMs);
+      IntakeActuator.config_kP(Constants.kPIDLoopIdx, Constants.kArmGains.kP, Constants.kTimeoutMs);
+      IntakeActuator.config_kI(Constants.kPIDLoopIdx, Constants.kArmGains.kI, Constants.kTimeoutMs);
+      IntakeActuator.config_kD(Constants.kPIDLoopIdx, Constants.kArmGains.kD, Constants.kTimeoutMs);
   }
 }

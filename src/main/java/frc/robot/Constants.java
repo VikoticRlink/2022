@@ -56,6 +56,7 @@ public class Constants {
 	 //http://www.ni.com/en-us/innovations/white-papers/06/pid-theory-explained.html
 	 public static double JoystickSensitivity = .3;
 
+	 public static final int[] ArmPosition = new int[] {100, 20000};
 
 	 //For Pathfinder.  These need to be updated for our bot!!!!!!!
 	 //------------------------------------------------------------
