@@ -49,9 +49,9 @@ public class Constants {
      * Gains(kp, ki, kd, kf, izone, peak output);
 	 * Gains(double _kP, double _kI, double _kD, double _kF, int _kIzone, double _kPeakOutput)
      */
-    public static Gains kGains = new Gains(0.15, 0.0, 1.0, 0.0, 0, 1.0);
-    public static Gains kArmGains = new Gains(0.02, 0.0, 0.45, 0, 0, 0.1);
-    public static Gains kDriveGains = new Gains(0.02, 0.0, 0.45, 0, 0, 0.1);
+    //public static Gains kGains = new Gains(0.15, 0.0, 1.0, 0.0, 0, 1.0);
+    public static Gains ktRexGains = new Gains(0.02, 0.0, 0.0, 0, 0, 0.1);
+	public static Gains kIntakeGains = new Gains(0.02, 0.0, 0.0, 0, 0, 0.1);
 
 	 //http://www.ni.com/en-us/innovations/white-papers/06/pid-theory-explained.html
 	 public static double JoystickSensitivity = .3;

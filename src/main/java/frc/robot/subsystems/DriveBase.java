@@ -92,11 +92,11 @@ public class DriveBase extends SubsystemBase {
     rightMaster.configPeakOutputReverse(-1, Constants.kTimeoutMs);
     rightMaster.configAllowableClosedloopError(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs); 
       /* Config Position Closed Loop gains in slot0, tsypically kF stays zero. */
-      rightMaster.config_kF(Constants.kPIDLoopIdx, Constants.kDriveGains.kF, Constants.kTimeoutMs);
+     /* rightMaster.config_kF(Constants.kPIDLoopIdx, Constants.kDriveGains.kF, Constants.kTimeoutMs);
       rightMaster.config_kP(Constants.kPIDLoopIdx, Constants.kDriveGains.kP, Constants.kTimeoutMs);
       rightMaster.config_kI(Constants.kPIDLoopIdx, Constants.kDriveGains.kI, Constants.kTimeoutMs);
       rightMaster.config_kD(Constants.kPIDLoopIdx, Constants.kDriveGains.kD, Constants.kTimeoutMs);
-  
+  */
     leftMaster.setNeutralMode(NeutralMode.Coast);
     leftMaster.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
     leftMaster.setSensorPhase(Constants.kSensorPhase);
@@ -107,11 +107,12 @@ public class DriveBase extends SubsystemBase {
     leftMaster.configPeakOutputReverse(-1, Constants.kTimeoutMs);
     leftMaster.configAllowableClosedloopError(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs); 
       /* Config Position Closed Loop gains in slot0, tsypically kF stays zero. */
-      leftMaster.config_kF(Constants.kPIDLoopIdx, Constants.kDriveGains.kF, Constants.kTimeoutMs);
+    /*  leftMaster.config_kF(Constants.kPIDLoopIdx, Constants.kDriveGains.kF, Constants.kTimeoutMs);
       leftMaster.config_kP(Constants.kPIDLoopIdx, Constants.kDriveGains.kP, Constants.kTimeoutMs);
       leftMaster.config_kI(Constants.kPIDLoopIdx, Constants.kDriveGains.kI, Constants.kTimeoutMs);
       leftMaster.config_kD(Constants.kPIDLoopIdx, Constants.kDriveGains.kD, Constants.kTimeoutMs);
-  }
+  */
+    }
   public void resetEncoders(){
     rightMaster.setSelectedSensorPosition(0, 0, 0);
     leftMaster.setSelectedSensorPosition(0, 0, 0);

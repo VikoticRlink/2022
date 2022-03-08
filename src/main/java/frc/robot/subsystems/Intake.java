@@ -76,9 +76,9 @@ public class Intake extends SubsystemBase {
     IntakeActuator.configPeakOutputReverse(-1, Constants.kTimeoutMs);
     IntakeActuator.configAllowableClosedloopError(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs); 
       /* Config Position Closed Loop gains in slot0, tsypically kF stays zero. */
-      IntakeActuator.config_kF(Constants.kPIDLoopIdx, Constants.kArmGains.kF, Constants.kTimeoutMs);
-      IntakeActuator.config_kP(Constants.kPIDLoopIdx, Constants.kArmGains.kP, Constants.kTimeoutMs);
-      IntakeActuator.config_kI(Constants.kPIDLoopIdx, Constants.kArmGains.kI, Constants.kTimeoutMs);
-      IntakeActuator.config_kD(Constants.kPIDLoopIdx, Constants.kArmGains.kD, Constants.kTimeoutMs);
+      IntakeActuator.config_kF(Constants.kPIDLoopIdx, Constants.kIntakeGains.kF, Constants.kTimeoutMs);
+      IntakeActuator.config_kP(Constants.kPIDLoopIdx, Constants.kIntakeGains.kP, Constants.kTimeoutMs);
+      IntakeActuator.config_kI(Constants.kPIDLoopIdx, Constants.kIntakeGains.kI, Constants.kTimeoutMs);
+      IntakeActuator.config_kD(Constants.kPIDLoopIdx, Constants.kIntakeGains.kD, Constants.kTimeoutMs);
   }
 }
