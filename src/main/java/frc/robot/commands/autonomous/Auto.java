@@ -46,6 +46,7 @@ public class Auto extends CommandBase {
           RobotContainer.m_DriveBase.tankDriveVolts(-3.6, 3.6);
         }else {
           driveStage = 2;
+          RobotContainer.m_Intake.disableIntake();
         }
       break;
     case 2:
@@ -57,7 +58,6 @@ public class Auto extends CommandBase {
         RobotContainer.m_DriveBase.tankDriveVolts(0, 0);
         RobotContainer.m_DriveBase.resetEncoders();
         RobotContainer.m_DriveBase.CoastMode();
-        RobotContainer.m_Intake.disableIntake();
         this.isScheduled();
         IsDone=true;
       }
