@@ -17,7 +17,6 @@ import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import frc.robot.Tools;
 
 public class DriveBase extends SubsystemBase {
   /** Creates a new DriveBase. */
@@ -55,11 +54,12 @@ public class DriveBase extends SubsystemBase {
     SmartDashboard.putNumber("Right Drive", rightMaster.getSelectedSensorPosition(0));
     
     
-    if(RobotContainer.DriverController.getRightBumper()){
+    
+    if(RobotContainer.driverController.bumpRight.get()){
       DrivePowerModifer = Constants.MotorScaler.DriveMidLimit;
       SmartDashboard.putString("Speed", "Medium");
     }else{
-      if(RobotContainer.DriverController.getLeftBumper()){
+      if(RobotContainer.driverController.bumpLeft.get()){
         DrivePowerModifer = Constants.MotorScaler.DriveSlowLimit ;
         SmartDashboard.putString("Speed", "Slow");
       }else{
@@ -69,12 +69,12 @@ public class DriveBase extends SubsystemBase {
     }
 
     if(RobotState.isEnabled() && RobotState.isTeleop()){
-      if(RobotContainer.DriveDirection==1){
-        leftMaster.set(TalonFXControlMode.PercentOutput, DrivePowerModifer * Tools.featherJoystick(RobotContainer.DriverController.getRightY(), Constants.JoystickSensitivity));
-        rightMaster.set(TalonFXControlMode.PercentOutput, -1 * DrivePowerModifer * Tools.featherJoystick(RobotContainer.DriverController.getLeftY(), Constants.JoystickSensitivity));
+      if(RobotContainer.DriveDirection == RobotContainer.RobotDirection.Forward){
+        leftMaster.set(TalonFXControlMode.PercentOutput, DrivePowerModifer * RobotContainer.driverController.rightStickY());
+        rightMaster.set(TalonFXControlMode.PercentOutput, -1 * DrivePowerModifer * RobotContainer.driverController.leftStickY());
       }else{
-        leftMaster.set(TalonFXControlMode.PercentOutput, (-1 * DrivePowerModifer * Tools.featherJoystick(RobotContainer.DriverController.getLeftY(), Constants.JoystickSensitivity)));
-        rightMaster.set(TalonFXControlMode.PercentOutput, (DrivePowerModifer * Tools.featherJoystick(RobotContainer.DriverController.getRightY(), Constants.JoystickSensitivity)));
+        leftMaster.set(TalonFXControlMode.PercentOutput, (-1 * DrivePowerModifer * RobotContainer.driverController.leftStickY()));
+        rightMaster.set(TalonFXControlMode.PercentOutput, (DrivePowerModifer * RobotContainer.driverController.rightStickY()));
       }
     }
 

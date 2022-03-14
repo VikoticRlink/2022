@@ -5,23 +5,28 @@
 package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants;
 import frc.robot.subsystems.Shooter;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.shooter.fireBallSubcommands.*;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
+
+///////////////////////////////////////////////////////////////////////////////
 public class FireBall extends SequentialCommandGroup {
 
-  public final Shooter m_shooter;
-
-  /** Creates a new FireBall. */
-  public FireBall(Shooter shooter_subsystem) {
-
-    m_shooter = shooter_subsystem;
-
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new SpinUpFlywheel(shooter_subsystem),
-        new FeedFlywheel(shooter_subsystem));
+  /////////////////////////////////////////////////////////////////////////////
+  /** Creates an instance of the command
+   * @param shooterSubsystem  Shooter subsystem used by the command
+   * @param fireButton  Button used to fire balls in tele-operated mode
+  */
+  public FireBall(Shooter shooterSubsystem, JoystickButton fireButton) {
+    // Add commands in the order in which they will be carried out
+    addCommands(
+        new SpinUpFlywheel(shooterSubsystem)
+          .perpetually()
+          .withTimeout(Constants.ShooterConstants.kSpinUpFlywheelSeconds),
+          
+        new FeedFlywheel(shooterSubsystem, fireButton)
+          .withTimeout(Constants.ShooterConstants.kFeedFlywheelTimeoutSeconds));
   }
 }

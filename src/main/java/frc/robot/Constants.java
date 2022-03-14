@@ -110,16 +110,31 @@ public class Constants {
 	// This is the multiplier for the speed of the intake motor. Normal speed is 1.0
 	public static final class MotorScaler {
 		public static final double kIntakeActuator = 1.0;
-		public static final double ktRexArms = 0.2;
-		public static final double kIntakeSpeed = 1.0;
-		public static final double kIndexSpeed = 1.0;
-		public static final double kShooterSpeed = 0.7;  //0.5 good for 42" shots
+		public static final double kTRexArmManualSpeed = 0.2;		// Speed when running the T-rex arms in manual mode
+		public static final double kIntakeMotorSpeed = 1.0;			// Speed to run the motor on the intake arm
 		public static final double kClimberSpeed = 1.0;
 		public static final double SlowSpeedLimit = 0.25;
 		public static final double StandardSpeedLimit = 0.9;
 		public static final double DriveStandardLimit = 0.9;
 		public static final double DriveMidLimit = 0.7;
 		public static final double DriveSlowLimit = 0.4;
+	}
+	public static final class ShooterConstants {
+		// Digital input ID's of the ball index optical sensors
+		// TODO: set these constants to the actual digital input ID's
+		public static final int BallSensorDigitalInputUpper = 2;
+		public static final int BallSensorDigitalInputMiddle = 1;
+		public static final int BallSensorDigitalInputLower = 0;
+		/** Maximum number of seconds to spend spinning up the flywheel
+		 * motor */
+		public static final double kSpinUpFlywheelSeconds = 1.0;
+		/** Maximum number of seconds to run the index motor to feed a ball
+		 * into the flywheel to shoot it. */
+		public static final double kFeedFlywheelTimeoutSeconds = 2.0;
+		/** Speed at which the flywheel motor is run 0.0 (off) to 1.0 (max)*/
+		public static final double kFlywheelSpeed = 0.5;   //Good for 42" shots
+		public static final double kFlywheelSpeedTarmac = 0.7;   //Good for 84" shots
+		public static final double kFlywheelSpeedFullPower = 1;
 	}
 	//Motor identification
 	public static final class MotorID{
@@ -131,8 +146,8 @@ public class Constants {
 		public static final int tRexSlave = 14;		  //Falcon 500
 		public static final int climberMaster = 5;    //Falcon 500
 		public static final int climberSlave = 15;    //Falcon 500
-		public static final int shooterMaster = 6;    //SRX 775
-		public static final int shooterSlave = 16;    //SRX 775
+		public static final int flywheelMaster = 6;    //SRX 775
+		public static final int flywheelSlave = 16;    //SRX 775
 		public static final int intakeMotor = 32;     //SRX 775
 		public static final int indexMotor = 20;      //SRX 775
 		public static final int intakeActuator = 31;  //Falcon 500

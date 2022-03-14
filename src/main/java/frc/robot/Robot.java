@@ -1,19 +1,21 @@
+
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
 
-import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.InvalidPathException;
 
-import edu.wpi.first.math.trajectory.Trajectory;
-import edu.wpi.first.math.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj.Filesystem;
+
+import frc.robot.trajectoryLoader.HashMapLoader;
+import frc.robot.trajectoryLoader.TrajectoryLoader;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -38,14 +40,39 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-      //*** Pathweaver */
-    //try {
-    //  Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
-    //  trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
-    //} catch (IOException ex) {
-    //  DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
-    //}
-     //**--End Pathweaver */
+
+    //------------------------------
+    // Load PathWeaver Data
+    //------------------------------
+    // Create Trajectory objects from JSON files in the 'paths' directory
+    // Reference: Importing a PathWeaver JSON
+    //   https://docs.wpilib.org/en/stable/docs/software/pathplanning/pathweaver/integrating-robot-program.html
+    Path pathsDir = Filesystem.getDeployDirectory().toPath().resolve("paths");
+    HashMapLoader mapLoader = new HashMapLoader();
+
+    try {
+      TrajectoryLoader.loadJSONFiles(pathsDir, mapLoader);
+    }
+    catch (InvalidPathException e) {
+      String msg = String.format("Failed to open paths directory '%s': %s", pathsDir.toString(), e.getCause());
+      DriverStation.reportError(msg, false);
+    }
+
+    // Report any files that couldn't be loaded into Trajectory objects
+    if (! mapLoader.failedFiles.isEmpty()) {
+      for (String filePath : mapLoader.failedFiles) {
+        DriverStation.reportError("Failed to load trajectory from " + filePath, false);
+    }
+    }
+
+    // TODO: construct TrajectoryCommand objects for Trajectory objects loaded from JSON files
+    // The data loaded from files is contained in mapLoader.trajectoryMap.  Each element's key
+    // contains the name of a JSON file and its value is the Trajectory object constructed from
+    // the JSON data.
+
+    //------------------------------
+    // END PathWeaver Data
+    //------------------------------
   }
 
   /**

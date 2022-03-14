@@ -9,42 +9,51 @@ import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.button.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.*;
 import frc.robot.commands.autonomous.*;
 import frc.robot.commands.*;
 
-import java.sql.Driver;
 
-import edu.wpi.first.wpilibj.DriverStation;
-
+/////////////////////////////////////////////////////////////////////////////
 /**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
+ * This class is where the bulk of the robot should be declared. Since
+ * Command-based is a "declarative" paradigm, very little robot logic should
+ * actually be handled in the {@link Robot} periodic methods (other than the
+ * scheduler calls). Instead, the structure of the robot (including
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  //UI systems are defined here...
-  public static XboxController DriverController, OperatorController;
 
-  private JoystickButton OperatorA, OperatorB, OperatorX, OperatorY, OperatorlBump, OperatorrBump, OperatorBack, OperatorStart;
-  private JoystickButton DriverA, DriverB, DriverX, DriverY, DriverlBump, DriverrBump, DriverBack, DriverStart;
+  /////////////////////////////////////////////////////////////////////////////
+  /** Directions used when driving the robot */
+  public enum RobotDirection {
+    Forward,  /** Forward commands drive the robot forward normally */
+    Reverse; /** Forward commands drive the robot in reverse */
+
+    /** Get the human-readable name of the direction */
+    @Override
+    public String toString() { return this.name(); }
+  };
+
+  // Xbox controllers for driving the robot manually
+  public static JoystickController driverController;   /** Xbox controller used by the robot driver */
+  public static JoystickController operatorController; /** Xbox controller used by the robot operator */
+
   public static boolean ManualControl = false;
-  public static Integer DriveDirection = 1;
+  public static RobotDirection DriveDirection = RobotDirection.Forward;
   public static boolean isRedAlliance = false;
   public static boolean RobotShooting = false;
 
   // The robot's subsystems are defined here...
   //private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   public static Climber m_Climber = new Climber();
-  public static DriveBase m_DriveBase = new DriveBase();
-  public static Intake m_Intake = new Intake();
-  public static Lighting m_Lighting = new Lighting();
+  public static DriveBaseNew m_DriveBase = new DriveBaseNew();
   public static Shooter m_Shooter = new Shooter();
+  public static Intake m_Intake = new Intake(m_Shooter);
+  public static Lighting m_Lighting = new Lighting();
   public static Dashboard m_Dashboard = new Dashboard();
-  public static tRex m_tRex = new tRex();
+  public static T_rex m_tRex = new T_rex();
 
   //The robot's commands are defined here...
   //private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
@@ -78,28 +87,17 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    DriverController = new XboxController(0);
-    OperatorController = new XboxController(1);
-
-    OperatorA = new JoystickButton(OperatorController, 1);
-    OperatorB = new JoystickButton(OperatorController, 2);
-    OperatorX = new JoystickButton(OperatorController, 3);
-    OperatorY = new JoystickButton(OperatorController, 4);
-    OperatorlBump = new JoystickButton(OperatorController, 5);
-    OperatorrBump = new JoystickButton(OperatorController, 6);
-    OperatorBack = new JoystickButton(OperatorController, 7);
-    OperatorStart = new JoystickButton(OperatorController, 8);
-
-    //OperatorStart.whenPressed(new ManualModeToggle());
-   // OperatorX.whenPressed(new LoadAndFire(m_Shooter));
-    OperatorA.whenHeld(new IntakeBall(RobotContainer.m_Intake));
-    OperatorlBump.whenHeld(new ManualMode());
-    OperatorrBump.whenHeld(new ManualMode());
-    
-    DriverStart = new JoystickButton(DriverController, 8);
-    DriverStart.whenPressed(new ToggleFrontOfBot());
-  
-  }
+    driverController = new JoystickController(0);
+    operatorController = new JoystickController(1);
+        // Map buttons on operator controller
+        //operatorController.Start.whenPressed(new ManualModeToggle());
+        operatorController.bumpLeft.whenHeld(new ManualMode());
+        operatorController.bumpRight.whenHeld(new ManualMode());
+        operatorController.X.whenPressed(new LoadAndFire(m_Shooter, operatorController.X));
+        operatorController.A.whenHeld(new IntakeBall(RobotContainer.m_Intake));
+        
+        driverController.Start.whenPressed(new ToggleFrontOfBot());
+      }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -110,17 +108,11 @@ public class RobotContainer {
     // An ExampleCommand will run in autonomous
     return m_chooser.getSelected();
   }
+
+  /** 
+   * Returns true if the robot is being driven in Manual, tele-operated mode
+   */
+  public static boolean robotIsInManualTeleOpMode() {
+    return (RobotState.isEnabled() && RobotState.isTeleop() && ManualControl);
+  }
 }
-
-
-
-//private final XboxController m_joystick = new XboxController(0);
-//  final JoystickButton l2 = new JoystickButton(m_joystick, 9);
-//  final JoystickButton r2 = new JoystickButton(m_joystick, 10);
-//  final JoystickButton l1 = new JoystickButton(m_joystick, 11);
-//  final JoystickButton r1 = new JoystickButton(m_joystick, 12);
-//  r1.whenPressed(new PrepareToPickup(m_claw, m_wrist, m_elevator));
-//  r2.whenPressed(new Pickup(m_claw, m_wrist, m_elevator));
-//  l1.whenPressed(new Place(m_claw, m_wrist, m_elevator));
-//  l2.whenPressed(new Autonomous(m_drivetrain, m_claw, m_wrist, m_elevator));
-// The XboxController class provides named indicies for each of the buttons that you can access with XboxController.Button.kX.value. The rumble feature of the controller can be controlled by using XboxController.setRumble(GenericHID.RumbleType.kRightRumble, value). Many users do a split stick arcade drive that uses the left stick for just forwards / backwards and the right stick for left / right turning.

@@ -6,9 +6,11 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
+import frc.robot.RobotContainer.RobotDirection;
 
 public class ToggleFrontOfBot extends CommandBase {
   private boolean HasRan;
+
   /** Creates a new ToggleFrontOfBot. */
   public ToggleFrontOfBot() {
 
@@ -24,17 +26,19 @@ public class ToggleFrontOfBot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (RobotContainer.DriveDirection == 1){
-      RobotContainer.DriveDirection = -1;
-    }else{
-      RobotContainer.DriveDirection = 1;
+    if (RobotContainer.DriveDirection == RobotDirection.Forward) {
+      RobotContainer.DriveDirection = RobotDirection.Reverse;
+    } else {
+      RobotContainer.DriveDirection = RobotDirection.Forward;
     }
+
     HasRan = true;
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
 
   // Returns true when the command should end.
   @Override

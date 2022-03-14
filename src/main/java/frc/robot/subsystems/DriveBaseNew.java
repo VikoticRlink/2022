@@ -4,7 +4,6 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 import edu.wpi.first.wpilibj.interfaces.Gyro;
@@ -13,7 +12,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import frc.robot.Tools;
 import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -75,11 +73,11 @@ public class DriveBaseNew extends SubsystemBase {
     // Update the odometry in the periodic block
     m_odometry.update(m_gyro.getRotation2d(), leftMaster.getSelectedSensorPosition() * Constants.DriveConstants.kEncoderDistancePerPulse, rightMaster.getSelectedSensorPosition() * Constants.DriveConstants.kEncoderDistancePerPulse);
 
-    if(RobotContainer.DriverController.getRightBumper()){
+    if(RobotContainer.driverController.bumpRight.get()){
       DrivePowerModifer = Constants.MotorScaler.DriveMidLimit;
       SmartDashboard.putString("Speed", "Medium");
     }else{
-      if(RobotContainer.DriverController.getLeftBumper()){
+      if(RobotContainer.driverController.bumpLeft.get()){
         DrivePowerModifer = Constants.MotorScaler.DriveSlowLimit ;
         SmartDashboard.putString("Speed", "Slow");
       }else{
@@ -89,11 +87,11 @@ public class DriveBaseNew extends SubsystemBase {
     }
 
     if(RobotState.isEnabled() && RobotState.isTeleop()){
-      if(RobotContainer.DriveDirection==1){
-        m_drive.tankDrive(DrivePowerModifer * Tools.featherJoystick(RobotContainer.DriverController.getLeftY(), Constants.JoystickSensitivity), DrivePowerModifer * Tools.featherJoystick(RobotContainer.DriverController.getRightY(), Constants.JoystickSensitivity));
+      if(RobotContainer.DriveDirection == RobotContainer.RobotDirection.Forward){
+        m_drive.tankDrive(DrivePowerModifer * RobotContainer.driverController.rightStickY(), DrivePowerModifer * RobotContainer.driverController.leftStickY());
     
       }else{
-         m_drive.tankDrive(-1 * DrivePowerModifer * Tools.featherJoystick(RobotContainer.DriverController.getRightY(), Constants.JoystickSensitivity), -1 * DrivePowerModifer * Tools.featherJoystick(RobotContainer.DriverController.getLeftY(), Constants.JoystickSensitivity));
+         m_drive.tankDrive(-1 * DrivePowerModifer * RobotContainer.driverController.leftStickY(), -1 * DrivePowerModifer * RobotContainer.driverController.rightStickY());
       }
     }
 

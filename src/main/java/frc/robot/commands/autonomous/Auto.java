@@ -9,8 +9,6 @@ import frc.robot.subsystems.*;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
-import javax.lang.model.util.ElementScanner6;
-
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 

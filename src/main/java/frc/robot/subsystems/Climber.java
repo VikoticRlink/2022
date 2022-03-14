@@ -4,14 +4,12 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import frc.robot.Tools;
 
 public class Climber extends SubsystemBase {
   /** Creates a new Climber. */
@@ -29,10 +27,10 @@ public class Climber extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    if(RobotState.isEnabled() && RobotState.isTeleop() && RobotContainer.ManualControl){
-        double climbAmount = Tools.featherJoystick(RobotContainer.OperatorController.getLeftY(), Constants.JoystickSensitivity);
+    if (RobotContainer.robotIsInManualTeleOpMode()) {
+        double climbAmount = RobotContainer.operatorController.leftStickY();
         climbAmount *= Constants.MotorScaler.kClimberSpeed;
         ClimbMaster.set(TalonFXControlMode.PercentOutput, -1 * climbAmount);
-    }
+  }
 }
 }

@@ -9,10 +9,12 @@ import frc.robot.subsystems.Intake;
 
 public class IntakeBall extends CommandBase {
   /** Creates a new IntakeBall. */
-  private Intake l_IntakeSubsystem;
-  public IntakeBall(Intake IntakeSubsystem) {
+  private Intake m_intakeSubsystem; /**< Reference to the Intake subsystem */
+  public IntakeBall(Intake intakeSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    l_IntakeSubsystem = IntakeSubsystem;
+    m_intakeSubsystem = intakeSubsystem;
+
+    addRequirements(intakeSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -22,13 +24,13 @@ public class IntakeBall extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    l_IntakeSubsystem.getBalls();
+    m_intakeSubsystem.getBalls();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    l_IntakeSubsystem.disableIntake();
+    m_intakeSubsystem.disableIntake();
   }
 
   // Returns true when the command should end.
