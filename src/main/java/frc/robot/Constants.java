@@ -50,14 +50,14 @@ public class Constants {
 	 * Gains(double _kP, double _kI, double _kD, double _kF, int _kIzone, double _kPeakOutput)
      */
     //public static Gains kGains = new Gains(0.15, 0.0, 1.0, 0.0, 0, 1.0);
-    public static Gains ktRexGains = new Gains(0.02, 0.0, 0.0, 0, 0, 0.1);
-	public static Gains kIntakeGains = new Gains(0.02, 0.0, 0.0, 0, 0, 0.1);
+    public static Gains ktRexGains = new Gains(0.025, 0.0, 0.0, 0, 0, 0.1);
+	public static Gains kIntakeGains = new Gains(0.025, 0.0, 0.0, 0, 0, 0.1);
 
 	 //http://www.ni.com/en-us/innovations/white-papers/06/pid-theory-explained.html
 	 public static double JoystickSensitivity = .3;
 
-	 public static final int[] ArmPosition = new int[] {100, 20000};
-
+	 public static final int[] ArmPosition = new int[] {0, 17850, 23000};
+	public static final int[] tRexPosition = new int []{0, 13629, 31880, 43589, 54841, 68187};
 	 //For Pathfinder.  These need to be updated for our bot!!!!!!!
 	 //------------------------------------------------------------
 	 public static final class DriveConstants {
@@ -113,13 +113,13 @@ public class Constants {
 		public static final double ktRexArms = 0.2;
 		public static final double kIntakeSpeed = 1.0;
 		public static final double kIndexSpeed = 1.0;
-		public static final double kShooterSpeed = 1.0;
+		public static final double kShooterSpeed = 0.7;  //0.5 good for 42" shots
 		public static final double kClimberSpeed = 1.0;
 		public static final double SlowSpeedLimit = 0.25;
 		public static final double StandardSpeedLimit = 0.9;
 		public static final double DriveStandardLimit = 0.9;
-		public static final double DriveMidLimit = 0.6;
-		public static final double DriveSlowLimit = 0.3;
+		public static final double DriveMidLimit = 0.7;
+		public static final double DriveSlowLimit = 0.4;
 	}
 	//Motor identification
 	public static final class MotorID{

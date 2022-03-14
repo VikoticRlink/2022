@@ -39,7 +39,7 @@ public class RobotContainer {
   // The robot's subsystems are defined here...
   //private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   public static Climber m_Climber = new Climber();
-  public static DriveBaseNew m_DriveBase = new DriveBaseNew();
+  public static DriveBase m_DriveBase = new DriveBase();
   public static Intake m_Intake = new Intake();
   public static Lighting m_Lighting = new Lighting();
   public static Shooter m_Shooter = new Shooter();
@@ -90,9 +90,11 @@ public class RobotContainer {
     OperatorBack = new JoystickButton(OperatorController, 7);
     OperatorStart = new JoystickButton(OperatorController, 8);
 
-    OperatorStart.whenPressed(new ManualModeToggle());
+    //OperatorStart.whenPressed(new ManualModeToggle());
    // OperatorX.whenPressed(new LoadAndFire(m_Shooter));
     OperatorA.whenHeld(new IntakeBall(RobotContainer.m_Intake));
+    OperatorlBump.whenHeld(new ManualMode());
+    OperatorrBump.whenHeld(new ManualMode());
     
     DriverStart = new JoystickButton(DriverController, 8);
     DriverStart.whenPressed(new ToggleFrontOfBot());

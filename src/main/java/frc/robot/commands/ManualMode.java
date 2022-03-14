@@ -7,10 +7,10 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class ManualModeToggle extends CommandBase {
+public class ManualMode extends CommandBase {
   Boolean HasRan = false;
   /** Creates a new ManualModeToggle. */
-  public ManualModeToggle() {
+  public ManualMode() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -21,21 +21,18 @@ public class ManualModeToggle extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (RobotContainer.ManualControl){
-      RobotContainer.ManualControl=false;
-    }else{
-      RobotContainer.ManualControl=true;
-    }
-    HasRan = true;
+    RobotContainer.ManualControl=true;
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    RobotContainer.ManualControl=false;
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return HasRan;
+    return false;
   }
 }

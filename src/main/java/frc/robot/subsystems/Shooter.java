@@ -23,6 +23,7 @@ public class Shooter extends SubsystemBase {
   WPI_TalonFX IndexMotor = new WPI_TalonFX(Constants.MotorID.indexMotor);
   private DigitalInput BallIndexer = new DigitalInput(0);
   private DigitalInput BallIndexer2 = new DigitalInput(1);
+  private DigitalInput BallTooFar = new DigitalInput(2);
   
   
   /** Creates a new Shooter. */
@@ -36,16 +37,18 @@ public class Shooter extends SubsystemBase {
     return RobotContainer.OperatorController.getBButton();
     //return BallIndexer.get();
   }
-  public boolean BallPrimed() {
+  public boolean FirstBallPresent() {
     return !BallIndexer.get();
   } 
   public boolean SecondBallPresent() {
     return !BallIndexer2.get();
   }
-
+  public boolean BallisAgainstShooter() {
+    return !BallTooFar.get();
+  }
   public void Run_Index_Motor(double direction) {
     // Values -1, 0 , 1 accepted | -1 -> Backwards, 0 -> Stop, 1 -> Forwards
-    IndexMotor.set(TalonFXControlMode.PercentOutput, 0.50 * direction);
+    IndexMotor.set(TalonFXControlMode.PercentOutput, Constants.MotorScaler.kIndexSpeed * direction);
   }
 
   public void Run_Flywheel_Motor(double run) {
@@ -62,7 +65,7 @@ public class Shooter extends SubsystemBase {
       shooterAmount *= Constants.MotorScaler.kShooterSpeed;  // Scale the motor speed
       indexAmount *= Constants.MotorScaler.kIndexSpeed;  // Scale the motor speed
 
-      ShooterMotor.set(TalonFXControlMode.PercentOutput, -1 * shooterAmount);
+      ShooterMotor.set(TalonFXControlMode.PercentOutput,  shooterAmount);
       IndexMotor.set(TalonFXControlMode.PercentOutput, indexAmount);
 
   }

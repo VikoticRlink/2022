@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import frc.robot.Constants;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.Tools;
 
@@ -26,11 +27,12 @@ public class Intake extends SubsystemBase {
     // ***       the actuator.
 
     IntakeActuator.setNeutralMode(NeutralMode.Brake);
-   // IntakeActuator.configForwardSoftLimitThreshold(0, 0);
-   // IntakeActuator.configReverseSoftLimitThreshold(52000, 0);
+    IntakeActuator.configForwardSoftLimitThreshold(0, 0);
+    IntakeActuator.configReverseSoftLimitThreshold(23000, 0);
     IntakeActuator.configForwardSoftLimitEnable(false, 0);
     IntakeActuator.configReverseSoftLimitEnable(false, 0);
     configIntake();
+    IntakeActuator.setSelectedSensorPosition(0, 0, 0);
   }
 
   @Override
@@ -49,14 +51,17 @@ public class Intake extends SubsystemBase {
 
   public void getBalls(){
     //setIntake(1);
-    IntakeMotor.set(TalonFXControlMode.PercentOutput, -1);
+    IntakeMotor.set(TalonFXControlMode.PercentOutput, Constants.MotorScaler.kIntakeSpeed);
     RobotContainer.m_Shooter.Run_Index_Motor(1);
+    setIntake(1);
+    RobotContainer.m_tRex.setArms(4);
   }
 
   public void disableIntake(){
     IntakeMotor.set(TalonFXControlMode.PercentOutput, 0);
     RobotContainer.m_Shooter.Run_Index_Motor(0);
-    //setIntake(0);
+    setIntake(0);
+    RobotContainer.m_tRex.setArms(1);
   }
   public double readEncoder(){      
     return IntakeActuator.getSelectedSensorPosition(0);

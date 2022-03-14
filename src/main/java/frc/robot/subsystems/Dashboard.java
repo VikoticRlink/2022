@@ -36,12 +36,15 @@ public class Dashboard extends SubsystemBase {
     SmartDashboard.putBoolean("Manual Mode", RobotContainer.ManualControl);
     SmartDashboard.putBoolean("Alliance", RobotContainer.isRedAlliance);
     
-    SmartDashboard.putBoolean("Ball Primed", RobotContainer.m_Shooter.BallPrimed());
+    SmartDashboard.putBoolean("First Ball", RobotContainer.m_Shooter.FirstBallPresent());
     SmartDashboard.putBoolean("Second Ball", RobotContainer.m_Shooter.SecondBallPresent());
+    SmartDashboard.putBoolean("Ball Against Shooterball", RobotContainer.m_Shooter.BallisAgainstShooter());
     SmartDashboard.putNumber("Bot Heading", RobotContainer.m_DriveBase.getHeading());
     SmartDashboard.putNumber("Intake Actuater", RobotContainer.m_Intake.readEncoder());
+    SmartDashboard.putNumber("tRex", RobotContainer.m_tRex.readEncoder());
+
     
-PushMotorTemps();
+//PushMotorTemps();
   }
 
   //Motor Temp records
