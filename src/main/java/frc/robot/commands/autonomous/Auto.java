@@ -5,11 +5,9 @@
 package frc.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.*;
-import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
-import edu.wpi.first.wpilibj.Timer;
+//import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Auto extends CommandBase {
@@ -25,7 +23,7 @@ public class Auto extends CommandBase {
   @Override
   public void initialize() {
     RobotContainer.m_DriveBase.resetEncoders();
-   // RobotContainer.m_DriveBase.BrakeMode();
+    RobotContainer.m_DriveBase.BrakeMode();
     IsDone=false;
   }
 
@@ -33,30 +31,30 @@ public class Auto extends CommandBase {
   @Override
   public void execute() {
     SmartDashboard.putNumber("Auto Drive Stage", driveStage);
-   /*switch (driveStage) {
+   switch (driveStage) {
       case 0: 
-        if (RobotContainer.m_DriveBase.readEncoder(true) > -30000) {
+        if (RobotContainer.m_DriveBase.rightMaster.getSelectedSensorPosition() > -30000) {
           RobotContainer.m_Intake.getBalls();
-          RobotContainer.m_DriveBase.drivePercent(0.1, -0.1);
+          RobotContainer.m_DriveBase.tankDriveVolts(2, -2);
           }else{
-            RobotContainer.m_DriveBase.drivePercent(0, 0);
+            RobotContainer.m_DriveBase.tankDriveVolts(0,0);
             driveStage = 1;
           }
       break;
       case 1:
-        if (RobotContainer.m_DriveBase.readEncoder(true)< 30000) {
-          RobotContainer.m_DriveBase.drivePercent(-0.3, 0.3);
+        if (RobotContainer.m_DriveBase.rightMaster.getSelectedSensorPosition() < 30000) {
+          RobotContainer.m_DriveBase.tankDriveVolts(-3.6, 3.6);
         }else {
           driveStage = 2;
         }
       break;
     case 2:
-      if (RobotContainer.m_DriveBase.readEncoder(true)<120000) {
-        RobotContainer.m_DriveBase.drivePercent(-0.5, 0.5);
+      if (RobotContainer.m_DriveBase.rightMaster.getSelectedSensorPosition() < 120000) {
+        RobotContainer.m_DriveBase.tankDriveVolts(-6.0, 6.0);
       //Shoot Ball Here
       }else{
         driveStage = 3;
-        RobotContainer.m_DriveBase.drivePercent(0, 0);
+        RobotContainer.m_DriveBase.tankDriveVolts(0, 0);
         RobotContainer.m_DriveBase.resetEncoders();
         RobotContainer.m_DriveBase.CoastMode();
         RobotContainer.m_Intake.disableIntake();
@@ -64,7 +62,7 @@ public class Auto extends CommandBase {
         IsDone=true;
       }
     break;
-   }*/
+   }
   }
 
   // Called once the command ends or is interrupted.

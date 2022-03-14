@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -17,8 +19,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveBaseNew extends SubsystemBase {
   // The motors on the left side of the drive.
-  WPI_TalonFX leftMaster = new WPI_TalonFX(Constants.MotorID.leftDriveMaster);
-  WPI_TalonFX rightMaster = new WPI_TalonFX(Constants.MotorID.rightDriveMaster);
+  public WPI_TalonFX leftMaster = new WPI_TalonFX(Constants.MotorID.leftDriveMaster);
+  public WPI_TalonFX rightMaster = new WPI_TalonFX(Constants.MotorID.rightDriveMaster);
   WPI_TalonFX leftSlave = new WPI_TalonFX(Constants.MotorID.leftDriveSlave);
   WPI_TalonFX rightSlave = new WPI_TalonFX(Constants.MotorID.rightDriveSlave);
 
@@ -211,5 +213,15 @@ public class DriveBaseNew extends SubsystemBase {
    */
   public double getTurnRate() {
     return -m_gyro.getRate();
+  }
+  
+  public void CoastMode(){
+    rightMaster.setNeutralMode(NeutralMode.Coast);
+    leftMaster.setNeutralMode(NeutralMode.Coast);
+  }
+  public void BrakeMode(){
+    rightMaster.setNeutralMode(NeutralMode.Brake);
+    leftMaster.setNeutralMode(NeutralMode.Brake);
+  
   }
 }
