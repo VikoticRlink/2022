@@ -121,7 +121,7 @@ public class JoystickController extends Object {
    *  range -1.0 (bottom) to 1.0 (top) with a center position at 0.0 
    */
   public double rightStickX() {
-    return rightStickXProc.process(m_controller.getLeftX());
+    return rightStickXProc.process(m_controller.getRightX());
   }
 
   /////////////////////////////////////////////////////////////////////////////
@@ -129,7 +129,7 @@ public class JoystickController extends Object {
    *  range -1.0 (bottom) to 1.0 (top) with a center position at 0.0 
    */
   public double rightStickY() {
-    return rightStickYProc.process(m_controller.getLeftY());
+    return rightStickYProc.process(m_controller.getRightY());
   }
 
 

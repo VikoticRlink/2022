@@ -77,9 +77,9 @@ public class Intake extends SubsystemBase {
     // Service the subsystem when the robot is in Manual mode
     if (RobotContainer.robotIsInManualTeleOpMode()) {
       // Left trigger pull amount drives the intake speed
-      double driveAmount = RobotContainer.operatorController.leftTriggerPull()
-                           * Constants.MotorScaler.kIntakeMotorSpeed;
-      m_takeUpMotor.set(TalonFXControlMode.PercentOutput, -1 * driveAmount);
+    //  double driveAmount = RobotContainer.operatorController.leftTriggerPull()
+     //                      * Constants.MotorScaler.kIntakeMotorSpeed;
+     // m_takeUpMotor.set(TalonFXControlMode.PercentOutput, -1 * driveAmount);
     }
   }
 
@@ -95,7 +95,7 @@ public class Intake extends SubsystemBase {
 
     // Run the intake motor to start pulling in balls
     m_takeUpMotor.set(TalonFXControlMode.PercentOutput, 
-                    (-1 * Constants.MotorScaler.kIntakeMotorSpeed));
+                    Constants.MotorScaler.kIntakeMotorSpeed);
 
     // Run the ball indexer to pull balls from the intake into the shooter
     RobotContainer.m_Shooter.runBallIndexer(Shooter.BallIndexerMode.FeedBall);
@@ -116,7 +116,7 @@ public class Intake extends SubsystemBase {
    */
   public enum IntakeArmPosition {
     // TODO: Fill in the encoder counts for each of the positions
-    DownToGatherBalls (17850),  /** Intake arms down for gathering balls */
+    DownToGatherBalls (19307),  /** Intake arms down for gathering balls */
     FrameLimit        (23000),  /** Intake arms at frame limit */
     UpAndStowedAway   (0);      /** Intake arms are stowed away in their top position */
 

@@ -6,6 +6,8 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
@@ -60,7 +62,8 @@ public class Shooter extends SubsystemBase {
     m_ballLimitSensor = new DigitalInput(Constants.ShooterConstants.BallSensorDigitalInputUpper);
     m_ballSensorMiddle = new DigitalInput(Constants.ShooterConstants.BallSensorDigitalInputMiddle);
     m_ballSensorLower = new DigitalInput(Constants.ShooterConstants.BallSensorDigitalInputLower);
-
+    m_flywheelMotorMaster.setNeutralMode(NeutralMode.Coast);
+    m_flywheelMotorSlave.setNeutralMode(NeutralMode.Coast);
     // Configure the flywheel master motor
     m_flywheelMotorMaster.setInverted(kInvertFlywheelMotor);
 
@@ -69,7 +72,7 @@ public class Shooter extends SubsystemBase {
     //We MAY break these out so they aren't following in the future to put spin on the ball.
     //Currently there is no encoders on these, so it's pretty raw settings anyhow.
     m_flywheelMotorSlave.follow(m_flywheelMotorMaster); 
-    m_flywheelMotorSlave.setInverted(!kInvertFlywheelMotor);
+    m_flywheelMotorSlave.setInverted(kInvertFlywheelMotor);
   }
 
 
@@ -165,7 +168,7 @@ public class Shooter extends SubsystemBase {
       double indexAmount = RobotContainer.operatorController.rightTriggerPull()
                            * BallIndexerMode.ShootBall.getMotorSpeed();
 
-      m_flywheelMotorMaster.set(TalonFXControlMode.PercentOutput, -1 * shooterAmount);
+      m_flywheelMotorMaster.set(TalonFXControlMode.PercentOutput, shooterAmount);
       m_indexMotor.set(TalonFXControlMode.PercentOutput, indexAmount);
     }
   }

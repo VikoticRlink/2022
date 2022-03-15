@@ -63,7 +63,7 @@ public class T_rex extends SubsystemBase {
     ArmsUp      (13629),  /**< T-Rex arms up - not gathering balls */
     FourtyFive  (31880),  /**< T-Rex arms at a 45 (climbing) */
     StraightOut (43589),  /**< T-Rex arms straight out */
-    BallCollect (54841),  /**< T-Rex arms bouncing balls in */
+    BallCollect (58996),  /**< T-Rex arms bouncing balls in */
     FullDown    (68187);  /**< T-Rex arms fully down */
 
     private final int encoderCount;
