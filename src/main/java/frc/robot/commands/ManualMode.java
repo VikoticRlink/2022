@@ -6,6 +6,9 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
+import frc.robot.subsystems.Climber.ClimberMode;
+import frc.robot.subsystems.Shooter.BallIndexerMode;
+import frc.robot.subsystems.T_rex.TrexArmPosition;
 
 public class ManualMode extends CommandBase {
   Boolean HasRan = false;
@@ -28,6 +31,10 @@ public class ManualMode extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     RobotContainer.ManualControl=false;
+    RobotContainer.m_Shooter.runFlywheel(false);
+    RobotContainer.m_Shooter.runBallIndexer(BallIndexerMode.Stopped);
+    RobotContainer.m_Climber.runClimberElevator(ClimberMode.Stopped);
+    RobotContainer.m_tRex.setArmPosition(TrexArmPosition.ESTOP);
   }
 
   // Returns true when the command should end.

@@ -16,6 +16,18 @@ public class Climber extends SubsystemBase {
   WPI_TalonFX ClimbMaster = new WPI_TalonFX(Constants.MotorID.climberMaster);
   WPI_TalonFX ClimbSlave = new WPI_TalonFX(Constants.MotorID.climberSlave);
 
+  /** Modes that the Climb Elevator can be run in
+   */
+  public enum ClimberMode {
+    Stopped (0.0),    /** Climb Elevator is stopped */
+    Manual (2),      /** Climb Elevator is in Manual Mode */
+    Extend (1.0),   /** Extend Climb Elevator */
+    Retract (-1.0);  /** Retract Climb Elevator */
+
+    private final double motorSpeed;
+    private ClimberMode(double speed) {motorSpeed = speed;}
+    public double getMotorSpeed() { return motorSpeed; }
+  };
 
   public Climber() {
     ClimbSlave.setInverted(true);
@@ -28,9 +40,36 @@ public class Climber extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     if (RobotContainer.robotIsInManualTeleOpMode()) {
-        double climbAmount = RobotContainer.operatorController.leftStickY();
-        climbAmount *= Constants.MotorScaler.kClimberSpeed;
-        ClimbMaster.set(TalonFXControlMode.PercentOutput, -1 * climbAmount);
+      runClimberElevator(ClimberMode.Manual);
+     //   double climbAmount = RobotContainer.operatorController.leftStickY();
+     //   climbAmount *= Constants.MotorScaler.kClimberSpeed;
+     //   ClimbMaster.set(TalonFXControlMode.PercentOutput, -1 * climbAmount);
   }
-}
+  }
+
+  /////////////////////////////////////////////////////////////////////////////
+  /** Runs the Climber Arms
+   * 
+   * @param mode  Mode to run the ball indexer in
+   */
+  public void runClimberElevator(ClimberMode mode) {
+    double percentOutput = mode.getMotorSpeed();
+    
+    if (ClimberMode.Stopped != mode) {
+      percentOutput *= Constants.MotorScaler.kClimberSpeed;
+    }
+    switch(mode){
+      case Stopped:
+        percentOutput = 0;
+      break;
+      case Manual:
+        RobotContainer.operatorController.leftStickY();
+      break;
+      default:
+        percentOutput *= Constants.MotorScaler.kClimberSpeed;
+      break;
+    }
+    ClimbMaster.set(TalonFXControlMode.PercentOutput, percentOutput);
+  }
+
 }

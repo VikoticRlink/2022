@@ -64,7 +64,8 @@ public class T_rex extends SubsystemBase {
     FourtyFive  (31880),  /**< T-Rex arms at a 45 (climbing) */
     StraightOut (43589),  /**< T-Rex arms straight out */
     BallCollect (58996),  /**< T-Rex arms bouncing balls in */
-    FullDown    (68187);  /**< T-Rex arms fully down */
+    FullDown    (68187),  /**< T-Rex arms fully down */
+    ESTOP       (-1000);  /**< Emergency Stop and hold */
 
     private final int encoderCount;
     private TrexArmPosition(int count) {this.encoderCount = count;}
@@ -79,7 +80,11 @@ public class T_rex extends SubsystemBase {
    */
   public void setArmPosition(TrexArmPosition position)
   {
-    m_tRexMaster.set(TalonFXControlMode.Position, position.getEncoderCount());
+    if(position!=TrexArmPosition.ESTOP){
+      m_tRexMaster.set(TalonFXControlMode.Position, position.getEncoderCount());
+    }else{
+      m_tRexMaster.set(TalonFXControlMode.Position, getArmPositionRaw());
+    }
   }
 
   /////////////////////////////////////////////////////////////////////////////
