@@ -7,6 +7,7 @@ package frc.robot.commands.shooter;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Shooter.FlywheelSpeed;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.shooter.fireBallSubcommands.*;
 
@@ -16,13 +17,15 @@ public class FireBall extends SequentialCommandGroup {
 
   /////////////////////////////////////////////////////////////////////////////
   /** Creates an instance of the command
+   * @param muzzleVelicity    Velocity to fire the ball at
    * @param shooterSubsystem  Shooter subsystem used by the command
    * @param fireButton  Button used to fire balls in tele-operated mode
   */
-  public FireBall(Shooter shooterSubsystem, JoystickButton fireButton) {
+  public FireBall(FlywheelSpeed muzzleVelocity, Shooter shooterSubsystem, 
+                  JoystickButton fireButton) {
     // Add commands in the order in which they will be carried out
     addCommands(
-        new SpinUpFlywheel(shooterSubsystem)
+        new SpinUpFlywheel(muzzleVelocity, shooterSubsystem)
           .perpetually()
           .withTimeout(Constants.ShooterConstants.kSpinUpFlywheelSeconds),
           

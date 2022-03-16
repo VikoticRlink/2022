@@ -6,6 +6,7 @@ package frc.robot.commands.shooter.fireBallSubcommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Shooter.FlywheelSpeed;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -16,13 +17,16 @@ import frc.robot.subsystems.Shooter;
  */
 public class SpinUpFlywheel extends CommandBase {
   Shooter m_shooterSubsystem;
+  private FlywheelSpeed m_flywheelSpeed; /** Speed the flywheel will be run at */
 
   /////////////////////////////////////////////////////////////////////////////
   /** Creates an instance of the command
+   * @param flywheelSpeed     Speed the flywheel will be run at
    * @param shooterSubsystem  Shooter subsystem used by the command
    */
-  public SpinUpFlywheel(Shooter shooterSubsystem) {
+  public SpinUpFlywheel(FlywheelSpeed flywheelSpeed, Shooter shooterSubsystem) {
     m_shooterSubsystem = shooterSubsystem;
+    m_flywheelSpeed = flywheelSpeed;
     addRequirements(shooterSubsystem);
   }
 
@@ -35,7 +39,7 @@ public class SpinUpFlywheel extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_shooterSubsystem.runFlywheel(true);
+    m_shooterSubsystem.runFlywheel(m_flywheelSpeed);
   }
 
   /////////////////////////////////////////////////////////////////////////////

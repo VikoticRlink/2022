@@ -8,10 +8,10 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.autonomous.driveStages.DriveStage0;
-import frc.robot.commands.shooter.FireBall;
 import frc.robot.subsystems.DriveBaseNew;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Shooter.FlywheelSpeed;
 
 public class AutoDrive extends SequentialCommandGroup {
   
@@ -21,7 +21,7 @@ public class AutoDrive extends SequentialCommandGroup {
       new DriveStage0(driveBaseSubsystem, intakeSubsystem),
       new WaitCommand(2),
       new InstantCommand(intakeSubsystem::disableIntake, intakeSubsystem),
-      new FireBall(shooterSubsystem, null),
+      new LoadAndFire(FlywheelSpeed.Autonomous, shooterSubsystem, null),
       new InstantCommand(driveBaseSubsystem::CoastMode, driveBaseSubsystem)
     );
   }

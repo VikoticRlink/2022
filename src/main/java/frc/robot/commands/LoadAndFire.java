@@ -11,6 +11,7 @@ import frc.robot.commands.shooter.LoadBall;
 import frc.robot.RobotContainer;
 import frc.robot.commands.shooter.FireBall;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Shooter.FlywheelSpeed;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -22,15 +23,17 @@ public class LoadAndFire extends SequentialCommandGroup {
 
   /////////////////////////////////////////////////////////////////////////////
   /** Creates an instance of the command
+   * @param muzzleVelocity    Speed to fire the ball
    * @param shooterSubsystem  Shooter subsystem the command will use
    * @param fireButton  Joystick button used to fire in manual tele-operated mode
   */
-  public LoadAndFire(Shooter shooterSubsystem, JoystickButton fireButton) {
+  public LoadAndFire(FlywheelSpeed muzzleVelocity, Shooter shooterSubsystem, 
+                     JoystickButton fireButton) {
     RobotContainer.RobotShooting = true;  // Set flag indicating we are shooting
 
     addCommands(
         new LoadBall(shooterSubsystem),
-        new FireBall(shooterSubsystem, fireButton));
+        new FireBall(muzzleVelocity, shooterSubsystem, fireButton));
   }
 
   /////////////////////////////////////////////////////////////////////////////

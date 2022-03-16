@@ -163,20 +163,33 @@ public class Shooter extends SubsystemBase {
     m_indexMotor.set(TalonFXControlMode.PercentOutput, percentOutput);
   }
 
+
+  /////////////////////////////////////////////////////////////////////////////
+  /** Speeds the flywheel can be run at */
+  public enum FlywheelSpeed {
+    Stopped (0.0),         /** Turn off the flywheel */
+    Low (0.2),              /** Slowest muzzle velocity */
+    Medium (0.5),           /** Medium muzzle velocity */
+    GreasedLightning (1.0), /** Back away... not today */
+
+    Autonomous (0.5);  /** Muzzle velocity used in autonomous mode */
+
+    private final double value;
+    private FlywheelSpeed(double val) {this.value = val;}
+    public double value() { return value; }
+  };
+
+
   /////////////////////////////////////////////////////////////////////////////
   /**
    * Runs or stops the flywheel in the shooter
    * 
-   * @param shouldRun true to run the flywheel, false to stop it
+   * @param speed Speed to run the flywheel at
    */
-  public void runFlywheel(boolean shouldRun) {
-    double speed = 0.0;
-
-    if (shouldRun) {
-      double invert = (kInvertFlywheelMotor ? -1.0 : 1.0);
-      speed = Constants.ShooterConstants.kFlywheelSpeed * invert;
-    }
-    m_flywheelMotorMaster.set(TalonFXControlMode.PercentOutput, speed);
+  public void runFlywheel(FlywheelSpeed speed) {
+    double invert = (kInvertFlywheelMotor ? -1.0 : 1.0);
+    double motorSpeed = speed.value() * invert;
+    m_flywheelMotorMaster.set(TalonFXControlMode.PercentOutput, motorSpeed);
   }
 
   /////////////////////////////////////////////////////////////////////////////

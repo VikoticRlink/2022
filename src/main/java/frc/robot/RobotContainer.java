@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.*;
 import frc.robot.commands.autonomous.*;
 import frc.robot.commands.*;
+import frc.robot.subsystems.Shooter.FlywheelSpeed;;
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -93,8 +94,10 @@ public class RobotContainer {
         //operatorController.Start.whenPressed(new ManualModeToggle());
         operatorController.bumpLeft.whenHeld(new ManualMode());
         operatorController.bumpRight.whenHeld(new ManualMode());
-        operatorController.X.whenPressed(new LoadAndFire(m_Shooter, operatorController.X));
-        operatorController.A.whenHeld(new IntakeBall(RobotContainer.m_Intake));
+        operatorController.A.whenPressed(new LoadAndFire(FlywheelSpeed.Low, m_Shooter, operatorController.A));
+        operatorController.B.whenPressed(new LoadAndFire(FlywheelSpeed.Low, m_Shooter, operatorController.B));
+        operatorController.Y.whenPressed(new LoadAndFire(FlywheelSpeed.Low, m_Shooter, operatorController.Y));
+        operatorController.B.whenHeld(new IntakeBall(RobotContainer.m_Intake));
         
         driverController.Start.whenPressed(new ToggleFrontOfBot());
       }
