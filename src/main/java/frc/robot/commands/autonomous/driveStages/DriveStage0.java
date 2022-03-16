@@ -4,8 +4,10 @@
 
 package frc.robot.commands.autonomous.driveStages;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveBaseNew;
 import frc.robot.subsystems.Intake;
 
@@ -33,7 +35,7 @@ public class DriveStage0 extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intakeSubsystem.getBalls();
+    m_intakeSubsystem.getBalls();    
     m_driveBaseSubsystem.tankDriveVolts(-2, -2);
   }
 
@@ -46,6 +48,6 @@ public class DriveStage0 extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (m_driveBaseSubsystem.rightMaster.getSelectedSensorPosition() < 79000);
+    return (m_driveBaseSubsystem.rightMaster.getSelectedSensorPosition() >= 79000);
   }
 }

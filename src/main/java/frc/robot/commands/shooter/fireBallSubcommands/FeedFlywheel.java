@@ -67,19 +67,20 @@ public class FeedFlywheel extends CommandBase {
     // In Tele-operated mode, the behavior of this command should be to fire
     // balls from the hopper as long as balls are present and the joystick
     // button is held down
-    if (RobotState.isTeleop() && !fireButtonIsPressed) {
-      // Check if all the sensors are false
-      m_isDone = !(m_shooterSubsystem.lowerBallIsPresent() ||
-          m_shooterSubsystem.upperBallIsPresent() ||
-          m_shooterSubsystem.getBallLimitSensor());
+    if (RobotState.isTeleop()) {
+      if (fireButtonIsPressed) {
+        // Check if all the sensors are false
+        m_isDone = !(m_shooterSubsystem.lowerBallIsPresent() ||
+            m_shooterSubsystem.upperBallIsPresent() ||
+            m_shooterSubsystem.getBallLimitSensor());
+      }
+      else {
+        boolean upperIndexSensor = m_shooterSubsystem.getBallLimitSensor();
+        m_isDone = m_pulseDetector.process(upperIndexSensor);
+      }
     }
 
-    // In autonomous mode, the behavior of this command is to fire one ball at a
-    // time
-    else {
-      boolean upperIndexSensor = m_shooterSubsystem.getBallLimitSensor();
-      m_isDone = m_pulseDetector.process(upperIndexSensor);
-    }
+    // In autonomous mode, this command will rely on a timeout
 
   }
 

@@ -172,7 +172,7 @@ public class Shooter extends SubsystemBase {
     Medium (0.65),           /** Medium muzzle velocity */
     GreasedLightning (1.0), /** Back away... not today */
 
-    Autonomous (0.5);  /** Muzzle velocity used in autonomous mode */
+    Autonomous (0.65);  /** Muzzle velocity used in autonomous mode */
 
     private final double value;
     private FlywheelSpeed(double val) {this.value = val;}
