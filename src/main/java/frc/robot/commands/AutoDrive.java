@@ -4,22 +4,25 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.autonomous.driveStages.DriveStage0;
-
+import frc.robot.commands.shooter.FireBall;
 import frc.robot.subsystems.DriveBaseNew;
 import frc.robot.subsystems.Intake;
-import frc.robot.commands.autonomous.driveStages.*;
+import frc.robot.subsystems.Shooter;
 
 public class AutoDrive extends SequentialCommandGroup {
   
-  public AutoDrive(DriveBaseNew driveBaseSubsystem, Intake intakeSubsystem) {
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
+  public AutoDrive(DriveBaseNew driveBaseSubsystem, Intake intakeSubsystem,
+                   Shooter shooterSubsystem) {
     addCommands(
       new DriveStage0(driveBaseSubsystem, intakeSubsystem),
-      new DriveStage1(driveBaseSubsystem, intakeSubsystem),
-      new DriveStage2(driveBaseSubsystem)
+      new WaitCommand(2),
+      new InstantCommand(intakeSubsystem::disableIntake, intakeSubsystem),
+      new FireBall(shooterSubsystem, null),
+      new InstantCommand(driveBaseSubsystem::CoastMode, driveBaseSubsystem)
     );
   }
 }

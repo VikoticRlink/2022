@@ -34,7 +34,7 @@ public class DriveStage0 extends CommandBase {
   @Override
   public void execute() {
     m_intakeSubsystem.getBalls();
-    m_driveBaseSubsystem.tankDriveVolts(2, -2);
+    m_driveBaseSubsystem.tankDriveVolts(-2, -2);
   }
 
   // Called once the command ends or is interrupted.
@@ -46,6 +46,6 @@ public class DriveStage0 extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (m_driveBaseSubsystem.rightMaster.getSelectedSensorPosition() > -30000);
+    return (m_driveBaseSubsystem.rightMaster.getSelectedSensorPosition() < 79000);
   }
 }

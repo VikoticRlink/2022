@@ -9,7 +9,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveBaseNew;
 import frc.robot.subsystems.Intake;
 
-/** Implement Autonomous mode Drive stage 1 */
+// Make sure ball is intaked.
+// Run getballs for 2 seconds
 public class DriveStage1 extends CommandBase {
   DriveBaseNew m_driveBaseSubsystem;
   Intake m_intakeSubsystem;
