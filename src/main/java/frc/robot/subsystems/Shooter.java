@@ -171,9 +171,10 @@ public class Shooter extends SubsystemBase {
     Low (0.5),              /** Slowest muzzle velocity */
     Medium (0.65),           /** Medium muzzle velocity */
     GreasedLightning (1.0), /** Back away... not today */
-
     Autonomous (0.65);  /** Muzzle velocity used in autonomous mode */
-
+    //To-Do
+    //How to setup variable sliders on shuffleboard to configure this
+    //https://docs.wpilib.org/en/stable/docs/software/dashboards/shuffleboard/layouts-with-code/configuring-widgets.html
     private final double value;
     private FlywheelSpeed(double val) {this.value = val;}
     public double value() { return value; }
