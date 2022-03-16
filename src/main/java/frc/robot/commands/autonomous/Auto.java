@@ -7,12 +7,13 @@ package frc.robot.commands.autonomous;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-//import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Auto extends CommandBase {
   int driveStage=0;
   boolean IsDone;
+  double startimer;
 
   /** Creates a new Auto. */
   public Auto() {
@@ -39,28 +40,19 @@ public class Auto extends CommandBase {
           }else{
             RobotContainer.m_DriveBase.tankDriveVolts(0,0);
             driveStage = 1;
-            RobotContainer.m_Intake.disableIntake();
+            startimer = Timer.getFPGATimestamp();
           }
       break;
     case 1:
-     //Shoot Ball Here
-        if (RobotContainer.m_DriveBase.rightMaster.getSelectedSensorPosition() < 30000) {
-          RobotContainer.m_DriveBase.tankDriveVolts(-3.6, 3.6);
-        }else {
+     //Make sure ball is intaked.
+     //Run getballs for 2 seconds
+      if(Timer.getFPGATimestamp() - startimer > 2){
           driveStage = 2;
           RobotContainer.m_Intake.disableIntake();
-          IsDone=true;
-        }
+      }
       break;
     case 2:
-      if (RobotContainer.m_DriveBase.rightMaster.getSelectedSensorPosition() < 120000) {
-        RobotContainer.m_DriveBase.tankDriveVolts(-6.0, 6.0);
-      //Shoot Ball Here
-      }else{
-        driveStage = 3;
-        RobotContainer.m_DriveBase.tankDriveVolts(0, 0);
-        RobotContainer.m_DriveBase.resetEncoders();
-        RobotContainer.m_DriveBase.CoastMode();
+    //Shoot ball here
         IsDone=true;
       }
     break;
