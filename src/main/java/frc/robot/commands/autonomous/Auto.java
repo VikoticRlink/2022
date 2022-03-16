@@ -54,7 +54,6 @@ public class Auto extends CommandBase {
     case 2:
     //Shoot ball here
         IsDone=true;
-      }
     break;
    }
   }
