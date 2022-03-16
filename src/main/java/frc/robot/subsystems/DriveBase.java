@@ -50,8 +50,8 @@ public class DriveBase extends SubsystemBase {
   public void periodic() {
 
     // This method will be called once per scheduler run.
-    SmartDashboard.putNumber("Left Drive", leftMaster.getSelectedSensorPosition(0));
-    SmartDashboard.putNumber("Right Drive", rightMaster.getSelectedSensorPosition(0));
+    //SmartDashboard.putNumber("Left Drive", leftMaster.getSelectedSensorPosition(0));
+    //SmartDashboard.putNumber("Right Drive", rightMaster.getSelectedSensorPosition(0));
     
     
     
