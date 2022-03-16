@@ -167,7 +167,7 @@ public class Shooter extends SubsystemBase {
   /** Speeds the flywheel can be run at */
   public enum FlywheelSpeed {
     Stopped (0.0),         /** Turn off the flywheel */
-    Low (0.5),              /** Slowest muzzle velocity */
+    Low (1.0),              /** Slowest muzzle velocity */
     Medium (0.65),           /** Medium muzzle velocity */
     GreasedLightning (1.0), /** Back away... not today */
     Autonomous (0.65);  /** Muzzle velocity used in autonomous mode */
@@ -191,7 +191,7 @@ public class Shooter extends SubsystemBase {
     double motorSpeed = speed.value() * invert;
     m_flywheelMotorMaster.set(TalonFXControlMode.PercentOutput, motorSpeed);
     if(speed == FlywheelSpeed.Low){
-      m_flywheelMotorSlave.set(TalonFXControlMode.PercentOutput, 0);
+      m_flywheelMotorSlave.set(TalonFXControlMode.PercentOutput, - 0.5 * motorSpeed);
     }else{
       m_flywheelMotorSlave.set(TalonFXControlMode.PercentOutput, motorSpeed);
     }
