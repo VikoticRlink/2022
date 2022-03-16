@@ -6,8 +6,6 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotContainer;
-import frc.robot.commands.autonomous.driveStages.*;
-import frc.robot.commands.LoadAndFire;
 public class Dashboard extends SubsystemBase {
   /** Creates a new Dashboard. */
   public Dashboard() {
