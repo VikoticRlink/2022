@@ -43,6 +43,8 @@ public class DriveStage0 extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_driveBaseSubsystem.tankDriveVolts(0,0);
+    m_driveBaseSubsystem.leftMaster.setSafetyEnabled(false);
+    m_driveBaseSubsystem.rightMaster.setSafetyEnabled(false);
   }
 
   // Returns true when the command should end.

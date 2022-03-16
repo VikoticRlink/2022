@@ -131,6 +131,8 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    RobotContainer.m_DriveBase.leftMaster.setSafetyEnabled(true);
+    RobotContainer.m_DriveBase.rightMaster.setSafetyEnabled(true);
   }
 
   /** This function is called periodically during operator control. */
