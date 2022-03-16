@@ -30,23 +30,26 @@ public class Auto extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    SmartDashboard.putNumber("Auto Drive Stage", driveStage);
+
    switch (driveStage) {
       case 0: 
-        if (RobotContainer.m_DriveBase.rightMaster.getSelectedSensorPosition() > -30000) {
+        if (RobotContainer.m_DriveBase.rightMaster.getSelectedSensorPosition() < 79000) {
           RobotContainer.m_Intake.getBalls();
-          RobotContainer.m_DriveBase.tankDriveVolts(2, -2);
+          RobotContainer.m_DriveBase.tankDriveVolts(-2, -2);
           }else{
             RobotContainer.m_DriveBase.tankDriveVolts(0,0);
             driveStage = 1;
+            RobotContainer.m_Intake.disableIntake();
           }
       break;
-      case 1:
+    case 1:
+     //Shoot Ball Here
         if (RobotContainer.m_DriveBase.rightMaster.getSelectedSensorPosition() < 30000) {
           RobotContainer.m_DriveBase.tankDriveVolts(-3.6, 3.6);
         }else {
           driveStage = 2;
           RobotContainer.m_Intake.disableIntake();
+          IsDone=true;
         }
       break;
     case 2:
@@ -58,7 +61,6 @@ public class Auto extends CommandBase {
         RobotContainer.m_DriveBase.tankDriveVolts(0, 0);
         RobotContainer.m_DriveBase.resetEncoders();
         RobotContainer.m_DriveBase.CoastMode();
-        this.isScheduled();
         IsDone=true;
       }
     break;
