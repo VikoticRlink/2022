@@ -69,7 +69,7 @@ public class Lighting extends SubsystemBase {
         case "AutoBlueThree":
           AutoColor(false, 3);
           break;
-        case "Auto":
+        case "AutoDrive":
           AllGreen();
           break;
       }

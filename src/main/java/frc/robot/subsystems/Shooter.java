@@ -78,8 +78,9 @@ public class Shooter extends SubsystemBase {
     // We MAY break these out so they aren't following in the future to put spin on
     // the ball.
     // Currently there is no encoders on these, so it's pretty raw settings anyhow.
-    m_flywheelMotorSlave.follow(m_flywheelMotorMaster);
-    m_flywheelMotorSlave.setInverted(kInvertFlywheelMotor);
+    //m_flywheelMotorSlave.follow(m_flywheelMotorMaster);
+    //m_flywheelMotorSlave.setInverted(kInvertFlywheelMotor);
+    
   }
 
   /////////////////////////////////////////////////////////////////////////////
@@ -191,6 +192,11 @@ public class Shooter extends SubsystemBase {
     double invert = (kInvertFlywheelMotor ? -1.0 : 1.0);
     double motorSpeed = speed.value() * invert;
     m_flywheelMotorMaster.set(TalonFXControlMode.PercentOutput, motorSpeed);
+    if(speed == FlywheelSpeed.Low){
+      m_flywheelMotorSlave.set(TalonFXControlMode.PercentOutput, 0);
+    }else{
+      m_flywheelMotorSlave.set(TalonFXControlMode.PercentOutput, motorSpeed);
+    }
   }
 
   /////////////////////////////////////////////////////////////////////////////
