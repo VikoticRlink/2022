@@ -11,8 +11,8 @@ import frc.robot.commands.LoadAndFire;
 public class Dashboard extends SubsystemBase {
   /** Creates a new Dashboard. */
   public Dashboard() {
-    SmartDashboard.putData("Fire Ball", new LoadAndFire(Shooter.FlywheelSpeed.Autonomous, RobotContainer.m_Shooter, null));
-    SmartDashboard.putData("DriveStage 0", new DriveStage0(RobotContainer.m_DriveBase, RobotContainer.m_Intake));
+    //SmartDashboard.putData("Fire Ball", new LoadAndFire(Shooter.FlywheelSpeed.Autonomous, RobotContainer.m_Shooter, null));
+    //SmartDashboard.putData("DriveStage 0", new DriveStage0(RobotContainer.m_DriveBase, RobotContainer.m_Intake));
    
     //SmartDashboard.putData("Fire Ball", new FireBall(RobotContainer.m_Shooter));
     //SmartDashboard.putData("Intake Ball", new IntakeBall(RobotContainer.m_Intake));
@@ -35,11 +35,11 @@ public class Dashboard extends SubsystemBase {
     SmartDashboard.putBoolean("Second Ball", RobotContainer.m_Shooter.lowerBallIsPresent());
     SmartDashboard.putBoolean("Ball Against Flywheel", RobotContainer.m_Shooter.getBallLimitSensor());
     //SmartDashboard.putNumber("Bot Heading", RobotContainer.m_DriveBase.getHeading());
-    SmartDashboard.putNumber("Intake Arm Position", RobotContainer.m_Intake.getIntakeArmPositionRaw());
-    SmartDashboard.putNumber("T-rex Arm position", RobotContainer.m_tRex.getArmPositionRaw());
+    //SmartDashboard.putNumber("Intake Arm Position", RobotContainer.m_Intake.getIntakeArmPositionRaw());
+    //SmartDashboard.putNumber("T-rex Arm position", RobotContainer.m_tRex.getArmPositionRaw());
 
-    SmartDashboard.putNumber("leftDrive", RobotContainer.m_DriveBase.leftMaster.getSelectedSensorPosition());
-    SmartDashboard.putNumber("rightDrive", RobotContainer.m_DriveBase.rightMaster.getSelectedSensorPosition());
+    //SmartDashboard.putNumber("leftDrive", RobotContainer.m_DriveBase.leftMaster.getSelectedSensorPosition());
+    //SmartDashboard.putNumber("rightDrive", RobotContainer.m_DriveBase.rightMaster.getSelectedSensorPosition());
 
     
 //PushMotorTemps();
