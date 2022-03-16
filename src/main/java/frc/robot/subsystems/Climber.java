@@ -40,7 +40,7 @@ public class Climber extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     if (RobotContainer.robotIsInManualTeleOpMode()) {
-      runClimberElevator(ClimberMode.Manual);
+     // runClimberElevator(ClimberMode.Manual);
      //   double climbAmount = RobotContainer.operatorController.leftStickY();
      //   climbAmount *= Constants.MotorScaler.kClimberSpeed;
      //   ClimbMaster.set(TalonFXControlMode.PercentOutput, -1 * climbAmount);

@@ -24,7 +24,7 @@ public class Dashboard extends SubsystemBase {
     // https://docs.wpilib.org/en/stable/docs/software/dashboards/shuffleboard/getting-started/shuffleboard-tour.html
 
     //SmartDashboard.putString("Auto chooser", RobotContainer.m_chooser.getSelected().getName());
-    SmartDashboard.putString("Drive Direction", RobotContainer.DriveDirection.toString());
+    SmartDashboard.putBoolean("Drive Direction", RobotContainer.DriveDirection == RobotContainer.RobotDirection.Forward);
     SmartDashboard.putBoolean("Manual Mode", RobotContainer.ManualControl);
     SmartDashboard.putBoolean("Alliance", RobotContainer.isRedAlliance);
     

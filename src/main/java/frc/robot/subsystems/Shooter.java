@@ -168,8 +168,8 @@ public class Shooter extends SubsystemBase {
       double indexAmount = RobotContainer.operatorController.rightTriggerPull()
                            * BallIndexerMode.ShootBall.getMotorSpeed();
 
-      m_flywheelMotorMaster.set(TalonFXControlMode.PercentOutput, shooterAmount);
+      m_flywheelMotorMaster.set(TalonFXControlMode.PercentOutput, shooterAmount * 0.5);
       m_indexMotor.set(TalonFXControlMode.PercentOutput, indexAmount);
     }
-  }
+  } 
 }

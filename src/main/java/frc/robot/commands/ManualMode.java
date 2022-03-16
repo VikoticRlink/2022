@@ -33,8 +33,8 @@ public class ManualMode extends CommandBase {
     RobotContainer.ManualControl=false;
     RobotContainer.m_Shooter.runFlywheel(false);
     RobotContainer.m_Shooter.runBallIndexer(BallIndexerMode.Stopped);
-    RobotContainer.m_Climber.runClimberElevator(ClimberMode.Stopped);
-    RobotContainer.m_tRex.setArmPosition(TrexArmPosition.ESTOP);
+    //RobotContainer.m_Climber.runClimberElevator(ClimberMode.Stopped);
+    //RobotContainer.m_tRex.setArmPosition(TrexArmPosition.ESTOP);
   }
 
   // Returns true when the command should end.
