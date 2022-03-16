@@ -57,7 +57,7 @@ public class RobotContainer {
 
   //The robot's commands are defined here...
   //private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-  private final Auto m_autonomous = new Auto();
+  private final AutoDrive m_autonomous = new AutoDrive(m_DriveBase, m_Intake);
   private final AutoRedOne Red1 = new AutoRedOne();
   private final AutoRedTwo Red2 = new AutoRedTwo();
   private final AutoRedThree Red3 = new AutoRedThree();
