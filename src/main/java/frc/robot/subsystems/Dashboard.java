@@ -3,14 +3,17 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotContainer;
-
+import frc.robot.commands.autonomous.driveStages.*;
+import frc.robot.commands.LoadAndFire;
 public class Dashboard extends SubsystemBase {
   /** Creates a new Dashboard. */
   public Dashboard() {
+    SmartDashboard.putData("Fire Ball", new LoadAndFire(Shooter.FlywheelSpeed.Autonomous, RobotContainer.m_Shooter, null));
+    SmartDashboard.putData("DriveStage 0", new DriveStage0(RobotContainer.m_DriveBase, RobotContainer.m_Intake));
+   
     //SmartDashboard.putData("Fire Ball", new FireBall(RobotContainer.m_Shooter));
     //SmartDashboard.putData("Intake Ball", new IntakeBall(RobotContainer.m_Intake));
     //SmartDashboard.putData("BackOffFlywheel", new BackOffFlywheel(RobotContainer.m_Shooter));

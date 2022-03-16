@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.*;
 import frc.robot.commands.autonomous.*;
 import frc.robot.commands.*;
+import frc.robot.subsystems.Shooter.FlywheelSpeed;;
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -57,7 +58,7 @@ public class RobotContainer {
 
   //The robot's commands are defined here...
   //private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-  private final Auto m_autonomous = new Auto();
+  private final AutoDrive m_autonomous = new AutoDrive(m_DriveBase, m_Intake, m_Shooter);
   private final AutoRedOne Red1 = new AutoRedOne();
   private final AutoRedTwo Red2 = new AutoRedTwo();
   private final AutoRedThree Red3 = new AutoRedThree();
@@ -93,8 +94,10 @@ public class RobotContainer {
         //operatorController.Start.whenPressed(new ManualModeToggle());
         operatorController.bumpLeft.whenHeld(new ManualMode());
         operatorController.bumpRight.whenHeld(new ManualMode());
-        operatorController.X.whenPressed(new LoadAndFire(m_Shooter, operatorController.X));
-        operatorController.A.whenHeld(new IntakeBall(RobotContainer.m_Intake));
+        operatorController.A.whenPressed(new LoadAndFire(FlywheelSpeed.Low, m_Shooter, operatorController.A));
+        operatorController.X.whenPressed(new LoadAndFire(FlywheelSpeed.Medium, m_Shooter, operatorController.B));
+        operatorController.Y.whenPressed(new LoadAndFire(FlywheelSpeed.GreasedLightning, m_Shooter, operatorController.Y));
+        operatorController.B.whenHeld(new IntakeBall(RobotContainer.m_Intake));
         
         driverController.Start.whenPressed(new ToggleFrontOfBot());
       }

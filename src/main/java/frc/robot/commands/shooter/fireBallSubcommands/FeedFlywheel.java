@@ -6,6 +6,7 @@ package frc.robot.commands.shooter.fireBallSubcommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Shooter.FlywheelSpeed;
 import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -87,7 +88,7 @@ public class FeedFlywheel extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_shooterSubsystem.runBallIndexer(Shooter.BallIndexerMode.Stopped);
-    m_shooterSubsystem.runFlywheel(false);
+    m_shooterSubsystem.runFlywheel(FlywheelSpeed.Stopped);
   }
 
   ///////////////////////////////////////////////////////////////////////////////
