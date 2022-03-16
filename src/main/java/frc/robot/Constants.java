@@ -131,6 +131,7 @@ public class Constants {
 		/** Maximum number of seconds to run the index motor to feed a ball
 		 * into the flywheel to shoot it. */
 		public static final double kFeedFlywheelTimeoutSeconds = 2.0;
+		public static final double kChamberBallTimeoutSeconds = 2.0;
 		/** Speed at which the flywheel motor is run 0.0 (off) to 1.0 (max)*/
 		public static final double kFlywheelSpeed = 0.5;   //Good for 42" shots
 		public static final double kFlywheelSpeedTarmac = 0.7;   //Good for 84" shots

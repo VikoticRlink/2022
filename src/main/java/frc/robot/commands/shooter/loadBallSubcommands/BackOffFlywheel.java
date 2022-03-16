@@ -16,7 +16,8 @@ import frc.robot.subsystems.Shooter;
  */
 public class BackOffFlywheel extends CommandBase {
   Shooter m_shooterSubsystem;
-
+  int SpinNumber = 0;
+  
   /////////////////////////////////////////////////////////////////////////////
   /** Creates an instance of the command
    * @param shooterSubsystem  Shooter subsystem used by the command
@@ -37,6 +38,7 @@ public class BackOffFlywheel extends CommandBase {
   public void execute() {
     if (m_shooterSubsystem.numBallsDetected() > 0) {
       m_shooterSubsystem.runBallIndexer(Shooter.BallIndexerMode.Reverse);
+      SpinNumber += 1;
     }
   }
 
@@ -56,8 +58,10 @@ public class BackOffFlywheel extends CommandBase {
    */
   @Override
   public boolean isFinished() {
-    return (m_shooterSubsystem.numBallsDetected() < 1) ||
-           (m_shooterSubsystem.getBallLimitSensor() == false);
+    return 
+    (SpinNumber == 1);
+   // return (m_shooterSubsystem.numBallsDetected() < 1) ||
+     //      (m_shooterSubsystem.getBallLimitSensor() == false);
 
   }
 }
