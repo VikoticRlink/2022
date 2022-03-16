@@ -126,11 +126,11 @@ public class Shooter extends SubsystemBase {
   public enum BallIndexerMode {
     Stopped(0.0),
     /** < Ball indexer is stopped */
-    FeedBall(0.7),
+    FeedBall(0.5),
     /** < Run forward to feed balls into the shooter */
-    ShootBall(1.0),
+    ShootBall(0.7),
     /** < Run forward to move a ball into the flywheel */
-    Reverse(-0.7);
+    Reverse(-0.5);
 
     /** < Run indexer in reverse */
 
