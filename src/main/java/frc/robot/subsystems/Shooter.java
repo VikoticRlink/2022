@@ -122,9 +122,7 @@ public class Shooter extends SubsystemBase {
   }
 
   /**
-   * Modes that the ball indexer can be run in
-   * TODO: Fill in the motor percent output values for each mode
-   */
+   * Modes that the ball indexer can be run in*/
   public enum BallIndexerMode {
     Stopped(0.0),
     /** < Ball indexer is stopped */

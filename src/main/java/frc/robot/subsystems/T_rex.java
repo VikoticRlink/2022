@@ -53,9 +53,7 @@ public class T_rex extends SubsystemBase {
     configure();
   }
 
-  /** Positions the T-rex arms can be set to using the setArmPosition() method
-   * TODO: Fill in the encoder counts for each of the positions
-  */
+  /** Positions the T-rex arms can be set to using the setArmPosition() method*/
   public enum TrexArmPosition {
     //public static final int[] tRexPosition = new int []{0, 13629, 31880, 43589, 54841, 68187};
     

@@ -109,13 +109,11 @@ public class Intake extends SubsystemBase {
     RobotContainer.m_Shooter.runBallIndexer(Shooter.BallIndexerMode.Stopped);
     setIntakeArmPosition(IntakeArmPosition.UpAndStowedAway);
     RobotContainer.m_tRex.setArmPosition(TrexArmPosition.ArmsUp);
-  }
+  }  
 
   /////////////////////////////////////////////////////////////////////////////
-  /** Positions of the intake arms for use with the setIntakeArms() method
-   */
+  /** Positions of the intake arms for use with the setIntakeArms() method */
   public enum IntakeArmPosition {
-    // TODO: Fill in the encoder counts for each of the positions
     DownToGatherBalls (19307),  /** Intake arms down for gathering balls */
     FrameLimit        (23000),  /** Intake arms at frame limit */
     UpAndStowedAway   (0);      /** Intake arms are stowed away in their top position */

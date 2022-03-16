@@ -121,13 +121,9 @@ public class Constants {
 	}
 	public static final class ShooterConstants {
 		// Digital input ID's of the ball index optical sensors
-		// TODO: set these constants to the actual digital input ID's
 		public static final int BallSensorDigitalInputUpper = 2;
 		public static final int BallSensorDigitalInputMiddle = 1;
 		public static final int BallSensorDigitalInputLower = 0;
-		/** Maximum number of seconds to spend spinning up the flywheel
-		 * motor */
-		public static final double kSpinUpFlywheelSeconds = 1.0;
 		/** Maximum number of seconds to run the index motor to feed a ball
 		 * into the flywheel to shoot it. */
 		public static final double kFeedFlywheelTimeoutSeconds = 2.0;
