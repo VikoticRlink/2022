@@ -98,7 +98,6 @@ public class T_rex extends SubsystemBase {
     if (RobotContainer.robotIsInManualTeleOpMode()) {
       double armSwing = RobotContainer.operatorController.rightStickY() 
           * Constants.MotorScaler.kTRexArmManualSpeed;
-      armSwing *= Constants.MotorScaler.kTRexArmManualSpeed;
       m_tRexMaster.set(TalonFXControlMode.PercentOutput, -1 * armSwing);
     }
   }
