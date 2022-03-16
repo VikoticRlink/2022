@@ -26,7 +26,7 @@ public class Lighting extends SubsystemBase {
 
   public Lighting() {  
     m_led = new AddressableLED(0);
-    m_ledBuffer = new AddressableLEDBuffer(120);
+    m_ledBuffer = new AddressableLEDBuffer(140);
     m_led.setLength(m_ledBuffer.getLength());
     m_led.setData(m_ledBuffer);
     m_led.start();
