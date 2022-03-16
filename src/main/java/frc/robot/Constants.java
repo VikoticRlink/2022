@@ -132,10 +132,6 @@ public class Constants {
 		 * into the flywheel to shoot it. */
 		public static final double kFeedFlywheelTimeoutSeconds = 2.0;
 		public static final double kChamberBallTimeoutSeconds = 2.0;
-		/** Speed at which the flywheel motor is run 0.0 (off) to 1.0 (max)*/
-		public static final double kFlywheelSpeed = 0.5;   //Good for 42" shots
-		public static final double kFlywheelSpeedTarmac = 0.7;   //Good for 84" shots
-		public static final double kFlywheelSpeedFullPower = 1;
 	}
 	//Motor identification
 	public static final class MotorID{
@@ -147,8 +143,8 @@ public class Constants {
 		public static final int tRexSlave = 14;		  //Falcon 500
 		public static final int climberMaster = 5;    //Falcon 500
 		public static final int climberSlave = 15;    //Falcon 500
-		public static final int flywheelMaster = 6;    //SRX 775
-		public static final int flywheelSlave = 16;    //SRX 775
+		public static final int flywheelMaster = 16;    //SRX 775
+		public static final int flywheelSlave = 6;    //SRX 775
 		public static final int intakeMotor = 32;     //SRX 775
 		public static final int indexMotor = 20;      //SRX 775
 		public static final int intakeActuator = 31;  //Falcon 500
