@@ -80,6 +80,8 @@ public class T_rex extends SubsystemBase {
    */
   public void setArmPosition(TrexArmPosition position)
   {
+
+
     if(position!=TrexArmPosition.ESTOP){
       m_tRexMaster.set(TalonFXControlMode.Position, position.getEncoderCount());
     }else{
@@ -160,10 +162,5 @@ public class T_rex extends SubsystemBase {
     return m_tRexMaster.getSelectedSensorPosition(kPIDIndex);
   }
 
-  /////////////////////////////////////////////////////////////////////////////
-  /** Sends the arms to a set position */
-  /*public void setArms(int GoToPosition){
-    m_tRexMaster.set(TalonFXControlMode.Position, Constants.tRexPosition[GoToPosition]);
-  }*/
 
 }
