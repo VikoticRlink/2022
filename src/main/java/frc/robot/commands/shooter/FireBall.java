@@ -17,7 +17,7 @@ public class FireBall extends SequentialCommandGroup {
 
   /////////////////////////////////////////////////////////////////////////////
   /** Creates an instance of the command
-   * @param muzzleVelicity    Velocity to fire the ball at
+   * @param muzzleVelocity    Velocity to fire the ball at
    * @param shooterSubsystem  Shooter subsystem used by the command
    * @param fireButton  Button used to fire balls in tele-operated mode
   */
@@ -27,7 +27,7 @@ public class FireBall extends SequentialCommandGroup {
     addCommands(
         new SpinUpFlywheel(muzzleVelocity, shooterSubsystem)
           .perpetually()
-          .withTimeout(Constants.ShooterConstants.kSpinUpFlywheelSeconds),
+          .withTimeout(2 * muzzleVelocity.value()),
           
         new FeedFlywheel(shooterSubsystem, fireButton)
           .withTimeout(Constants.ShooterConstants.kFeedFlywheelTimeoutSeconds));

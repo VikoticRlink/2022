@@ -168,8 +168,8 @@ public class Shooter extends SubsystemBase {
   /** Speeds the flywheel can be run at */
   public enum FlywheelSpeed {
     Stopped (0.0),         /** Turn off the flywheel */
-    Low (0.2),              /** Slowest muzzle velocity */
-    Medium (0.5),           /** Medium muzzle velocity */
+    Low (0.5),              /** Slowest muzzle velocity */
+    Medium (0.65),           /** Medium muzzle velocity */
     GreasedLightning (1.0), /** Back away... not today */
 
     Autonomous (0.5);  /** Muzzle velocity used in autonomous mode */
