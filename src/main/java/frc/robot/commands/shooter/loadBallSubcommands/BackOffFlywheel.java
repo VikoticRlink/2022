@@ -58,8 +58,8 @@ public class BackOffFlywheel extends CommandBase {
    */
   @Override
   public boolean isFinished() {
-    return 
-    (SpinNumber == 1);
+    return (m_shooterSubsystem.getBallLimitSensor() == false);
+   // (SpinNumber == 12);
    // return (m_shooterSubsystem.numBallsDetected() < 1) ||
      //      (m_shooterSubsystem.getBallLimitSensor() == false);
 

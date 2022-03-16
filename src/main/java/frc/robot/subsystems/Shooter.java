@@ -131,7 +131,7 @@ public class Shooter extends SubsystemBase {
     /** < Run forward to feed balls into the shooter */
     ShootBall(1.0),
     /** < Run forward to move a ball into the flywheel */
-    Reverse(-0.4);
+    Reverse(-0.7);
 
     /** < Run indexer in reverse */
 

@@ -95,8 +95,8 @@ public class RobotContainer {
         operatorController.bumpLeft.whenHeld(new ManualMode());
         operatorController.bumpRight.whenHeld(new ManualMode());
         operatorController.A.whenPressed(new LoadAndFire(FlywheelSpeed.Low, m_Shooter, operatorController.A));
-        operatorController.B.whenPressed(new LoadAndFire(FlywheelSpeed.Low, m_Shooter, operatorController.B));
-        operatorController.Y.whenPressed(new LoadAndFire(FlywheelSpeed.Low, m_Shooter, operatorController.Y));
+        operatorController.X.whenPressed(new LoadAndFire(FlywheelSpeed.Medium, m_Shooter, operatorController.B));
+        operatorController.Y.whenPressed(new LoadAndFire(FlywheelSpeed.GreasedLightning, m_Shooter, operatorController.Y));
         operatorController.B.whenHeld(new IntakeBall(RobotContainer.m_Intake));
         
         driverController.Start.whenPressed(new ToggleFrontOfBot());
