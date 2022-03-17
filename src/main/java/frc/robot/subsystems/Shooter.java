@@ -30,7 +30,7 @@ public class Shooter extends SubsystemBase {
   private static final boolean kInvertFlywheelMotor = false;
 
   /** Set to true to reverse the direction of the ball indexer motor */
-  private static final boolean kInvertBallIndexerMotor = false;
+  private static final boolean kInvertBallIndexerMotor = true;
 
   //////////////////////////////////
   /// *** ATTRIBUTES ***
