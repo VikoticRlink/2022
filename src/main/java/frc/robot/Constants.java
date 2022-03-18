@@ -116,8 +116,8 @@ public class Constants {
 		public static final double SlowSpeedLimit = 0.25;
 		public static final double StandardSpeedLimit = 0.9;
 		public static final double DriveStandardLimit = 0.9;
-		public static final double DriveMidLimit = 0.7;
-		public static final double DriveSlowLimit = 0.4;
+		public static final double DriveMidLimit = 0.6;
+		public static final double DriveSlowLimit = 0.5;
 	}
 	public static final class ShooterConstants {
 		// Digital input ID's of the ball index optical sensors

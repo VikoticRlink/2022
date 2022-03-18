@@ -40,9 +40,10 @@ public class Lighting extends SubsystemBase {
     }else{
       AllianceColor = new Color8Bit(0,0,255);
     }
-    if(RobotContainer.RobotShooting){
-      ShootBall();
-    }
+    
+  //  if(RobotContainer.RobotShooting){
+  //    ShootBall();
+  //  }
     
     if(RobotState.isAutonomous()){
       LEDRY();
@@ -81,12 +82,13 @@ public class Lighting extends SubsystemBase {
         ShootBall();
       }
     }
+    m_led.setData(m_ledBuffer);
   }
   private void AllGreen(){
     for (var i =0; i< m_ledBuffer.getLength(); i++){
-      m_ledBuffer.setRGB(i, 0, 255, 0);
+      m_ledBuffer.setRGB(i, 255, 150, 0);
     }
-    m_led.setData(m_ledBuffer);
+  //  m_led.setData(m_ledBuffer);
   }
   private void LEDRY(){
       
@@ -96,7 +98,7 @@ public class Lighting extends SubsystemBase {
       else
         m_ledBuffer.setRGB(i, 255, 0, 0);
       }     
-    m_led.setData(m_ledBuffer);
+   // m_led.setData(m_ledBuffer);
   }
   private void All_LEDRainbow(){
     //--- make a rainbow pattern on LEDs ---//
@@ -107,7 +109,7 @@ public class Lighting extends SubsystemBase {
       }
       m_rainbowFirstPixelHue += 3;
       m_rainbowFirstPixelHue %= 180;
-    m_led.setData(m_ledBuffer);
+   // m_led.setData(m_ledBuffer);
   }
   private void AutoColor(boolean RedSide, int whichAuto){
     Color8Bit MyLight = new Color8Bit(0, 0, 255);
@@ -128,22 +130,32 @@ public class Lighting extends SubsystemBase {
         if(mycounter>=5){mycounter=0;}
       }
       
-    m_led.setData(m_ledBuffer);
+   // m_led.setData(m_ledBuffer);
   }
   private void ShootBall(){
-    int i_ledLength = 20;
-    int i_ledStartA = 30;
-    int i_ledStartB = 50;
+    int i_ledLength = 30;
+    int i_ledStartA = 40;
+    int i_ledStartB = 110;
+
+    int[] iLEDElementA={139,30};
+    int[] iLEDElementB={109,40};
+    int[] iLEDElementC={69,30};
+    int[] iLEDElementD={39,40};
+
     int ballsize = 4;
-    //int deltaHue = 4;
     ClearBuffer(i_ledStartA,i_ledLength);
     ClearBuffer(i_ledStartB,i_ledLength);
     if (iPos<i_ledLength-ballsize){
         for (var i=0;i<ballsize;i++)
         {
+          //Light Element A
           m_ledBuffer.setLED(iPos+i+i_ledStartA, AllianceColor);
+          //Light Element B
           m_ledBuffer.setLED(iPos+i+i_ledStartB, AllianceColor);
-         
+          //Light Element C
+          m_ledBuffer.setLED(iPos+i+i_ledStartA, AllianceColor);
+          //Light Element D
+          m_ledBuffer.setLED(iPos+i+i_ledStartB, AllianceColor);
         }
         m_led.setData(m_ledBuffer); 
         iPos++;
