@@ -73,7 +73,7 @@ public class Shooter extends SubsystemBase {
     m_ballSensorLower = new DigitalInput(Constants.ShooterConstants.BallSensorDigitalInputLower);
     m_flywheelMotorMaster.setNeutralMode(NeutralMode.Coast);
     m_flywheelMotorSlave.setNeutralMode(NeutralMode.Coast);
-    m_flywheelSpeeds = new double[3];
+    m_flywheelSpeeds = new double[FlywheelSpeed.kNumSpeeds.value()];
     
 
     // Set up initial flywheel speeds
@@ -81,7 +81,7 @@ public class Shooter extends SubsystemBase {
     m_flywheelSpeeds[FlywheelSpeed.Low.value()] = 0.2;
     m_flywheelSpeeds[FlywheelSpeed.Medium.value()] = 0.4;
     m_flywheelSpeeds[FlywheelSpeed.GreasedLightning.value()] = 1.0;
-    m_flywheelSpeeds[FlywheelSpeed.Autonomous.value()] = 5.0;
+    m_flywheelSpeeds[FlywheelSpeed.Autonomous.value()] = 0.5;
     
     
     // Configure the flywheel master motor

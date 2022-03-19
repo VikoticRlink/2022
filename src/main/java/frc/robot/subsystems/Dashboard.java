@@ -36,27 +36,27 @@ public class Dashboard extends SubsystemBase {
     m_shooterTab = Shuffleboard.getTab("Shooter");
     m_shooterSpeedNTE = new NetworkTableEntry[FlywheelSpeed.kNumSpeeds.value()];
     m_shooterSpeedNTE[FlywheelSpeed.Low.value()] =
-      m_shooterTab.add("Speeds.Low", m_shooterSubsystem.getFlywheelSpeedValue(FlywheelSpeed.Low))
+      m_shooterTab.add("Low", m_shooterSubsystem.getFlywheelSpeedValue(FlywheelSpeed.Low))
         .withWidget(BuiltInWidgets.kNumberSlider)
         .withProperties(Map.of("min", -1.0, "max", 1.0)) // specify widget properties here
         .getEntry();
     m_shooterSpeedNTE[FlywheelSpeed.Medium.value()] =
-      m_shooterTab.add("Speeds.Medium", m_shooterSubsystem.getFlywheelSpeedValue(FlywheelSpeed.Medium))
+      m_shooterTab.add("Medium", m_shooterSubsystem.getFlywheelSpeedValue(FlywheelSpeed.Medium))
         .withWidget(BuiltInWidgets.kNumberSlider)
         .withProperties(Map.of("min", -1.0, "max", 1.0)) // specify widget properties here
         .getEntry();
     m_shooterSpeedNTE[FlywheelSpeed.GreasedLightning.value()] =
-      m_shooterTab.add("Speeds.GreasedLightning", m_shooterSubsystem.getFlywheelSpeedValue(FlywheelSpeed.GreasedLightning))
+      m_shooterTab.add("GreasedLightning", m_shooterSubsystem.getFlywheelSpeedValue(FlywheelSpeed.GreasedLightning))
         .withWidget(BuiltInWidgets.kNumberSlider)
         .withProperties(Map.of("min", -1.0, "max", 1.0)) // specify widget properties here
         .getEntry();
     m_shooterSpeedNTE[FlywheelSpeed.Autonomous.value()] =
-      m_shooterTab.add("Speeds.Autonomous", m_shooterSubsystem.getFlywheelSpeedValue(FlywheelSpeed.Autonomous))
+      m_shooterTab.add("Autonomous", m_shooterSubsystem.getFlywheelSpeedValue(FlywheelSpeed.Autonomous))
       .withWidget(BuiltInWidgets.kNumberSlider)
       .withProperties(Map.of("min", 0.0, "max", 1.0)) // specify widget properties here
       .getEntry();
     m_backspinNTE =
-      m_shooterTab.add("Speeds.Backspin", m_shooterSubsystem.getBackspin())
+      m_shooterTab.add("Backspin", m_shooterSubsystem.getBackspin())
       .withWidget(BuiltInWidgets.kNumberSlider)
       .withProperties(Map.of("min", -1.0, "max", 1.0)) // specify widget properties here
       .getEntry();
