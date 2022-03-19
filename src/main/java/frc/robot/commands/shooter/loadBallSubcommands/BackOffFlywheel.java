@@ -30,7 +30,9 @@ public class BackOffFlywheel extends CommandBase {
   /////////////////////////////////////////////////////////////////////////////
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    SpinNumber = 0;
+  }
 
   /////////////////////////////////////////////////////////////////////////////
   // Called every time the scheduler runs while the command is scheduled.
@@ -58,8 +60,8 @@ public class BackOffFlywheel extends CommandBase {
    */
   @Override
   public boolean isFinished() {
-    return (m_shooterSubsystem.getBallLimitSensor() == false);
-   // (SpinNumber == 12);
+    //return (m_shooterSubsystem.getBallLimitSensor() == false);
+    return (SpinNumber == 8);
    // return (m_shooterSubsystem.numBallsDetected() < 1) ||
      //      (m_shooterSubsystem.getBallLimitSensor() == false);
 

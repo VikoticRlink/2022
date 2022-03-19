@@ -25,7 +25,7 @@ public class Lighting extends SubsystemBase {
   private static Color8Bit AllianceColor;
 
   public Lighting() {  
-    m_led = new AddressableLED(0);
+    m_led = new AddressableLED(1);
     m_ledBuffer = new AddressableLEDBuffer(140);
     m_led.setLength(m_ledBuffer.getLength());
     m_led.setData(m_ledBuffer);
@@ -71,7 +71,7 @@ public class Lighting extends SubsystemBase {
           AutoColor(false, 3);
           break;
         case "AutoDrive":
-          AllGreen();
+          AllYellow();
           break;
       }
     }
@@ -84,7 +84,7 @@ public class Lighting extends SubsystemBase {
     }
     m_led.setData(m_ledBuffer);
   }
-  private void AllGreen(){
+  private void AllYellow(){
     for (var i =0; i< m_ledBuffer.getLength(); i++){
       m_ledBuffer.setRGB(i, 255, 150, 0);
     }

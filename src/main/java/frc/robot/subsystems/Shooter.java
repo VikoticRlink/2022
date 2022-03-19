@@ -167,10 +167,10 @@ public class Shooter extends SubsystemBase {
   /** Speeds the flywheel can be run at */
   public enum FlywheelSpeed {
     Stopped (0.0),         /** Turn off the flywheel */
-    Low (8.0),              /** Slowest muzzle velocity */
+    Low (0.4),              /** Slowest muzzle velocity */
     Medium (0.5),           /** Medium muzzle velocity */
-    GreasedLightning (1.0), /** Back away... not today */
-    Autonomous (0.65);  /** Muzzle velocity used in autonomous mode */
+    GreasedLightning (0.6), /** Back away... not today */
+    Autonomous (0.5);  /** Muzzle velocity used in autonomous mode */
     //To-Do
     //How to setup variable sliders on shuffleboard to configure this
     //https://docs.wpilib.org/en/stable/docs/software/dashboards/shuffleboard/layouts-with-code/configuring-widgets.html
@@ -191,7 +191,7 @@ public class Shooter extends SubsystemBase {
     double motorSpeed = speed.value() * invert;
     m_flywheelMotorMaster.set(TalonFXControlMode.PercentOutput, motorSpeed);
     if(speed == FlywheelSpeed.Low){
-      m_flywheelMotorSlave.set(TalonFXControlMode.PercentOutput, - 0.5 * motorSpeed);
+      m_flywheelMotorSlave.set(TalonFXControlMode.PercentOutput, 0.7 * motorSpeed);
     }else{
       m_flywheelMotorSlave.set(TalonFXControlMode.PercentOutput, motorSpeed);
     }
