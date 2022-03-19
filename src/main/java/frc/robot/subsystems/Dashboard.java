@@ -20,7 +20,8 @@ import frc.robot.subsystems.Shooter.FlywheelSpeed;
 public class Dashboard extends SubsystemBase {
   private Shooter m_shooterSubsystem;
   private ShuffleboardTab m_shooterTab;
-   private NetworkTableEntry[] m_shooterSpeedNTE;
+  private NetworkTableEntry[] m_shooterSpeedNTE;
+  private NetworkTableEntry m_backspinNTE;
 
   /** Creates a new Dashboard. */
   public Dashboard(Shooter shooterSubsystem) {    
@@ -37,22 +38,27 @@ public class Dashboard extends SubsystemBase {
     m_shooterSpeedNTE[FlywheelSpeed.Low.value()] =
       m_shooterTab.add("Speeds.Low", m_shooterSubsystem.getFlywheelSpeedValue(FlywheelSpeed.Low))
         .withWidget(BuiltInWidgets.kNumberSlider)
-        .withProperties(Map.of("min", 0.0, "max", 1.0)) // specify widget properties here
+        .withProperties(Map.of("min", -1.0, "max", 1.0)) // specify widget properties here
         .getEntry();
     m_shooterSpeedNTE[FlywheelSpeed.Medium.value()] =
       m_shooterTab.add("Speeds.Medium", m_shooterSubsystem.getFlywheelSpeedValue(FlywheelSpeed.Medium))
         .withWidget(BuiltInWidgets.kNumberSlider)
-        .withProperties(Map.of("min", 0.0, "max", 1.0)) // specify widget properties here
+        .withProperties(Map.of("min", -1.0, "max", 1.0)) // specify widget properties here
         .getEntry();
     m_shooterSpeedNTE[FlywheelSpeed.GreasedLightning.value()] =
       m_shooterTab.add("Speeds.GreasedLightning", m_shooterSubsystem.getFlywheelSpeedValue(FlywheelSpeed.GreasedLightning))
         .withWidget(BuiltInWidgets.kNumberSlider)
-        .withProperties(Map.of("min", 0.0, "max", 1.0)) // specify widget properties here
+        .withProperties(Map.of("min", -1.0, "max", 1.0)) // specify widget properties here
         .getEntry();
     m_shooterSpeedNTE[FlywheelSpeed.Autonomous.value()] =
       m_shooterTab.add("Speeds.Autonomous", m_shooterSubsystem.getFlywheelSpeedValue(FlywheelSpeed.Autonomous))
       .withWidget(BuiltInWidgets.kNumberSlider)
       .withProperties(Map.of("min", 0.0, "max", 1.0)) // specify widget properties here
+      .getEntry();
+    m_backspinNTE =
+      m_shooterTab.add("Speeds.Backspin", m_shooterSubsystem.getBackspin())
+      .withWidget(BuiltInWidgets.kNumberSlider)
+      .withProperties(Map.of("min", -1.0, "max", 1.0)) // specify widget properties here
       .getEntry();
   }
 
@@ -86,7 +92,7 @@ public class Dashboard extends SubsystemBase {
     m_shooterSubsystem.setFlywheelSpeedValue(FlywheelSpeed.Medium, med);
     m_shooterSubsystem.setFlywheelSpeedValue(FlywheelSpeed.GreasedLightning, gl);
     m_shooterSubsystem.setFlywheelSpeedValue(FlywheelSpeed.Autonomous, aut);
-    
+    m_shooterSubsystem.setBackspin(m_backspinNTE.getDouble(m_shooterSubsystem.getBackspin()));
     //PushMotorTemps();
   }
 

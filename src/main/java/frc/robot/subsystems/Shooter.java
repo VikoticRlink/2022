@@ -60,7 +60,8 @@ public class Shooter extends SubsystemBase {
   private DigitalInput m_ballSensorLower;
 
   private double m_flywheelSpeeds[];
-
+  double m_backspin = -0.5;
+  
   /////////////////////////////////////////////////////////////////////////////
   /** Creates a new Shooter. */
   public Shooter() {
@@ -73,6 +74,7 @@ public class Shooter extends SubsystemBase {
     m_flywheelMotorMaster.setNeutralMode(NeutralMode.Coast);
     m_flywheelMotorSlave.setNeutralMode(NeutralMode.Coast);
     m_flywheelSpeeds = new double[3];
+    
 
     // Set up initial flywheel speeds
     m_flywheelSpeeds[FlywheelSpeed.Stopped.value()] = 0.0;
@@ -210,6 +212,14 @@ public class Shooter extends SubsystemBase {
     return m_flywheelSpeeds[speed.value()];
   }
 
+  void setBackspin(double percent) {
+    m_backspin = percent;
+  }
+
+  double getBackspin() {
+    return m_backspin;
+  }
+
   /////////////////////////////////////////////////////////////////////////////
   /**
    * Runs or stops the flywheel in the shooter
@@ -221,7 +231,7 @@ public class Shooter extends SubsystemBase {
     double motorSpeed = speed.value() * invert;
     m_flywheelMotorMaster.set(TalonFXControlMode.PercentOutput, motorSpeed);
     if(speed == FlywheelSpeed.Low){
-      m_flywheelMotorSlave.set(TalonFXControlMode.PercentOutput, - 0.5 * motorSpeed);
+      m_flywheelMotorSlave.set(TalonFXControlMode.PercentOutput, m_backspin * motorSpeed);
     }else{
       m_flywheelMotorSlave.set(TalonFXControlMode.PercentOutput, motorSpeed);
     }
