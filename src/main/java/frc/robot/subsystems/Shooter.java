@@ -202,6 +202,8 @@ public class Shooter extends SubsystemBase {
     if (speed != FlywheelSpeed.Stopped) {
       m_flywheelSpeeds[speed.value()] = value;
     }
+
+    
   }
 
   /////////////////////////////////////////////////////////////////////////////
@@ -228,7 +230,7 @@ public class Shooter extends SubsystemBase {
    */
   public void runFlywheel(FlywheelSpeed speed) {
     double invert = (kInvertFlywheelMotor ? -1.0 : 1.0);
-    double motorSpeed = speed.value() * invert;
+    double motorSpeed = m_flywheelSpeeds[speed.value()] * invert;
     m_flywheelMotorMaster.set(TalonFXControlMode.PercentOutput, motorSpeed);
     if(speed == FlywheelSpeed.Low){
       m_flywheelMotorSlave.set(TalonFXControlMode.PercentOutput, m_backspin * motorSpeed);

@@ -21,7 +21,8 @@ public class Dashboard extends SubsystemBase {
   private Shooter m_shooterSubsystem;
   private ShuffleboardTab m_shooterTab;
   private NetworkTableEntry[] m_shooterSpeedNTE;
-  private NetworkTableEntry m_backspinNTE;
+  //private NetworkTableEntry m_backspinNTE;
+  
 
   /** Creates a new Dashboard. */
   public Dashboard(Shooter shooterSubsystem) {    
@@ -55,11 +56,12 @@ public class Dashboard extends SubsystemBase {
       .withWidget(BuiltInWidgets.kNumberSlider)
       .withProperties(Map.of("min", 0.0, "max", 1.0)) // specify widget properties here
       .getEntry();
-    m_backspinNTE =
+    /*m_backspinNTE =
       m_shooterTab.add("Backspin", m_shooterSubsystem.getBackspin())
       .withWidget(BuiltInWidgets.kNumberSlider)
       .withProperties(Map.of("min", -1.0, "max", 1.0)) // specify widget properties here
       .getEntry();
+    */
   }
 
   @Override
@@ -84,15 +86,22 @@ public class Dashboard extends SubsystemBase {
     //SmartDashboard.putNumber("rightDrive", RobotContainer.m_DriveBase.rightMaster.getSelectedSensorPosition());
 
     // Get shooter speeds from the dashboard
-    double low = m_shooterSpeedNTE[FlywheelSpeed.Low.value()].getDouble(m_shooterSubsystem.getFlywheelSpeedValue(FlywheelSpeed.Low));
-    double med = m_shooterSpeedNTE[FlywheelSpeed.Medium.value()].getDouble(m_shooterSubsystem.getFlywheelSpeedValue(FlywheelSpeed.Medium));
-    double gl = m_shooterSpeedNTE[FlywheelSpeed.GreasedLightning.value()].getDouble(m_shooterSubsystem.getFlywheelSpeedValue(FlywheelSpeed.GreasedLightning));
-    double aut = m_shooterSpeedNTE[FlywheelSpeed.Autonomous.value()].getDouble(m_shooterSubsystem.getFlywheelSpeedValue(FlywheelSpeed.Autonomous));
+    int lowIndex = FlywheelSpeed.Low.value();
+    int medIndex = FlywheelSpeed.Medium.value();
+    int glIndex = FlywheelSpeed.GreasedLightning.value();
+    int autoIndex = FlywheelSpeed.Autonomous.value();
+    double low = m_shooterSpeedNTE[lowIndex].getDouble(m_shooterSubsystem.getFlywheelSpeedValue(FlywheelSpeed.Low));
+    double med = m_shooterSpeedNTE[medIndex].getDouble(m_shooterSubsystem.getFlywheelSpeedValue(FlywheelSpeed.Medium));
+    double gl = m_shooterSpeedNTE[glIndex].getDouble(m_shooterSubsystem.getFlywheelSpeedValue(FlywheelSpeed.GreasedLightning));
+    double aut = m_shooterSpeedNTE[autoIndex].getDouble(m_shooterSubsystem.getFlywheelSpeedValue(FlywheelSpeed.Autonomous));
+    SmartDashboard.putNumber("LowVal", low);
+    SmartDashboard.putNumber("MediumVal", med);
+    SmartDashboard.putNumber("LightningVal", gl);
     m_shooterSubsystem.setFlywheelSpeedValue(FlywheelSpeed.Low, low);
     m_shooterSubsystem.setFlywheelSpeedValue(FlywheelSpeed.Medium, med);
     m_shooterSubsystem.setFlywheelSpeedValue(FlywheelSpeed.GreasedLightning, gl);
     m_shooterSubsystem.setFlywheelSpeedValue(FlywheelSpeed.Autonomous, aut);
-    m_shooterSubsystem.setBackspin(m_backspinNTE.getDouble(m_shooterSubsystem.getBackspin()));
+    //m_shooterSubsystem.setBackspin(m_backspinNTE.getDouble(m_shooterSubsystem.getBackspin()));
     //PushMotorTemps();
   }
 
