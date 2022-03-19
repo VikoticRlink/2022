@@ -29,19 +29,22 @@ public class DriveStage1 extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    m_driveBaseSubsystem.tankDriveVolts(-3.6, 3.6);
+  public void execute() {   
+    m_intakeSubsystem.getBalls();
+    m_driveBaseSubsystem.tankDriveVolts(4, 4);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_intakeSubsystem.disableIntake();
+    m_driveBaseSubsystem.tankDriveVolts(0,0);
+    m_driveBaseSubsystem.leftMaster.setSafetyEnabled(false);
+    m_driveBaseSubsystem.rightMaster.setSafetyEnabled(false);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (m_driveBaseSubsystem.rightMaster.getSelectedSensorPosition() < 30000);
+    return (m_driveBaseSubsystem.rightMaster.getSelectedSensorPosition() <= 60000);
   }
 }
