@@ -53,7 +53,7 @@ public class RobotContainer {
   public static Shooter m_Shooter = new Shooter();
   public static Intake m_Intake = new Intake(m_Shooter);
   public static Lighting m_Lighting = new Lighting();
-  public static Dashboard m_Dashboard = new Dashboard();
+  public static Dashboard m_Dashboard = new Dashboard(m_Shooter);
   public static T_rex m_tRex = new T_rex();
 
   //The robot's commands are defined here...
@@ -95,7 +95,7 @@ public class RobotContainer {
         operatorController.bumpLeft.whenHeld(new ManualMode());
         operatorController.bumpRight.whenHeld(new ManualMode());
         operatorController.A.whenPressed(new LoadAndFire(FlywheelSpeed.Low, m_Shooter, operatorController.A));
-        operatorController.X.whenPressed(new LoadAndFire(FlywheelSpeed.Medium, m_Shooter, operatorController.X));
+        operatorController.X.whenPressed(new LoadAndFire(FlywheelSpeed.Medium, m_Shooter, operatorController.B));
         operatorController.Y.whenPressed(new LoadAndFire(FlywheelSpeed.GreasedLightning, m_Shooter, operatorController.Y));
         operatorController.B.whenHeld(new IntakeBall(RobotContainer.m_Intake));
         
