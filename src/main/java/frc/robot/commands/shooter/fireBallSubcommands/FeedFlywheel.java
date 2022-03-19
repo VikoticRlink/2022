@@ -90,6 +90,7 @@ public class FeedFlywheel extends CommandBase {
   public void end(boolean interrupted) {
     m_shooterSubsystem.runBallIndexer(Shooter.BallIndexerMode.Stopped);
     m_shooterSubsystem.runFlywheel(FlywheelSpeed.Stopped);
+    m_isDone = true;
   }
 
   ///////////////////////////////////////////////////////////////////////////////

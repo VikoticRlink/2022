@@ -16,6 +16,7 @@ import frc.robot.subsystems.Shooter;
  */
 public class ChamberBall extends CommandBase {
   Shooter m_shooterSubsystem;
+  boolean m_isDone = false;
 
   ///////////////////////////////////////////////////////////////////////////////
   /** Creates an instance of the command
@@ -47,6 +48,7 @@ public class ChamberBall extends CommandBase {
   public void end(boolean interrupted) {
     // Stop the ball indexer
     m_shooterSubsystem.runBallIndexer(Shooter.BallIndexerMode.Stopped);
+    m_isDone = true;
   }
 
   ///////////////////////////////////////////////////////////////////////////////
@@ -59,6 +61,7 @@ public class ChamberBall extends CommandBase {
   @Override
   public boolean isFinished() {
     return (m_shooterSubsystem.numBallsDetected() < 1) ||
-            m_shooterSubsystem.getBallLimitSensor();
+            m_shooterSubsystem.getBallLimitSensor() ||
+            m_isDone;
   }
 }

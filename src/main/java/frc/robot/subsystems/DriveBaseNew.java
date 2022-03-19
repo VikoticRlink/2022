@@ -34,20 +34,6 @@ public class DriveBaseNew extends SubsystemBase {
   // The robot's drive
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
 
-  // The left-side drive encoder
-  /*private final Encoder m_leftEncoder = 
-      new Encoder(
-        Constants.DriveConstants.kLeftEncoderPorts[0],
-        Constants.DriveConstants.kLeftEncoderPorts[1],
-        Constants.DriveConstants.kLeftEncoderReversed);
-*/
-  // The right-side drive encoder
-  /*private final Encoder m_rightEncoder =
-      new Encoder(
-      Constants.DriveConstants.kRightEncoderPorts[0],
-      Constants.DriveConstants.kRightEncoderPorts[1],
-      Constants.DriveConstants.kRightEncoderReversed);
-*/
   // The gyro sensor
   private final Gyro m_gyro = new ADXRS450_Gyro();
 
@@ -95,6 +81,7 @@ public class DriveBaseNew extends SubsystemBase {
       }else{
          m_drive.tankDrive(-1 * DrivePowerModifer * RobotContainer.driverController.leftStickY(), -1 * DrivePowerModifer * RobotContainer.driverController.rightStickY());
       }
+      m_drive.feed();
     }
 
 

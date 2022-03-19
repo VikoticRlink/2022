@@ -186,6 +186,39 @@
               "_source0": "network_table:///SmartDashboard/limelight_Stream",
               "_title": "limelight_Stream"
             }
+          },
+          "0,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/MediumVal",
+              "_title": "MediumVal"
+            }
+          },
+          "7,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LowVal",
+              "_title": "LowVal"
+            }
+          },
+          "8,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LightningVal",
+              "_title": "LightningVal"
+            }
           }
         }
       }
@@ -418,9 +451,9 @@
     }
   ],
   "windowGeometry": {
-    "x": -7.0,
-    "y": 4.0,
-    "width": 1376.0,
-    "height": 726.0
+    "x": -8.0,
+    "y": -8.0,
+    "width": 1382.0,
+    "height": 784.0
   }
 }

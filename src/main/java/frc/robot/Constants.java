@@ -112,7 +112,7 @@ public class Constants {
 		public static final double kIntakeActuator = 1.0;
 		public static final double kTRexArmManualSpeed = 0.2;		// Speed when running the T-rex arms in manual mode
 		public static final double kIntakeMotorSpeed = 1.0;			// Speed to run the motor on the intake arm
-		public static final double kClimberSpeed = 1.0;
+		public static final double kClimberSpeed = 0.5;   // 1.0;
 		public static final double SlowSpeedLimit = 0.25;
 		public static final double StandardSpeedLimit = 0.9;
 		public static final double DriveStandardLimit = 0.9;

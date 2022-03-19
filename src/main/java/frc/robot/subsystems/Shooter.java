@@ -191,9 +191,9 @@ public class Shooter extends SubsystemBase {
     double motorSpeed = speed.value() * invert;
     //m_flywheelMotorMaster.set(TalonFXControlMode.PercentOutput, motorSpeed);
     if(speed == FlywheelSpeed.Low){
-      m_flywheelMotorSlave.set(TalonFXControlMode.PercentOutput, 0.7 * motorSpeed);
+      m_flywheelMotorMaster.set(TalonFXControlMode.PercentOutput, 0.7 * motorSpeed);
     }else{
-      m_flywheelMotorSlave.set(TalonFXControlMode.PercentOutput, motorSpeed);
+      m_flywheelMotorMaster.set(TalonFXControlMode.PercentOutput, motorSpeed);
     }
   }
 
