@@ -45,6 +45,6 @@ public class DriveStage1 extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (m_driveBaseSubsystem.rightMaster.getSelectedSensorPosition() <= 60000);
+    return (m_driveBaseSubsystem.rightMaster.getSelectedSensorPosition() <= -60000);
   }
 }

@@ -15,6 +15,18 @@ public class Climber extends SubsystemBase {
   /** Creates a new Climber. */
   WPI_TalonFX ClimbMaster = new WPI_TalonFX(Constants.MotorID.climberMaster);
   WPI_TalonFX ClimbSlave = new WPI_TalonFX(Constants.MotorID.climberSlave);
+  
+  
+    //m_tRexMaster.configReverseSoftLimitThreshold(52000, 0);
+    //m_tRexMaster.configForwardSoftLimitThreshold(0, 0);
+    //m_tRexMaster.configForwardSoftLimitEnable(false, 0);
+    //m_tRexMaster.configReverseSoftLimitEnable(false, 0);
+	/**
+	 * Talon FX motors support multiple (cascaded) PID loops that are identified
+   * by index.  This subsystem requires just one PID loop whose index is given
+   * by this constant.
+	 */
+  public static final int kPIDIndex = 0;
 
   /** Modes that the Climb Elevator can be run in
    */
@@ -34,6 +46,7 @@ public class Climber extends SubsystemBase {
     ClimbSlave.follow(ClimbMaster);
     ClimbSlave.setNeutralMode(NeutralMode.Brake);
     ClimbMaster.setNeutralMode(NeutralMode.Brake);
+    ClimbMaster.setSelectedSensorPosition(0, 0, 0);
   }
 
   @Override
@@ -70,6 +83,12 @@ public class Climber extends SubsystemBase {
       break;
     }
     ClimbMaster.set(TalonFXControlMode.PercentOutput, percentOutput);
+  }
+  /////////////////////////////////////////////////////////////////////////////
+  /** Returns the raw encoder count of the T-rex arm master motor */
+  public double getClimberPosition()
+  {
+    return ClimbMaster.getSelectedSensorPosition(kPIDIndex);
   }
 
 }

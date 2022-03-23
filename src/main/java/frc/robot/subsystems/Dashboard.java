@@ -34,7 +34,7 @@ public class Dashboard extends SubsystemBase {
     SmartDashboard.putBoolean("Ball Against Flywheel", RobotContainer.m_Shooter.getBallLimitSensor());
     //SmartDashboard.putNumber("Bot Heading", RobotContainer.m_DriveBase.getHeading());
     //SmartDashboard.putNumber("Intake Arm Position", RobotContainer.m_Intake.getIntakeArmPositionRaw());
-    //SmartDashboard.putNumber("T-rex Arm position", RobotContainer.m_tRex.getArmPositionRaw());
+    SmartDashboard.putNumber("Climber Position", RobotContainer.m_Climber.getClimberPosition());
 
     //SmartDashboard.putNumber("leftDrive", RobotContainer.m_DriveBase.leftMaster.getSelectedSensorPosition());
     //SmartDashboard.putNumber("rightDrive", RobotContainer.m_DriveBase.rightMaster.getSelectedSensorPosition());

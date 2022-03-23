@@ -219,6 +219,17 @@
               "_source0": "network_table:///SmartDashboard/LightningVal",
               "_title": "LightningVal"
             }
+          },
+          "0,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Climber Position",
+              "_title": "Climber Position"
+            }
           }
         }
       }
@@ -451,9 +462,9 @@
     }
   ],
   "windowGeometry": {
-    "x": -8.0,
-    "y": -8.0,
-    "width": 1382.0,
-    "height": 784.0
+    "x": -6.0,
+    "y": 1.0,
+    "width": 1378.0,
+    "height": 773.0
   }
 }
