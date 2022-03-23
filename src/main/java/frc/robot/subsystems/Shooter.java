@@ -218,4 +218,6 @@ public class Shooter extends SubsystemBase {
       m_indexMotor.set(TalonFXControlMode.PercentOutput, indexAmount);
     }
   }
+  //Sonic Squirels flywheel tuner
+  //https://github.com/FRC-Sonic-Squirrels/Flywheel-Tuner/blob/main/src/main/java/frc/robot/Robot.java
 }
