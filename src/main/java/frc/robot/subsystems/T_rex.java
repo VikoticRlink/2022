@@ -159,5 +159,9 @@ public class T_rex extends SubsystemBase {
     return m_tRexMaster.getSelectedSensorPosition(kPIDIndex);
   }
 
+  /** Resets the encoders to currently read a position of 0. */
+  public void resetEncoders() {
+    m_tRexMaster.setSelectedSensorPosition(0, 0, 0);
+  }
 
 }

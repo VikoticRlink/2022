@@ -90,5 +90,10 @@ public class Climber extends SubsystemBase {
   {
     return ClimbMaster.getSelectedSensorPosition(kPIDIndex);
   }
+  
+  /** Resets the encoders to currently read a position of 0. */
+  public void resetEncoders() {
+    ClimbMaster.setSelectedSensorPosition(0, 0, 0);
+  }
 
 }

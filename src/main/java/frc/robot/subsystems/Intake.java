@@ -188,4 +188,9 @@ public class Intake extends SubsystemBase {
   {
     return m_armMotor.getSelectedSensorPosition(kPIDIndex);
   }
+
+    /** Resets the encoders to currently read a position of 0. */
+    public void resetEncoders() {
+      m_armMotor.setSelectedSensorPosition(0, 0, 0);
+    }
 }
