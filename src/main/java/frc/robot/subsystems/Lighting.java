@@ -23,6 +23,10 @@ public class Lighting extends SubsystemBase {
   //private static int currentColor;
   static int iPos=0;
   private static Color8Bit AllianceColor;
+  private LEDPattern m_ledPattern;
+  private final Color8Bit kRed = new Color8Bit(255, 0, 0);
+  private final Color8Bit kGreen = new Color8Bit(0, 255, 0);
+  private final Color8Bit kBlue = new Color8Bit(0, 0, 255);
 
   public Lighting() {  
     m_led = new AddressableLED(1);
@@ -30,6 +34,7 @@ public class Lighting extends SubsystemBase {
     m_led.setLength(m_ledBuffer.getLength());
     m_led.setData(m_ledBuffer);
     m_led.start();
+    m_ledPattern = new LEDPattern(0, 30, kGreen);
   }
 
   @Override
@@ -71,7 +76,9 @@ public class Lighting extends SubsystemBase {
           AutoColor(false, 3);
           break;
         case "AutoDrive":
-          AllYellow();
+          //AllYellow();
+          m_ledPattern.setColor( (RobotContainer.isRedAlliance) ? kRed : kBlue );
+          m_ledPattern.process(m_ledBuffer);
           break;
       }
     }
@@ -84,12 +91,14 @@ public class Lighting extends SubsystemBase {
     }
     m_led.setData(m_ledBuffer);
   }
+
   private void AllYellow(){
     for (var i =0; i< m_ledBuffer.getLength(); i++){
       m_ledBuffer.setRGB(i, 255, 150, 0);
     }
   //  m_led.setData(m_ledBuffer);
   }
+
   private void LEDRY(){
       
     for (var i = 0; i < m_ledBuffer.getLength(); i++) {
@@ -100,6 +109,7 @@ public class Lighting extends SubsystemBase {
       }     
    // m_led.setData(m_ledBuffer);
   }
+
   private void All_LEDRainbow(){
     //--- make a rainbow pattern on LEDs ---//
     int ShowLEDs = m_ledBuffer.getLength();
@@ -111,6 +121,7 @@ public class Lighting extends SubsystemBase {
       m_rainbowFirstPixelHue %= 180;
    // m_led.setData(m_ledBuffer);
   }
+  
   private void AutoColor(boolean RedSide, int whichAuto){
     Color8Bit MyLight = new Color8Bit(0, 0, 255);
     final Color8Bit BlackLight = new Color8Bit(0, 0, 0);

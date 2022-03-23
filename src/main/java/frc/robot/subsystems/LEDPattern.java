@@ -1,11 +1,11 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj.util.Color8Bit;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 
 public class LEDPattern {
-    private final int kPatternLength = 4;
-    private Color m_pattern[];
+    private final int kPatternLength = 6;
+    private Color8Bit m_pattern[];
     private int m_arraySize;  /**length of LED strip */
     private int m_startIndex; /**starting index in the LED strip */
     private int m_iteration;  /**number of times array has been processed */
@@ -22,21 +22,29 @@ public class LEDPattern {
      * @param startIndex  Starting index in the LED array where
      *                    the pattern will be displayed
      * @param numLEDs Number of LEDs in the strip to walk the pattern through
+     * @param color   The color of the pattern
      */
-    public LEDPattern(int startIndex, int numLEDs) {
+    public LEDPattern(int startIndex, int numLEDs, Color8Bit color) {
         m_startIndex = startIndex;
         m_arraySize = numLEDs;
         m_direction = Direction.kForward;
         reset();
 
         // Initialize the LED pattern array
-        Color half = new Color(0.0, 0.5, 0.0);
-        Color full = new Color(0.0, 1.0, 0.0);
-        m_pattern =  new Color[kPatternLength];
-        m_pattern[0] = half;
-        m_pattern[1] = full;
-        m_pattern[2] = full;
-        m_pattern[3] = half;
+        m_pattern =  new Color8Bit[kPatternLength];
+        setColor(color);
+    }
+
+    /** Sets the color displayed by the pattern
+     * @param color  The color the pattern should display
+     */
+    public void setColor(Color8Bit color) {
+        m_pattern[0] = scaleIntensity(color, 1.0);
+        m_pattern[1] = scaleIntensity(color, 0.75);
+        m_pattern[2] = scaleIntensity(color, 0.5);
+        m_pattern[3] = scaleIntensity(color, 0.25);
+        m_pattern[4] = scaleIntensity(color, 0.125);
+        m_pattern[5] = scaleIntensity(color, 0.06);
     }
 
     /** Resets the LED pattern to its initial position in the target
@@ -61,17 +69,35 @@ public class LEDPattern {
         return result;
     }
 
+    /** Helper function used to scale the intensity of a given Color to
+     *  produce a Color8Bit
+     * 
+     * @param color  The color to scale
+     * @param intensity  Scale factor to apply the color intensity (0.0 to 1.0)
+     */
+    private static Color8Bit scaleIntensity(Color8Bit color, double scaleFactor) {
+        int red =  (int)(color.red * scaleFactor);
+        int green = (int)(color.green *scaleFactor);
+        int blue = (int)(color.blue *scaleFactor);
+        return new Color8Bit(red, green, blue);
+    }
 
     /** Display's this object's pattern on a given LED array
      * 
      * @param ledBuffer  The LED strip array to display in
      */
     public void process(AddressableLEDBuffer ledBuffer) {
+        Color8Bit off = new Color8Bit(0, 0, 0);
+        for (int i = m_startIndex; i < m_startIndex + m_arraySize; ++i) {
+            ledBuffer.setLED(i, off);
+        }
+        
         // Copy the pattern into ledArray starting at the current
         // array index
         int a = m_startIndex + translateIndex(m_arrayPos);
         for (int p = m_patternStart; p <= m_patternEnd; ++p) {
-            ledBuffer.setLED(a, m_pattern[p]);
+            Color8Bit c = m_pattern[p];
+            ledBuffer.setRGB(a, c.red, c.green, c.blue);
             a += (m_direction == Direction.kForward) ? -1 : 1;
         }
 
@@ -84,7 +110,7 @@ public class LEDPattern {
                 m_arrayPos += 1;
             }
 
-            if (m_patternStart >= m_arraySize)
+            if (m_iteration >= m_arraySize)
             {
                 m_patternStart += 1;
             }
