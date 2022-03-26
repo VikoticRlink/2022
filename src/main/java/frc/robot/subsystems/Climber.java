@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
+import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -16,12 +17,7 @@ public class Climber extends SubsystemBase {
   WPI_TalonFX ClimbMaster = new WPI_TalonFX(Constants.MotorID.climberMaster);
   WPI_TalonFX ClimbSlave = new WPI_TalonFX(Constants.MotorID.climberSlave);
   
-  
-    //m_tRexMaster.configReverseSoftLimitThreshold(52000, 0);
-    //m_tRexMaster.configForwardSoftLimitThreshold(0, 0);
-    //m_tRexMaster.configForwardSoftLimitEnable(false, 0);
-    //m_tRexMaster.configReverseSoftLimitEnable(false, 0);
-	/**
+  	/**
 	 * Talon FX motors support multiple (cascaded) PID loops that are identified
    * by index.  This subsystem requires just one PID loop whose index is given
    * by this constant.
@@ -47,6 +43,12 @@ public class Climber extends SubsystemBase {
     ClimbSlave.setNeutralMode(NeutralMode.Brake);
     ClimbMaster.setNeutralMode(NeutralMode.Brake);
     ClimbMaster.setSelectedSensorPosition(0, 0, 0);
+    
+    ClimbMaster.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 0);
+    ClimbMaster.configReverseSoftLimitThreshold(-443796, 0);
+    ClimbMaster.configForwardSoftLimitThreshold(-700, 0);
+    ClimbMaster.configForwardSoftLimitEnable(true, 0);
+    ClimbMaster.configReverseSoftLimitEnable(true, 0);
   }
 
   @Override
@@ -56,7 +58,7 @@ public class Climber extends SubsystemBase {
      // runClimberElevator(ClimberMode.Manual);
         double climbAmount = RobotContainer.operatorController.leftStickY();
         climbAmount *= Constants.MotorScaler.kClimberSpeed;
-        ClimbMaster.set(TalonFXControlMode.PercentOutput, -1 * climbAmount);
+        ClimbMaster.set(TalonFXControlMode.PercentOutput, climbAmount);
   }
   }
 

@@ -32,6 +32,12 @@ public class Shooter extends SubsystemBase {
   /** Set to true to reverse the direction of the ball indexer motor */
   private static final boolean kInvertBallIndexerMotor = true;
 
+  // FalconFX reports velocity in counts per 100ms
+  // 1 revolution = 2048 counts
+  // 1 minutes = 60 * 10 * 100ms
+  // conversion is  600  / 2048
+  private double ticks2RPm = 600.0 / 2048.0;
+
   //////////////////////////////////
   /// *** ATTRIBUTES ***
   //////////////////////////////////
@@ -59,6 +65,21 @@ public class Shooter extends SubsystemBase {
    */
   private DigitalInput m_ballSensorLower;
 
+    // PID coefficients (starting point)
+    // Small initial kFF and kP values, probably just big enough to do *something* 
+    // and *probably* too small to overdrive an untuned system.
+    private double kFF = 0.02;
+    private double kP = 0.04;
+    private double kI = 0;
+    private double kD = 0;
+    private double kIz = 0; 
+    final int kPIDLoopIdx = 0;
+    final int kTimeoutMs = 30;
+    private double kMaxOutput = 1.0;
+    private double kMinOutput = -1.0;
+    private double maxRPM = 6300;     // free speed of Falcon 500 is listed as 6380
+    private double m_rate_RPMpersecond = 1e10;    // 10 million effectively disables rate limiting
+
   /////////////////////////////////////////////////////////////////////////////
   /** Creates a new Shooter. */
   public Shooter() {
@@ -72,6 +93,17 @@ public class Shooter extends SubsystemBase {
     //m_flywheelMotorSlave.setNeutralMode(NeutralMode.Coast);
     // Configure the flywheel master motor
     m_flywheelMotorMaster.setInverted(kInvertFlywheelMotor);
+
+    // set PID coefficients
+    m_flywheelMotorMaster.config_kF(kPIDLoopIdx, kFF, kTimeoutMs);
+		m_flywheelMotorMaster.config_kP(kPIDLoopIdx, kP, kTimeoutMs);
+		m_flywheelMotorMaster.config_kI(kPIDLoopIdx, kI, kTimeoutMs);
+		m_flywheelMotorMaster.config_kD(kPIDLoopIdx, kD, kTimeoutMs);
+    m_flywheelMotorMaster.config_IntegralZone(kPIDLoopIdx, kIz, kTimeoutMs);
+    m_flywheelMotorMaster.configNominalOutputForward(0, kTimeoutMs);
+    m_flywheelMotorMaster.configNominalOutputReverse(0, kTimeoutMs);
+		m_flywheelMotorMaster.configPeakOutputForward(1, kTimeoutMs);
+		m_flywheelMotorMaster.configPeakOutputReverse(-1, kTimeoutMs);
 
     // Configure the flywheel slave motor to follow the master and
     // invert its direction
@@ -167,10 +199,10 @@ public class Shooter extends SubsystemBase {
   /** Speeds the flywheel can be run at */
   public enum FlywheelSpeed {
     Stopped (0.0),         /** Turn off the flywheel */
-    Low (0.4),              /** Slowest muzzle velocity */
-    Medium (0.5),           /** Medium muzzle velocity */
-    GreasedLightning (0.6), /** Back away... not today */
-    Autonomous (0.5);  /** Muzzle velocity used in autonomous mode */
+    Low (2520),              /** Slowest muzzle velocity */
+    Medium (3150),           /** Medium muzzle velocity */
+    GreasedLightning (6300), /** Back away... not today */
+    Autonomous (3150);  /** Muzzle velocity used in autonomous mode */
     //To-Do
     //How to setup variable sliders on shuffleboard to configure this
     //https://docs.wpilib.org/en/stable/docs/software/dashboards/shuffleboard/layouts-with-code/configuring-widgets.html
@@ -187,14 +219,16 @@ public class Shooter extends SubsystemBase {
    * @param speed Speed to run the flywheel at
    */
   public void runFlywheel(FlywheelSpeed speed) {
-    double invert = (kInvertFlywheelMotor ? -1.0 : 1.0);
+   // double invert = (kInvertFlywheelMotor ? -1.0 : 1.0);
     double motorSpeed = speed.value();// * invert;
     //m_flywheelMotorMaster.set(TalonFXControlMode.PercentOutput, motorSpeed);
-    if(speed == FlywheelSpeed.Low){
+    /*if(speed == FlywheelSpeed.Low){
       m_flywheelMotorMaster.set(TalonFXControlMode.PercentOutput, 0.7 * motorSpeed);
     }else{
       m_flywheelMotorMaster.set(TalonFXControlMode.PercentOutput, motorSpeed);
-    }
+    }*/
+
+    m_flywheelMotorMaster.set(TalonFXControlMode.Velocity, motorSpeed / ticks2RPm);
   }
 
   /////////////////////////////////////////////////////////////////////////////
@@ -214,8 +248,11 @@ public class Shooter extends SubsystemBase {
       double indexAmount = RobotContainer.operatorController.rightTriggerPull() * (kInvertBallIndexerMotor ? -1.0 : 1.0)
           * BallIndexerMode.ShootBall.getMotorSpeed();
 
-      m_flywheelMotorMaster.set(TalonFXControlMode.PercentOutput, shooterAmount * 0.65);
+     // m_flywheelMotorMaster.set(TalonFXControlMode.PercentOutput, shooterAmount); // * 0.65);
+      
+      m_flywheelMotorMaster.set(TalonFXControlMode.Velocity, shooterAmount * maxRPM / ticks2RPm);
       m_indexMotor.set(TalonFXControlMode.PercentOutput, indexAmount);
+      
     }
   }
   //Sonic Squirels flywheel tuner
