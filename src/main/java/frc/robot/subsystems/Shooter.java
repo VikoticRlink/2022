@@ -27,7 +27,7 @@ public class Shooter extends SubsystemBase {
   //////////////////////////////////
 
   /** Set to true to reverse the direction of the flywheel motor */
-  private static final boolean kInvertFlywheelMotor = false;
+  private static final boolean kInvertFlywheelMotor = true;
 
   /** Set to true to reverse the direction of the ball indexer motor */
   private static final boolean kInvertBallIndexerMotor = true;
@@ -63,13 +63,13 @@ public class Shooter extends SubsystemBase {
   /** Creates a new Shooter. */
   public Shooter() {
     m_flywheelMotorMaster = new WPI_TalonFX(Constants.MotorID.flywheelMaster);
-    m_flywheelMotorSlave = new WPI_TalonFX(Constants.MotorID.flywheelSlave);
+    //m_flywheelMotorSlave = new WPI_TalonFX(Constants.MotorID.flywheelSlave);
     m_indexMotor = new WPI_TalonFX(Constants.MotorID.indexMotor);
     m_ballLimitSensor = new DigitalInput(Constants.ShooterConstants.BallSensorDigitalInputUpper);
     m_ballSensorMiddle = new DigitalInput(Constants.ShooterConstants.BallSensorDigitalInputMiddle);
     m_ballSensorLower = new DigitalInput(Constants.ShooterConstants.BallSensorDigitalInputLower);
     m_flywheelMotorMaster.setNeutralMode(NeutralMode.Coast);
-    m_flywheelMotorSlave.setNeutralMode(NeutralMode.Coast);
+    //m_flywheelMotorSlave.setNeutralMode(NeutralMode.Coast);
     // Configure the flywheel master motor
     m_flywheelMotorMaster.setInverted(kInvertFlywheelMotor);
 
@@ -188,7 +188,7 @@ public class Shooter extends SubsystemBase {
    */
   public void runFlywheel(FlywheelSpeed speed) {
     double invert = (kInvertFlywheelMotor ? -1.0 : 1.0);
-    double motorSpeed = speed.value() * invert;
+    double motorSpeed = speed.value();// * invert;
     //m_flywheelMotorMaster.set(TalonFXControlMode.PercentOutput, motorSpeed);
     if(speed == FlywheelSpeed.Low){
       m_flywheelMotorMaster.set(TalonFXControlMode.PercentOutput, 0.7 * motorSpeed);
@@ -211,7 +211,7 @@ public class Shooter extends SubsystemBase {
     // * Right trigger drives ball indexer
     if (RobotContainer.robotIsInManualTeleOpMode()) {
       double shooterAmount = RobotContainer.operatorController.leftTriggerPull();
-      double indexAmount = RobotContainer.operatorController.rightTriggerPull()
+      double indexAmount = RobotContainer.operatorController.rightTriggerPull() * (kInvertBallIndexerMotor ? -1.0 : 1.0)
           * BallIndexerMode.ShootBall.getMotorSpeed();
 
       m_flywheelMotorMaster.set(TalonFXControlMode.PercentOutput, shooterAmount * 0.65);
