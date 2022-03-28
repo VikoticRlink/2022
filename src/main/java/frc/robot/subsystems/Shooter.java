@@ -13,6 +13,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.utility.TalonPIDConfig;
 
 ///////////////////////////////////////////////////////////////////////////////
 /**
@@ -32,12 +33,18 @@ public class Shooter extends SubsystemBase {
   /** Set to true to reverse the direction of the ball indexer motor */
   private static final boolean kInvertBallIndexerMotor = true;
 
+  private static final double kDefault_kP = 0.04;
+  private static final double kDefault_kI = 0.0;
+  private static final double kDefault_kD = 0.0;
+  private static final double kDefault_kF = 0.02;
+
   // FalconFX reports velocity in counts per 100ms
   // 1 revolution = 2048 counts
   // 1 minutes = 60 * 10 * 100ms
   // conversion is  600  / 2048
-  private double ticks2RPm = 600.0 / 2048.0;
+  private static final double ticks2RPm = 600.0 / 2048.0;
 
+  
   //////////////////////////////////
   /// *** ATTRIBUTES ***
   //////////////////////////////////
@@ -65,6 +72,9 @@ public class Shooter extends SubsystemBase {
    */
   private DigitalInput m_ballSensorLower;
 
+  /** Flywheel motor PID controller parameters */
+  public TalonPIDConfig m_PIDConfig;
+
     // PID coefficients (starting point)
     // Small initial kFF and kP values, probably just big enough to do *something* 
     // and *probably* too small to overdrive an untuned system.
@@ -88,6 +98,9 @@ public class Shooter extends SubsystemBase {
     m_ballSensorMiddle = new DigitalInput(Constants.ShooterConstants.BallSensorDigitalInputMiddle);
     m_ballSensorLower = new DigitalInput(Constants.ShooterConstants.BallSensorDigitalInputLower);
 
+    m_PIDConfig = new TalonPIDConfig(kDefault_kP, kDefault_kI, kDefault_kD, kDefault_kF,
+                                     kPIDLoopIdx, kTimeoutMs);
+
     // Configure shooter motors
     m_flywheelMotorMaster = new WPI_TalonFX(Constants.MotorID.flywheelMaster);
     //m_flywheelMotorSlave = new WPI_TalonFX(Constants.MotorID.flywheelSlave);
@@ -99,10 +112,10 @@ public class Shooter extends SubsystemBase {
     m_flywheelMotorMaster.setInverted(kInvertFlywheelMotor);
 
     // set PID coefficients
-    m_flywheelMotorMaster.config_kF(kPIDLoopIdx, kFF, kTimeoutMs);
-		m_flywheelMotorMaster.config_kP(kPIDLoopIdx, kP, kTimeoutMs);
-		m_flywheelMotorMaster.config_kI(kPIDLoopIdx, kI, kTimeoutMs);
-		m_flywheelMotorMaster.config_kD(kPIDLoopIdx, kD, kTimeoutMs);
+		m_flywheelMotorMaster.config_kP(kPIDLoopIdx, m_PIDConfig.kP, kTimeoutMs);
+		m_flywheelMotorMaster.config_kI(kPIDLoopIdx, m_PIDConfig.kI, kTimeoutMs);
+		m_flywheelMotorMaster.config_kD(kPIDLoopIdx, m_PIDConfig.kD, kTimeoutMs);
+    m_flywheelMotorMaster.config_kF(kPIDLoopIdx, m_PIDConfig.kF, kTimeoutMs);
     m_flywheelMotorMaster.config_IntegralZone(kPIDLoopIdx, kIz, kTimeoutMs);
     m_flywheelMotorMaster.configNominalOutputForward(0, kTimeoutMs);
     m_flywheelMotorMaster.configNominalOutputReverse(0, kTimeoutMs);

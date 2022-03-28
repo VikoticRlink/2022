@@ -5,10 +5,23 @@
 package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import frc.robot.RobotContainer;
+import frc.robot.utility.MotorTuner;
+
+
 public class Dashboard extends SubsystemBase {
+  private MotorTuner m_driveMotorTuna;
+
   /** Creates a new Dashboard. */
-  public Dashboard() {
+  public Dashboard(Shooter shooterSubsystem) {
+
+    // Set up the motor tuner dashboard
+    ShuffleboardTab tunaTab = Shuffleboard.getTab("MotorTuna");
+    m_driveMotorTuna = new MotorTuner("Flywheel Motor", tunaTab, 
+      shooterSubsystem.m_PIDConfig, shooterSubsystem.m_flywheelMotorMaster);
+
     //SmartDashboard.putData("Fire Ball", new LoadAndFire(Shooter.FlywheelSpeed.Autonomous, RobotContainer.m_Shooter, null));
     //SmartDashboard.putData("DriveStage 0", new DriveStage0(RobotContainer.m_DriveBase, RobotContainer.m_Intake));
    
@@ -37,6 +50,8 @@ public class Dashboard extends SubsystemBase {
     //SmartDashboard.putNumber("Climber Position", RobotContainer.m_Climber.getClimberPosition());
     //SmartDashboard.putNumber("tRex Position", RobotContainer.m_tRex.getArmPositionRaw());
 
+    m_driveMotorTuna.process();
+    SmartDashboard.putNumber("kP", RobotContainer.m_Shooter.m_PIDConfig.kP);
     //SmartDashboard.putNumber("leftDrive", RobotContainer.m_DriveBase.leftMaster.getSelectedSensorPosition());
     //SmartDashboard.putNumber("rightDrive", RobotContainer.m_DriveBase.rightMaster.getSelectedSensorPosition());
 
