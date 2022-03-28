@@ -71,6 +71,7 @@ public class JoystickController extends Object {
   public JoystickProcessor rightTriggerProc;   /** Processor for left trigger */
 
 
+
   /////////////////////////////////////////////////////////////////////////////
   /** Creates a JoysticController instance that communicates with an Xbox 
    * controller on a specified port

@@ -89,6 +89,9 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     driverController = new JoystickController(0);
+    driverController.leftStickYProc.sensitivity=0.3;
+    driverController.rightStickYProc.sensitivity=0.3;
+
     operatorController = new JoystickController(1);
         // Map buttons on operator controller
         //operatorController.Start.whenPressed(new ManualModeToggle());
