@@ -72,7 +72,7 @@ public class Shooter extends SubsystemBase {
     private double kP = 0.04;
     private double kI = 0;
     private double kD = 0;
-    private double kIz = 0; 
+    private double kIz = 0;
     final int kPIDLoopIdx = 0;
     final int kTimeoutMs = 30;
     private double kMaxOutput = 1.0;
@@ -83,14 +83,18 @@ public class Shooter extends SubsystemBase {
   /////////////////////////////////////////////////////////////////////////////
   /** Creates a new Shooter. */
   public Shooter() {
-    m_flywheelMotorMaster = new WPI_TalonFX(Constants.MotorID.flywheelMaster);
-    //m_flywheelMotorSlave = new WPI_TalonFX(Constants.MotorID.flywheelSlave);
-    m_indexMotor = new WPI_TalonFX(Constants.MotorID.indexMotor);
+    // Set up ball sensors
     m_ballLimitSensor = new DigitalInput(Constants.ShooterConstants.BallSensorDigitalInputUpper);
     m_ballSensorMiddle = new DigitalInput(Constants.ShooterConstants.BallSensorDigitalInputMiddle);
     m_ballSensorLower = new DigitalInput(Constants.ShooterConstants.BallSensorDigitalInputLower);
+
+    // Configure shooter motors
+    m_flywheelMotorMaster = new WPI_TalonFX(Constants.MotorID.flywheelMaster);
+    //m_flywheelMotorSlave = new WPI_TalonFX(Constants.MotorID.flywheelSlave);
+    m_indexMotor = new WPI_TalonFX(Constants.MotorID.indexMotor);
     m_flywheelMotorMaster.setNeutralMode(NeutralMode.Coast);
     //m_flywheelMotorSlave.setNeutralMode(NeutralMode.Coast);
+
     // Configure the flywheel master motor
     m_flywheelMotorMaster.setInverted(kInvertFlywheelMotor);
 
@@ -112,7 +116,6 @@ public class Shooter extends SubsystemBase {
     // Currently there is no encoders on these, so it's pretty raw settings anyhow.
     //m_flywheelMotorSlave.follow(m_flywheelMotorMaster);
     //m_flywheelMotorSlave.setInverted(kInvertFlywheelMotor);
-    
   }
 
   /////////////////////////////////////////////////////////////////////////////

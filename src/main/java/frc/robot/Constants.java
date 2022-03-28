@@ -58,9 +58,40 @@ public class Constants {
 
 	 public static final int[] ArmPosition = new int[] {0, 17850, 23000};
 	public static final int[] tRexPosition = new int []{0, 13629, 31880, 43589, 54841, 68187};
+
+
+	public static final class BatteryBudget {
+		/** Nominal peak current the battery is expected to reliably deliver (Amps)
+		 * 
+		 * @remarks
+		 *  The FRC battery can deliver a theoretical maximum load of 300 Amps.  In practice,
+		 *  however, FRC batteries generally deliver less than this, particularly after they
+		 *  have been used through numerous charge cycles.  This constant should be set to a
+		 *  value that is lower by a reasonable margin than the theoretical maximum.
+		*/
+		public static final double kPeakBatteryCurrentAmps = 300 * 0.8;	// 20% margin below max
+
+		/** Percent of the overall current budget that is allocated to the drive motors
+		 * 
+		 * @remarks
+		 *  This constant sets the percentage of the peak battery current that will be budgeted
+		 *  for the drive motors.  Generally speaking, the current drawn by these motors when
+		 *  the robot is moving represents the vast majority of battery loading.  This constant
+		 *  sets up a maximum percentage of the overall battery loading that will be applied to
+		 *  limit motor current.
+		*/
+		public static final double kDriveCurrentBudgetPercent = 0.8;
+
+		/** Maximum current available to the drive motors */
+		public static final double kDriveMotorCurrentAmps = 
+			(kPeakBatteryCurrentAmps * kDriveCurrentBudgetPercent) / 4;
+
+
+	}
+
 	 //For Pathfinder.  These need to be updated for our bot!!!!!!!
 	 //------------------------------------------------------------
-	 public static final class DriveConstants {
+	public static final class DriveConstants {
 		public static final int kLeftMotor1Port = 1;
 		public static final int kLeftMotor2Port = 11;
 		public static final int kRightMotor1Port = 2;
@@ -92,20 +123,20 @@ public class Constants {
 	
 		// Example value only - as above, this must be tuned for your drive!
 		public static final double kPDriveVel = 8.5;
-	  }
+	}
 	
-	  public static final class OIConstants {
+	public static final class OIConstants {
 		public static final int kDriverControllerPort = 0;
-	  }
+	}
 	
-	  public static final class AutoConstants {
+	public static final class AutoConstants {
 		public static final double kMaxSpeedMetersPerSecond = 3;
 		public static final double kMaxAccelerationMetersPerSecondSquared = 3;
 	
 		// Reasonable baseline values for a RAMSETE follower in units of meters and seconds
 		public static final double kRamseteB = 2;
 		public static final double kRamseteZeta = 0.7;
-	  }
+	}
 	  
 	// This is the multiplier for the speed of the intake motor. Normal speed is 1.0
 	public static final class MotorScaler {
@@ -119,6 +150,7 @@ public class Constants {
 		public static final double DriveMidLimit = 0.6;
 		public static final double DriveSlowLimit = 0.5;
 	}
+
 	public static final class ShooterConstants {
 		// Digital input ID's of the ball index optical sensors
 		public static final int BallSensorDigitalInputUpper = 2;
@@ -129,6 +161,7 @@ public class Constants {
 		public static final double kFeedFlywheelTimeoutSeconds = 2.0;
 		public static final double kChamberBallTimeoutSeconds = 2.0;
 	}
+
 	//Motor identification
 	public static final class MotorID{
 		public static final int leftDriveMaster = 1;  //Falcon 500

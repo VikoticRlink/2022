@@ -33,7 +33,7 @@ public class Auto extends CommandBase {
 
    switch (driveStage) {
       case 0: 
-        if (RobotContainer.m_DriveBase.rightMaster.getSelectedSensorPosition() < 79000) {
+        if (RobotContainer.m_DriveBase.m_rightMaster.getSelectedSensorPosition() < 79000) {
           RobotContainer.m_Intake.getBalls();
           RobotContainer.m_DriveBase.tankDriveVolts(-2, -2);
           }else{
