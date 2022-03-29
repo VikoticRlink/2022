@@ -275,6 +275,6 @@ public double getIndexPosition(){
     m_indexMotor.setSelectedSensorPosition(0,0,0);
   }
   public boolean IndexAtLocation(){
-    return true; //ToDo make this look at encoder values.
+    return false; //ToDo make this look at encoder values.
   }
 }
