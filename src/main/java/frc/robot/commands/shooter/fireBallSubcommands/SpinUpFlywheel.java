@@ -18,7 +18,7 @@ import frc.robot.subsystems.Shooter.FlywheelSpeed;
 public class SpinUpFlywheel extends CommandBase {
   Shooter m_shooterSubsystem;
   private FlywheelSpeed m_flywheelSpeed; /** Speed the flywheel will be run at */
-  private int cycleCount = 0;
+  //private int cycleCount = 0;
 
   /////////////////////////////////////////////////////////////////////////////
   /** Creates an instance of the command
@@ -35,7 +35,7 @@ public class SpinUpFlywheel extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    cycleCount = 0;
+    //cycleCount = 0;
   }
 
   /////////////////////////////////////////////////////////////////////////////
@@ -43,7 +43,7 @@ public class SpinUpFlywheel extends CommandBase {
   @Override
   public void execute() {
     m_shooterSubsystem.runFlywheel(m_flywheelSpeed);
-    cycleCount += 1;
+    //cycleCount += 1;
   }
 
   /////////////////////////////////////////////////////////////////////////////
@@ -56,7 +56,8 @@ public class SpinUpFlywheel extends CommandBase {
   @Override
   public boolean isFinished() 
   { 
-    return (cycleCount == 75);
+    return m_shooterSubsystem.isShooterAtSpeed();
+    //return (cycleCount == 75);
     //return (m_shooterSubsystem.numBallsDetected() < 1);
   }
 }

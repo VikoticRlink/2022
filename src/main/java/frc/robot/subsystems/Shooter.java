@@ -37,6 +37,8 @@ public class Shooter extends SubsystemBase {
   // 1 minutes = 60 * 10 * 100ms
   // conversion is  600  / 2048
   private double ticks2RPm = 600.0 / 2048.0;
+  private double shootAdvance = -25000;
+  private double backOff = 8600;
 
   //////////////////////////////////
   /// *** ATTRIBUTES ***
@@ -79,6 +81,7 @@ public class Shooter extends SubsystemBase {
     private double kMinOutput = -1.0;
     private double maxRPM = 6300;     // free speed of Falcon 500 is listed as 6380
     private double m_rate_RPMpersecond = 1e10;    // 10 million effectively disables rate limiting
+    private boolean ShooterAtSpeed=false;
 
   /////////////////////////////////////////////////////////////////////////////
   /** Creates a new Shooter. */
@@ -227,7 +230,11 @@ public class Shooter extends SubsystemBase {
     }else{
       m_flywheelMotorMaster.set(TalonFXControlMode.PercentOutput, motorSpeed);
     }*/
-
+    if((motorSpeed/ticks2RPm*.9)<=getShooterRPM() && getShooterRPM()<=(motorSpeed/ticks2RPm*1.1)){
+      ShooterAtSpeed=true;
+    }else{
+      ShooterAtSpeed=false;
+    }
     m_flywheelMotorMaster.set(TalonFXControlMode.Velocity, motorSpeed / ticks2RPm);
   }
 
@@ -256,7 +263,13 @@ public double getIndexPosition(){
       m_flywheelMotorMaster.set(TalonFXControlMode.Velocity, shooterAmount * maxRPM / ticks2RPm);
       m_indexMotor.set(TalonFXControlMode.PercentOutput, indexAmount);
       
-    }
+    } 
+  }
+  public double getShooterRPM(){
+    return m_flywheelMotorMaster.getSelectedSensorVelocity(0) * ticks2RPm;
+  }
+  public boolean isShooterAtSpeed(){
+    return ShooterAtSpeed;
   }
   //Sonic Squirels flywheel tuner
   //https://github.com/FRC-Sonic-Squirrels/Flywheel-Tuner/blob/main/src/main/java/frc/robot/Robot.java
