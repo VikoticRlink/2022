@@ -6,6 +6,8 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotContainer;
+import frc.robot.commands.shooter.fireBallSubcommands.FeedFlywheel;
+import frc.robot.commands.shooter.loadBallSubcommands.BackOffFlywheel;
 public class Dashboard extends SubsystemBase {
   /** Creates a new Dashboard. */
   public Dashboard() {
@@ -15,7 +17,9 @@ public class Dashboard extends SubsystemBase {
     //SmartDashboard.putData("Fire Ball", new FireBall(RobotContainer.m_Shooter));
     //SmartDashboard.putData("Intake Ball", new IntakeBall(RobotContainer.m_Intake));
     //SmartDashboard.putData("BackOffFlywheel", new BackOffFlywheel(RobotContainer.m_Shooter));
-    // SEE: https://docs.wpilib.org/en/stable/docs/software/dashboards/smartdashboard/choosing-an-autonomous-program-from-smartdashboard.html
+    SmartDashboard.putData("Back Off Flywheel", new BackOffFlywheel(RobotContainer.m_Shooter));
+
+    SmartDashboard.putData("Feed Ball", new FeedFlywheel(RobotContainer.m_Shooter, null));
   }
 
   @Override
@@ -29,10 +33,10 @@ public class Dashboard extends SubsystemBase {
     SmartDashboard.putBoolean("Manual Mode", RobotContainer.ManualControl);
     SmartDashboard.putBoolean("Alliance", RobotContainer.isRedAlliance);
     
+    SmartDashboard.putNumber("Indexer", RobotContainer.m_Shooter.getIndexPosition());
     //SmartDashboard.putBoolean("First Ball", RobotContainer.m_Shooter.upperBallIsPresent());
     //SmartDashboard.putBoolean("Second Ball", RobotContainer.m_Shooter.lowerBallIsPresent());
     //SmartDashboard.putBoolean("Ball Against Flywheel", RobotContainer.m_Shooter.getBallLimitSensor());
-    //SmartDashboard.putNumber("Indexer", RobotContainer.m_Shooter.getIndexPosition());
     //SmartDashboard.putNumber("Intake Arm Position", RobotContainer.m_Intake.getIntakeArmPositionRaw());
     //SmartDashboard.putNumber("Climber Position", RobotContainer.m_Climber.getClimberPosition());
     //SmartDashboard.putNumber("tRex Position", RobotContainer.m_tRex.getArmPositionRaw());
