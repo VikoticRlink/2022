@@ -65,6 +65,7 @@ public class RobotContainer {
   private final AutoBlueOne Blue1 = new AutoBlueOne();
   private final AutoBlueTwo Blue2 = new AutoBlueTwo();
   private final AutoBlueThree Blue3 = new AutoBlueThree();
+  private final AutoHighGoal m_AutoHighGoal = new AutoHighGoal(m_DriveBase, m_Intake, m_Shooter);
   public static SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -72,6 +73,7 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
     m_chooser.setDefaultOption("Simple Auto", m_autonomous);
+    m_chooser.addOption("High Auto", m_AutoHighGoal);  
     m_chooser.addOption("Red 1", Red1);
     m_chooser.addOption("Red 2", Red2);
     m_chooser.addOption("Red 3", Red3);
