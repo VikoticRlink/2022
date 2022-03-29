@@ -29,13 +29,13 @@ public class Dashboard extends SubsystemBase {
     SmartDashboard.putBoolean("Manual Mode", RobotContainer.ManualControl);
     SmartDashboard.putBoolean("Alliance", RobotContainer.isRedAlliance);
     
-    SmartDashboard.putBoolean("First Ball", RobotContainer.m_Shooter.upperBallIsPresent());
-    SmartDashboard.putBoolean("Second Ball", RobotContainer.m_Shooter.lowerBallIsPresent());
-    SmartDashboard.putBoolean("Ball Against Flywheel", RobotContainer.m_Shooter.getBallLimitSensor());
-    //SmartDashboard.putNumber("Bot Heading", RobotContainer.m_DriveBase.getHeading());
+    //SmartDashboard.putBoolean("First Ball", RobotContainer.m_Shooter.upperBallIsPresent());
+    //SmartDashboard.putBoolean("Second Ball", RobotContainer.m_Shooter.lowerBallIsPresent());
+    //SmartDashboard.putBoolean("Ball Against Flywheel", RobotContainer.m_Shooter.getBallLimitSensor());
+    //SmartDashboard.putNumber("Indexer", RobotContainer.m_Shooter.getIndexPosition());
     //SmartDashboard.putNumber("Intake Arm Position", RobotContainer.m_Intake.getIntakeArmPositionRaw());
-    SmartDashboard.putNumber("Climber Position", RobotContainer.m_Climber.getClimberPosition());
-    SmartDashboard.putNumber("tRex Position", RobotContainer.m_tRex.getArmPositionRaw());
+    //SmartDashboard.putNumber("Climber Position", RobotContainer.m_Climber.getClimberPosition());
+    //SmartDashboard.putNumber("tRex Position", RobotContainer.m_tRex.getArmPositionRaw());
 
     //SmartDashboard.putNumber("leftDrive", RobotContainer.m_DriveBase.leftMaster.getSelectedSensorPosition());
     //SmartDashboard.putNumber("rightDrive", RobotContainer.m_DriveBase.rightMaster.getSelectedSensorPosition());

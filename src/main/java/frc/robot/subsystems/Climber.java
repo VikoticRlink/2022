@@ -45,10 +45,10 @@ public class Climber extends SubsystemBase {
     ClimbMaster.setSelectedSensorPosition(0, 0, 0);
     
     ClimbMaster.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 0);
-    ClimbMaster.configReverseSoftLimitThreshold(-443796, 0);
-    ClimbMaster.configForwardSoftLimitThreshold(-700, 0);
-    ClimbMaster.configForwardSoftLimitEnable(true, 0);
-    ClimbMaster.configReverseSoftLimitEnable(true, 0);
+    ClimbMaster.configReverseSoftLimitThreshold(-450000, 0);
+    ClimbMaster.configForwardSoftLimitThreshold(0, 0);
+    ClimbMaster.configForwardSoftLimitEnable(false, 0);
+    ClimbMaster.configReverseSoftLimitEnable(false, 0);
   }
 
   @Override

@@ -199,10 +199,10 @@ public class Shooter extends SubsystemBase {
   /** Speeds the flywheel can be run at */
   public enum FlywheelSpeed {
     Stopped (0.0),         /** Turn off the flywheel */
-    Low (2520),              /** Slowest muzzle velocity */
-    Medium (3150),           /** Medium muzzle velocity */
+    Low (3000),              /** Slowest muzzle velocity */
+    Medium (4000),           /** Medium muzzle velocity */
     GreasedLightning (6300), /** Back away... not today */
-    Autonomous (3150);  /** Muzzle velocity used in autonomous mode */
+    Autonomous (3000);  /** Muzzle velocity used in autonomous mode */
     //To-Do
     //How to setup variable sliders on shuffleboard to configure this
     //https://docs.wpilib.org/en/stable/docs/software/dashboards/shuffleboard/layouts-with-code/configuring-widgets.html
@@ -231,6 +231,9 @@ public class Shooter extends SubsystemBase {
     m_flywheelMotorMaster.set(TalonFXControlMode.Velocity, motorSpeed / ticks2RPm);
   }
 
+public double getIndexPosition(){
+  return m_indexMotor.getSelectedSensorPosition(0);
+}
   /////////////////////////////////////////////////////////////////////////////
   /**
    * Called each scheduler cycle to run the subsystem
