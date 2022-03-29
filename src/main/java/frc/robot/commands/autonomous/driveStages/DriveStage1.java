@@ -38,13 +38,13 @@ public class DriveStage1 extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_driveBaseSubsystem.tankDriveVolts(0,0);
-    m_driveBaseSubsystem.leftMaster.setSafetyEnabled(false);
-    m_driveBaseSubsystem.rightMaster.setSafetyEnabled(false);
+    m_driveBaseSubsystem.m_leftMaster.setSafetyEnabled(false);
+    m_driveBaseSubsystem.m_rightMaster.setSafetyEnabled(false);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (m_driveBaseSubsystem.rightMaster.getSelectedSensorPosition() <= -60000);
+    return (m_driveBaseSubsystem.m_rightMaster.getSelectedSensorPosition() <= -60000);
   }
 }
