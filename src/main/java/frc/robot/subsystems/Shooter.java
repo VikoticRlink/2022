@@ -37,13 +37,11 @@ public class Shooter extends SubsystemBase {
   // 1 minutes = 60 * 10 * 100ms
   // conversion is  600  / 2048
   private double ticks2RPm = 600.0 / 2048.0;
-  private double shootAdvance = -25000;
-  private double backOff = 8600;
 
   //////////////////////////////////
   /// *** ATTRIBUTES ***
   //////////////////////////////////
-  WPI_TalonFX m_flywheelMotorMaster;
+  WPI_TalonFX m_flywheelMotor;
   /** < Master motor used to drive the flywheels */
   WPI_TalonFX m_flywheelMotorSlave;
   /** < Slave motor used to drive the flywheels */
@@ -77,44 +75,42 @@ public class Shooter extends SubsystemBase {
     private double kIz = 0; 
     final int kPIDLoopIdx = 0;
     final int kTimeoutMs = 30;
-    private double kMaxOutput = 1.0;
-    private double kMinOutput = -1.0;
     private double maxRPM = 6300;     // free speed of Falcon 500 is listed as 6380
-    private double m_rate_RPMpersecond = 1e10;    // 10 million effectively disables rate limiting
     private boolean ShooterAtSpeed=false;
 
   /////////////////////////////////////////////////////////////////////////////
   /** Creates a new Shooter. */
   public Shooter() {
-    m_flywheelMotorMaster = new WPI_TalonFX(Constants.MotorID.flywheelMaster);
-    //m_flywheelMotorSlave = new WPI_TalonFX(Constants.MotorID.flywheelSlave);
+    m_flywheelMotor = new WPI_TalonFX(Constants.MotorID.flywheel);
     m_indexMotor = new WPI_TalonFX(Constants.MotorID.indexMotor);
     m_ballLimitSensor = new DigitalInput(Constants.ShooterConstants.BallSensorDigitalInputUpper);
     m_ballSensorMiddle = new DigitalInput(Constants.ShooterConstants.BallSensorDigitalInputMiddle);
     m_ballSensorLower = new DigitalInput(Constants.ShooterConstants.BallSensorDigitalInputLower);
-    m_flywheelMotorMaster.setNeutralMode(NeutralMode.Coast);
-    //m_flywheelMotorSlave.setNeutralMode(NeutralMode.Coast);
+    m_flywheelMotor.setNeutralMode(NeutralMode.Coast);
     // Configure the flywheel master motor
-    m_flywheelMotorMaster.setInverted(kInvertFlywheelMotor);
+    m_flywheelMotor.setInverted(kInvertFlywheelMotor);
 
-    // set PID coefficients
-    m_flywheelMotorMaster.config_kF(kPIDLoopIdx, kFF, kTimeoutMs);
-		m_flywheelMotorMaster.config_kP(kPIDLoopIdx, kP, kTimeoutMs);
-		m_flywheelMotorMaster.config_kI(kPIDLoopIdx, kI, kTimeoutMs);
-		m_flywheelMotorMaster.config_kD(kPIDLoopIdx, kD, kTimeoutMs);
-    m_flywheelMotorMaster.config_IntegralZone(kPIDLoopIdx, kIz, kTimeoutMs);
-    m_flywheelMotorMaster.configNominalOutputForward(0, kTimeoutMs);
-    m_flywheelMotorMaster.configNominalOutputReverse(0, kTimeoutMs);
-		m_flywheelMotorMaster.configPeakOutputForward(1, kTimeoutMs);
-		m_flywheelMotorMaster.configPeakOutputReverse(-1, kTimeoutMs);
+    // set Flywheel PID coefficients
+    m_flywheelMotor.config_kF(kPIDLoopIdx, kFF, kTimeoutMs);
+		m_flywheelMotor.config_kP(kPIDLoopIdx, kP, kTimeoutMs);
+		m_flywheelMotor.config_kI(kPIDLoopIdx, kI, kTimeoutMs);
+		m_flywheelMotor.config_kD(kPIDLoopIdx, kD, kTimeoutMs);
+    m_flywheelMotor.config_IntegralZone(kPIDLoopIdx, kIz, kTimeoutMs);
+    m_flywheelMotor.configNominalOutputForward(0, kTimeoutMs);
+    m_flywheelMotor.configNominalOutputReverse(0, kTimeoutMs);
+		m_flywheelMotor.configPeakOutputForward(1, kTimeoutMs);
+		m_flywheelMotor.configPeakOutputReverse(-1, kTimeoutMs);
 
-    // Configure the flywheel slave motor to follow the master and
-    // invert its direction
-    // We MAY break these out so they aren't following in the future to put spin on
-    // the ball.
-    // Currently there is no encoders on these, so it's pretty raw settings anyhow.
-    //m_flywheelMotorSlave.follow(m_flywheelMotorMaster);
-    //m_flywheelMotorSlave.setInverted(kInvertFlywheelMotor);
+        // set Indexer PID coefficients
+        m_indexMotor.config_kF(kPIDLoopIdx, kFF, kTimeoutMs);
+        m_indexMotor.config_kP(kPIDLoopIdx, kP, kTimeoutMs);
+        m_indexMotor.config_kI(kPIDLoopIdx, kI, kTimeoutMs);
+        m_indexMotor.config_kD(kPIDLoopIdx, kD, kTimeoutMs);
+        m_indexMotor.config_IntegralZone(kPIDLoopIdx, kIz, kTimeoutMs);
+        m_indexMotor.configNominalOutputForward(0, kTimeoutMs);
+        m_indexMotor.configNominalOutputReverse(0, kTimeoutMs);
+        m_indexMotor.configPeakOutputForward(1, kTimeoutMs);
+        m_indexMotor.configPeakOutputReverse(-1, kTimeoutMs);
     
   }
 
@@ -165,7 +161,9 @@ public class Shooter extends SubsystemBase {
     /** < Run forward to feed balls into the shooter */
     ShootBall(0.6),
     /** < Run forward to move a ball into the flywheel */
-    Reverse(-0.4);
+    Reverse(-0.4),
+    ShootOneBall(-25000),
+    Backoff(8600);
 
     /** < Run indexer in reverse */
 
@@ -188,13 +186,15 @@ public class Shooter extends SubsystemBase {
    */
   public void runBallIndexer(BallIndexerMode mode) {
     double percentOutput = mode.getMotorSpeed();
-
-    if (BallIndexerMode.Stopped != mode) {
-      double invert = (kInvertBallIndexerMotor ? -1.0 : 1.0);
-      percentOutput *= invert;
+    if (mode == BallIndexerMode.ShootOneBall || mode == BallIndexerMode.Backoff){
+      m_indexMotor.set(TalonFXControlMode.Position, mode.getMotorSpeed()); //clean this up to full position
+    }else{
+      if (BallIndexerMode.Stopped != mode) {
+        double invert = (kInvertBallIndexerMotor ? -1.0 : 1.0);
+        percentOutput *= invert;
+      }
+      m_indexMotor.set(TalonFXControlMode.PercentOutput, percentOutput);
     }
-
-    m_indexMotor.set(TalonFXControlMode.PercentOutput, percentOutput);
   }
 
 
@@ -224,18 +224,18 @@ public class Shooter extends SubsystemBase {
   public void runFlywheel(FlywheelSpeed speed) {
    // double invert = (kInvertFlywheelMotor ? -1.0 : 1.0);
     double motorSpeed = speed.value();// * invert;
-    //m_flywheelMotorMaster.set(TalonFXControlMode.PercentOutput, motorSpeed);
+    //m_flywheelMotor.set(TalonFXControlMode.PercentOutput, motorSpeed);
     /*if(speed == FlywheelSpeed.Low){
-      m_flywheelMotorMaster.set(TalonFXControlMode.PercentOutput, 0.7 * motorSpeed);
+      m_flywheelMotor.set(TalonFXControlMode.PercentOutput, 0.7 * motorSpeed);
     }else{
-      m_flywheelMotorMaster.set(TalonFXControlMode.PercentOutput, motorSpeed);
+      m_flywheelMotor.set(TalonFXControlMode.PercentOutput, motorSpeed);
     }*/
     if((motorSpeed/ticks2RPm*.9)<=getShooterRPM() && getShooterRPM()<=(motorSpeed/ticks2RPm*1.1)){
       ShooterAtSpeed=true;
     }else{
       ShooterAtSpeed=false;
     }
-    m_flywheelMotorMaster.set(TalonFXControlMode.Velocity, motorSpeed / ticks2RPm);
+    m_flywheelMotor.set(TalonFXControlMode.Velocity, motorSpeed / ticks2RPm);
   }
 
 public double getIndexPosition(){
@@ -258,19 +258,23 @@ public double getIndexPosition(){
       double indexAmount = RobotContainer.operatorController.rightTriggerPull() * (kInvertBallIndexerMotor ? -1.0 : 1.0)
           * BallIndexerMode.ShootBall.getMotorSpeed();
 
-     // m_flywheelMotorMaster.set(TalonFXControlMode.PercentOutput, shooterAmount); // * 0.65);
+     // m_flywheelMotor.set(TalonFXControlMode.PercentOutput, shooterAmount); // * 0.65);
       
-      m_flywheelMotorMaster.set(TalonFXControlMode.Velocity, shooterAmount * maxRPM / ticks2RPm);
+      m_flywheelMotor.set(TalonFXControlMode.Velocity, shooterAmount * maxRPM / ticks2RPm);
       m_indexMotor.set(TalonFXControlMode.PercentOutput, indexAmount);
       
     } 
   }
   public double getShooterRPM(){
-    return m_flywheelMotorMaster.getSelectedSensorVelocity(0) * ticks2RPm;
+    return m_flywheelMotor.getSelectedSensorVelocity(0) * ticks2RPm;
   }
   public boolean isShooterAtSpeed(){
     return ShooterAtSpeed;
   }
-  //Sonic Squirels flywheel tuner
-  //https://github.com/FRC-Sonic-Squirrels/Flywheel-Tuner/blob/main/src/main/java/frc/robot/Robot.java
+  public void resetIndexEncoder(){
+    m_indexMotor.setSelectedSensorPosition(0,0,0);
+  }
+  public boolean IndexAtLocation(){
+    return true; //ToDo make this look at encoder values.
+  }
 }

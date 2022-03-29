@@ -6,8 +6,8 @@ package frc.robot.commands.shooter.fireBallSubcommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.Shooter.FlywheelSpeed;
-import edu.wpi.first.wpilibj.RobotState;
+//import frc.robot.subsystems.Shooter.FlywheelSpeed;
+//import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -18,8 +18,8 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public class FeedFlywheel extends CommandBase {
   Shooter m_shooterSubsystem;   /** Shooter subsystem */
   public JoystickButton m_fireButton;  /** Joystick button used to shoot in manual mode */
-  private PulseDetector m_pulseDetector;  /** Used to detect when a ball exits the Shooter */
-  private boolean m_isDone;     /** Set to true when the command has finished */
+  //private PulseDetector m_pulseDetector;  /** Used to detect when a ball exits the Shooter */
+  //private boolean m_isDone;     /** Set to true when the command has finished */
 
   /////////////////////////////////////////////////////////////////////////////
   /** Creates an instance of the command
@@ -29,7 +29,7 @@ public class FeedFlywheel extends CommandBase {
    */
   public FeedFlywheel(Shooter shooterSubsystem, JoystickButton fireButton) {
     m_shooterSubsystem = shooterSubsystem;
-    m_pulseDetector = new PulseDetector();
+    //m_pulseDetector = new PulseDetector();
     m_fireButton = fireButton;
 
     addRequirements(shooterSubsystem);
@@ -39,46 +39,48 @@ public class FeedFlywheel extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_pulseDetector.reset();
+    m_shooterSubsystem.resetIndexEncoder();
+    //m_pulseDetector.reset();
 
     // Flag the command as finished if there are no balls detected in the Shooter
-    m_isDone = (m_shooterSubsystem.numBallsDetected() < 1);
+    //m_isDone = (m_shooterSubsystem.numBallsDetected() < 1);
   }
 
   /////////////////////////////////////////////////////////////////////////////
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    m_shooterSubsystem.runBallIndexer(Shooter.BallIndexerMode.ShootOneBall);
     // If there are no balls detected in the Shooter, do nothing
-    if (m_shooterSubsystem.numBallsDetected() < 1) {
-      return;
-    }
+    //if (m_shooterSubsystem.numBallsDetected() < 1) {
+    //  return;
+    //}
 
-    m_shooterSubsystem.runBallIndexer(Shooter.BallIndexerMode.ShootBall);
+    //m_shooterSubsystem.runBallIndexer(Shooter.BallIndexerMode.ShootBall);
 
     // When this command is executed from a button clicked in the Dashboard, no
     // button is present to read.  This is handled here by detecting when the
     // button is null
-    boolean fireButtonIsPressed = false;
-    if (m_fireButton != null) {
-      fireButtonIsPressed = m_fireButton.get();
-    }
+    //boolean fireButtonIsPressed = false;
+    //if (m_fireButton != null) {
+    //  fireButtonIsPressed = m_fireButton.get();
+    //}
 
     // In Tele-operated mode, the behavior of this command should be to fire
     // balls from the hopper as long as balls are present and the joystick
     // button is held down
-    if (RobotState.isTeleop()) {
-      if (fireButtonIsPressed) {
+    //if (RobotState.isTeleop()) {
+     // if (fireButtonIsPressed) {
         // Check if all the sensors are false
-        m_isDone = !(m_shooterSubsystem.lowerBallIsPresent() ||
-            m_shooterSubsystem.upperBallIsPresent() ||
-            m_shooterSubsystem.getBallLimitSensor());
-      }
-      else {
-        boolean upperIndexSensor = m_shooterSubsystem.getBallLimitSensor();
-        m_isDone = m_pulseDetector.process(upperIndexSensor);
-      }
-    }
+    //    m_isDone = !(m_shooterSubsystem.lowerBallIsPresent() ||
+     //       m_shooterSubsystem.upperBallIsPresent() ||
+     //       m_shooterSubsystem.getBallLimitSensor());
+     // }
+     // else {
+     //   boolean upperIndexSensor = m_shooterSubsystem.getBallLimitSensor();
+     //   m_isDone = m_pulseDetector.process(upperIndexSensor);
+     // }
+    //}
 
     // In autonomous mode, this command will rely on a timeout
 
@@ -89,8 +91,8 @@ public class FeedFlywheel extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_shooterSubsystem.runBallIndexer(Shooter.BallIndexerMode.Stopped);
-    m_shooterSubsystem.runFlywheel(FlywheelSpeed.Stopped);
-    m_isDone = true;
+    //m_shooterSubsystem.runFlywheel(FlywheelSpeed.Stopped);
+    //m_isDone = true;
   }
 
   ///////////////////////////////////////////////////////////////////////////////
@@ -101,6 +103,7 @@ public class FeedFlywheel extends CommandBase {
    */
   @Override
   public boolean isFinished() {
-    return (m_shooterSubsystem.numBallsDetected() < 1) || m_isDone;
+    //return (m_shooterSubsystem.numBallsDetected() < 1) || m_isDone;
+    return m_shooterSubsystem.IndexAtLocation();
   }
 }

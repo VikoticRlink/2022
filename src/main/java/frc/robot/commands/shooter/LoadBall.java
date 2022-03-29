@@ -6,7 +6,7 @@ package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.Shooter;
-import frc.robot.Constants;
+//import frc.robot.Constants;
 import frc.robot.commands.shooter.loadBallSubcommands.*;
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -24,8 +24,8 @@ public class LoadBall extends SequentialCommandGroup {
   public LoadBall(Shooter shooterSubsystem) {
     m_shooterSubsystem = shooterSubsystem;
     addCommands(
-        new ChamberBall(shooterSubsystem)
-          .withTimeout(Constants.ShooterConstants.kChamberBallTimeoutSeconds),
+        //new ChamberBall(shooterSubsystem)
+        //  .withTimeout(Constants.ShooterConstants.kChamberBallTimeoutSeconds),
         new BackOffFlywheel(shooterSubsystem)
         );
   }

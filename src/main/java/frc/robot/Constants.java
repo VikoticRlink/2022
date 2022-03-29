@@ -139,8 +139,7 @@ public class Constants {
 		public static final int tRexSlave = 14;		  //Falcon 500
 		public static final int climberMaster = 5;    //Falcon 500
 		public static final int climberSlave = 15;    //Falcon 500
-		public static final int flywheelMaster = 16;    //SRX 775
-		public static final int flywheelSlave = 6;    //SRX 775
+		public static final int flywheel = 16;    	  //Falcon 500
 		public static final int intakeMotor = 32;     //SRX 775
 		public static final int indexMotor = 20;      //Falcon 500
 		public static final int intakeActuator = 31;  //Falcon 500

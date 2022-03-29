@@ -16,7 +16,7 @@ import frc.robot.subsystems.Shooter;
  */
 public class BackOffFlywheel extends CommandBase {
   Shooter m_shooterSubsystem;
-  int SpinNumber = 0;
+  //int SpinNumber = 0;
   
   /////////////////////////////////////////////////////////////////////////////
   /** Creates an instance of the command
@@ -31,17 +31,19 @@ public class BackOffFlywheel extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    SpinNumber = 0;
+    //SpinNumber = 0;
+    m_shooterSubsystem.resetIndexEncoder();
   }
 
   /////////////////////////////////////////////////////////////////////////////
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_shooterSubsystem.numBallsDetected() > 0) {
+    /*if (m_shooterSubsystem.numBallsDetected() > 0) {
       m_shooterSubsystem.runBallIndexer(Shooter.BallIndexerMode.Reverse);
       SpinNumber += 1;
-    }
+    }*/
+    m_shooterSubsystem.runBallIndexer(Shooter.BallIndexerMode.Backoff);
   }
 
   /////////////////////////////////////////////////////////////////////////////
@@ -60,8 +62,9 @@ public class BackOffFlywheel extends CommandBase {
    */
   @Override
   public boolean isFinished() {
+    return m_shooterSubsystem.IndexAtLocation();
     //return (m_shooterSubsystem.getBallLimitSensor() == false);
-    return (SpinNumber == 8);
+    //return (SpinNumber == 8);
    // return (m_shooterSubsystem.numBallsDetected() < 1) ||
      //      (m_shooterSubsystem.getBallLimitSensor() == false);
 
