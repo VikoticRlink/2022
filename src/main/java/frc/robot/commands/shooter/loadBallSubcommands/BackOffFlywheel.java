@@ -5,6 +5,7 @@
 package frc.robot.commands.shooter.loadBallSubcommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.Shooter;
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -43,6 +44,7 @@ public class BackOffFlywheel extends CommandBase {
       m_shooterSubsystem.runBallIndexer(Shooter.BallIndexerMode.Reverse);
       SpinNumber += 1;
     }*/
+    RobotContainer.RobotShooting = true;  // Set flag indicating we are shooting
     m_shooterSubsystem.runBallIndexer(Shooter.BallIndexerMode.Backoff);
   }
 

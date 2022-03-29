@@ -29,7 +29,6 @@ public class LoadAndFire extends SequentialCommandGroup {
   */
   public LoadAndFire(FlywheelSpeed muzzleVelocity, Shooter shooterSubsystem, 
                      JoystickButton fireButton) {
-    RobotContainer.RobotShooting = true;  // Set flag indicating we are shooting
 
     addCommands(
         new LoadBall(shooterSubsystem),

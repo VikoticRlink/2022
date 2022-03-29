@@ -2,8 +2,18 @@
   "HALProvider": {
     "Addressable LEDs": {
       "0": {
-        "columns": 19
+        "columns": 30
       },
+      "window": {
+        "visible": true
+      }
+    },
+    "DIO": {
+      "window": {
+        "visible": true
+      }
+    },
+    "PWM Outputs": {
       "window": {
         "visible": true
       }
@@ -55,8 +65,7 @@
     "SmartDashboard": {
       "SendableChooser[0]": {
         "open": true
-      },
-      "open": true
+      }
     }
   }
 }

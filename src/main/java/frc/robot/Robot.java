@@ -115,6 +115,7 @@ public class Robot extends TimedRobot {
     RobotContainer.m_Climber.resetEncoders();
     RobotContainer.m_Intake.resetEncoders();
     RobotContainer.m_tRex.resetEncoders();
+    RobotContainer.m_Shooter.resetIndexEncoder();
     
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
