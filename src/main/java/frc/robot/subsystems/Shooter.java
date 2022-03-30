@@ -44,7 +44,7 @@ public class Shooter extends SubsystemBase {
   //////////////////////////////////
   WPI_TalonFX m_flywheelMotor;
   /** < Master motor used to drive the flywheels */
-  WPI_TalonFX m_flywheelMotorSlave;
+  //WPI_TalonFX m_flywheelMotorSlave;
   /** < Slave motor used to drive the flywheels */
   WPI_TalonFX m_indexMotor;
   /** < Motor used to drive the ball indexer */
@@ -259,7 +259,11 @@ public class Shooter extends SubsystemBase {
     }else{
       ShooterAtSpeed=false;
     }
-    m_flywheelMotor.set(TalonFXControlMode.Velocity, motorSpeed / ticks2RPm);
+    if (speed == FlywheelSpeed.Stopped){
+      m_flywheelMotor.set(TalonFXControlMode.PercentOutput, 0);
+    }else{
+      m_flywheelMotor.set(TalonFXControlMode.Velocity, motorSpeed / ticks2RPm);
+    }
   }
 
 public double getIndexPosition(){
