@@ -227,9 +227,9 @@ public class Shooter extends SubsystemBase {
   public enum FlywheelSpeed {
     Stopped (0.0),         /** Turn off the flywheel */
     Low (2000),              /** Slowest muzzle velocity 2000 or so*/
-    Medium (4000),           /** Medium muzzle velocity */
+    Medium (8000),           /** Medium muzzle velocity */
     GreasedLightning (4200), /** Back away... not today 4200*/
-    Autonomous (3000);  /** Muzzle velocity used in autonomous mode */
+    Autonomous (2000);  /** Muzzle velocity used in autonomous mode */
     //To-Do
     //How to setup variable sliders on shuffleboard to configure this
     //https://docs.wpilib.org/en/stable/docs/software/dashboards/shuffleboard/layouts-with-code/configuring-widgets.html

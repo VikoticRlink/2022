@@ -147,6 +147,17 @@
               "_source0": "network_table:///SmartDashboard/limelight_Stream",
               "_title": "limelight_Stream"
             }
+          },
+          "10,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Flywheel",
+              "_title": "Flywheel"
+            }
           }
         }
       }

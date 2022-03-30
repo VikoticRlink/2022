@@ -19,7 +19,7 @@ public class AutoHighGoal extends SequentialCommandGroup {
                    Shooter shooterSubsystem) {
     addCommands(
       new DriveStage0(driveBaseSubsystem, intakeSubsystem),
-      new WaitCommand(0.25),
+      new WaitCommand(2.25),
       new InstantCommand(intakeSubsystem::disableIntake, intakeSubsystem),
       new LoadAndFire(FlywheelSpeed.GreasedLightning, shooterSubsystem, null),
       new InstantCommand(driveBaseSubsystem::CoastMode, driveBaseSubsystem)
