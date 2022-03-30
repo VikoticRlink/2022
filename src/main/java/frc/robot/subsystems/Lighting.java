@@ -21,10 +21,10 @@ public class Lighting extends SubsystemBase {
 
   // TODO: The following LEDStrip objects need to be configured with
   //       the correct start index and count
-  private static final LEDStrip kLowerLeftStrip = new LEDStrip(0, 32);
-  private static final LEDStrip kUpperLeftStrip = new LEDStrip(33, 65);
-  private static final LEDStrip kLowerRightStrip = new LEDStrip(66, 98);
-  private static final LEDStrip kUpperRightStrip = new LEDStrip(99, 131);
+  private static final LEDStrip kLowerLeftStrip = new LEDStrip(0, 33);
+  private static final LEDStrip kUpperLeftStrip = new LEDStrip(33, 33);
+  private static final LEDStrip kLowerRightStrip = new LEDStrip(66, 33);
+  private static final LEDStrip kUpperRightStrip = new LEDStrip(99, 33);
 
   //private static final Color8Bit kOff = new Color8Bit(0, 0, 0);
   //private static final Color8Bit kGreen = new Color8Bit(0, 255, 0);

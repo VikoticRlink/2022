@@ -26,9 +26,9 @@ public class FireBall extends SequentialCommandGroup {
                   JoystickButton fireButton) {
     // Add commands in the order in which they will be carried out
     addCommands(
-        new SpinUpFlywheel(muzzleVelocity, shooterSubsystem),
+        new SpinUpFlywheel(muzzleVelocity, shooterSubsystem)
           //.perpetually()
-          //.withTimeout(2 * muzzleVelocity.value()),
+          .withTimeout(1),
           
         new FeedFlywheel(shooterSubsystem, fireButton)
           .withTimeout(Constants.ShooterConstants.kFeedFlywheelTimeoutSeconds),

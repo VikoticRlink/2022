@@ -69,13 +69,22 @@ public class Shooter extends SubsystemBase {
     // PID coefficients (starting point)
     // Small initial kFF and kP values, probably just big enough to do *something* 
     // and *probably* too small to overdrive an untuned system.
-    private double kFF = 0.02;
-    private double kP = 0.04;
-    private double kI = 0;
+    private double kFF = 0.055;
+    private double kP = 0.22;
+    private double kI = 0.002;
     private double kD = 0;
-    private double kIz = 0; 
+    private double kIz = 100; 
     final int kPIDLoopIdx = 0;
     final int kTimeoutMs = 30;
+
+    private double IndexkFF = 0.02;
+    private double IndexkP = 0.04;
+    private double IndexkI = 0.0;
+    private double IndexkD = 0;
+    private double IndexkIz = 0; 
+    final int IndexkPIDLoopIdx = 0;
+    final int IndexkTimeoutMs = 30;
+
     private double maxRPM = 6300;     // free speed of Falcon 500 is listed as 6380
     private boolean ShooterAtSpeed=false;
 
@@ -103,15 +112,15 @@ public class Shooter extends SubsystemBase {
 		m_flywheelMotor.configPeakOutputReverse(-1, kTimeoutMs);
 
         // set Indexer PID coefficients
-        m_indexMotor.config_kF(kPIDLoopIdx, kFF, kTimeoutMs);
-        m_indexMotor.config_kP(kPIDLoopIdx, kP, kTimeoutMs);
-        m_indexMotor.config_kI(kPIDLoopIdx, kI, kTimeoutMs);
-        m_indexMotor.config_kD(kPIDLoopIdx, kD, kTimeoutMs);
-        m_indexMotor.config_IntegralZone(kPIDLoopIdx, kIz, kTimeoutMs);
-        m_indexMotor.configNominalOutputForward(0, kTimeoutMs);
-        m_indexMotor.configNominalOutputReverse(0, kTimeoutMs);
-        m_indexMotor.configPeakOutputForward(1, kTimeoutMs);
-        m_indexMotor.configPeakOutputReverse(-1, kTimeoutMs);
+        m_indexMotor.config_kF(kPIDLoopIdx, IndexkFF, IndexkTimeoutMs);
+        m_indexMotor.config_kP(kPIDLoopIdx, IndexkP, IndexkTimeoutMs);
+        m_indexMotor.config_kI(kPIDLoopIdx, IndexkI, IndexkTimeoutMs);
+        m_indexMotor.config_kD(kPIDLoopIdx, IndexkD, IndexkTimeoutMs);
+        m_indexMotor.config_IntegralZone(kPIDLoopIdx, IndexkIz, IndexkTimeoutMs);
+        m_indexMotor.configNominalOutputForward(0, IndexkTimeoutMs);
+        m_indexMotor.configNominalOutputReverse(0, IndexkTimeoutMs);
+        m_indexMotor.configPeakOutputForward(1, IndexkTimeoutMs);
+        m_indexMotor.configPeakOutputReverse(-1, IndexkTimeoutMs);
     
   }
 
@@ -163,7 +172,7 @@ public class Shooter extends SubsystemBase {
     ShootBall(0.6),
     /** < Run forward to move a ball into the flywheel */
     Reverse(-0.4),
-    ShootOneBall(-25000),
+    ShootOneBall(-20000),
     Backoff(8600);
 
     /** < Run indexer in reverse */
@@ -190,10 +199,18 @@ public class Shooter extends SubsystemBase {
 
     if (mode == BallIndexerMode.ShootOneBall || mode == BallIndexerMode.Backoff){
       m_indexMotor.set(TalonFXControlMode.Position, mode.getMotorSpeed()); //clean this up to full position
+      if (mode == BallIndexerMode.ShootOneBall ){
+      if(m_indexMotor.getSelectedSensorPosition()<=mode.getMotorSpeed()){
+        IndexerDone = true;
+      }else{
+        IndexerDone = false;
+      }
+    }else{
       if(m_indexMotor.getSelectedSensorPosition()>=mode.getMotorSpeed()){
         IndexerDone = true;
       }else{
         IndexerDone = false;
+      }
       }
     }else{
       if (BallIndexerMode.Stopped != mode) {
@@ -209,9 +226,9 @@ public class Shooter extends SubsystemBase {
   /** Speeds the flywheel can be run at */
   public enum FlywheelSpeed {
     Stopped (0.0),         /** Turn off the flywheel */
-    Low (3000),              /** Slowest muzzle velocity */
+    Low (2000),              /** Slowest muzzle velocity 2000 or so*/
     Medium (4000),           /** Medium muzzle velocity */
-    GreasedLightning (6300), /** Back away... not today */
+    GreasedLightning (4200), /** Back away... not today 4200*/
     Autonomous (3000);  /** Muzzle velocity used in autonomous mode */
     //To-Do
     //How to setup variable sliders on shuffleboard to configure this

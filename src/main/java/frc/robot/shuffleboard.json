@@ -11,7 +11,7 @@
         "vgap": 16.0,
         "titleType": 1,
         "tiles": {
-          "10,0": {
+          "8,0": {
             "size": [
               2,
               1
@@ -72,32 +72,6 @@
               "Colors/Color when false": "#0000FFFF"
             }
           },
-          "8,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/First Ball",
-              "_title": "First Ball",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
-            }
-          },
-          "8,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/Second Ball",
-              "_title": "Second Ball",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
-            }
-          },
           "2,0": {
             "size": [
               1,
@@ -109,23 +83,10 @@
               "_title": "Bot Heading"
             }
           },
-          "7,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/Ball Against Flywheel",
-              "_title": "Ball Against Flywheel",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
-            }
-          },
           "1,1": {
             "size": [
-              6,
-              3
+              11,
+              4
             ],
             "content": {
               "_type": "Camera Stream",
@@ -176,7 +137,7 @@
               "_title": "limelight_Interface"
             }
           },
-          "7,1": {
+          "7,0": {
             "size": [
               1,
               1
@@ -185,94 +146,6 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/limelight_Stream",
               "_title": "limelight_Stream"
-            }
-          },
-          "0,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/MediumVal",
-              "_title": "MediumVal"
-            }
-          },
-          "7,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/LowVal",
-              "_title": "LowVal"
-            }
-          },
-          "8,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/LightningVal",
-              "_title": "LightningVal"
-            }
-          },
-          "0,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Climber Position",
-              "_title": "Climber Position"
-            }
-          },
-          "9,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/tRex Position",
-              "_title": "tRex Position"
-            }
-          },
-          "9,1": {
-            "size": [
-              1,
-              2
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Indexer",
-              "_title": "Indexer"
-            }
-          },
-          "10,1": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Feed Ball",
-              "_title": "Feed Ball"
-            }
-          },
-          "10,2": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Back Off Flywheel",
-              "_title": "Back Off Flywheel"
             }
           }
         }
