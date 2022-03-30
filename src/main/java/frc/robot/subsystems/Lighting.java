@@ -35,6 +35,7 @@ public class Lighting extends SubsystemBase {
   private static AddressableLED m_led;
   private static AddressableLEDBuffer m_ledBuffer;
   private static int m_rainbowFirstPixelHue;
+  private static int m_pixeloffset;
 
   //private static int l_shootColor;
   //private static int currentColor;
@@ -59,7 +60,7 @@ public class Lighting extends SubsystemBase {
     m_led.setLength(m_ledBuffer.getLength());
     m_led.setData(m_ledBuffer);
     m_led.start();
-
+    m_pixeloffset = 0;
     updateAllianceColor();
   }
 
@@ -89,7 +90,7 @@ public class Lighting extends SubsystemBase {
     updateAllianceColor();
     
     if(RobotState.isAutonomous()) {
-      LEDRY();
+      newLEDRY();
     }
 
     if (RobotState.isDisabled()) {
@@ -163,6 +164,23 @@ public class Lighting extends SubsystemBase {
   }
 
   /////////////////////////////////////////////////////////////////////////////
+  /** Make LED's an alternating sequence of red and yellow */
+  private void newLEDRY() {
+    boolean colorchoice=false;
+    for (var i = 0; i < m_ledBuffer.getLength(); i++) {
+      if((i+m_pixeloffset)%4 == 0){colorchoice=!colorchoice;}
+      if (colorchoice) {
+        m_ledBuffer.setLED(i, kYellow);
+      }
+      else {
+        m_ledBuffer.setLED(i, kRed);
+      }
+    }
+    m_pixeloffset++;
+    if(m_pixeloffset==4){m_pixeloffset=0;}
+  }
+
+  /////////////////////////////////////////////////////////////////////////////
   /** Make LED's a rainbow pattern
    * @note Unicorns and sprinkles will be added in a future update...
    */
@@ -200,7 +218,6 @@ public class Lighting extends SubsystemBase {
       mycounter++;
       mycounter %= 5;
     }
-      
   }
 
   /////////////////////////////////////////////////////////////////////////////
