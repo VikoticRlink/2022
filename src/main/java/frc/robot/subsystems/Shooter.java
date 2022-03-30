@@ -38,6 +38,7 @@ public class Shooter extends SubsystemBase {
   // conversion is  600  / 2048
   private double ticks2RPm = 600.0 / 2048.0;
 
+  private boolean IndexerDone = false;
   //////////////////////////////////
   /// *** ATTRIBUTES ***
   //////////////////////////////////
@@ -186,8 +187,14 @@ public class Shooter extends SubsystemBase {
    */
   public void runBallIndexer(BallIndexerMode mode) {
     double percentOutput = mode.getMotorSpeed();
+
     if (mode == BallIndexerMode.ShootOneBall || mode == BallIndexerMode.Backoff){
       m_indexMotor.set(TalonFXControlMode.Position, mode.getMotorSpeed()); //clean this up to full position
+      if(m_indexMotor.getSelectedSensorPosition()>=mode.getMotorSpeed()){
+        IndexerDone = true;
+      }else{
+        IndexerDone = false;
+      }
     }else{
       if (BallIndexerMode.Stopped != mode) {
         double invert = (kInvertBallIndexerMotor ? -1.0 : 1.0);
@@ -275,6 +282,6 @@ public double getIndexPosition(){
     m_indexMotor.setSelectedSensorPosition(0,0,0);
   }
   public boolean IndexAtLocation(){
-    return false; //ToDo make this look at encoder values.
+    return IndexerDone; //ToDo make this look at encoder values.
   }
 }

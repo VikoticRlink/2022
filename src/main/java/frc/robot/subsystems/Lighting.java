@@ -21,10 +21,10 @@ public class Lighting extends SubsystemBase {
 
   // TODO: The following LEDStrip objects need to be configured with
   //       the correct start index and count
-  private static final LEDStrip kLowerLeftStrip = new LEDStrip(0, 30);
-  private static final LEDStrip kUpperLeftStrip = new LEDStrip(30, 30);
-  private static final LEDStrip kLowerRightStrip = new LEDStrip(60, 30);
-  private static final LEDStrip kUpperRightStrip = new LEDStrip(90, 30);
+  private static final LEDStrip kLowerLeftStrip = new LEDStrip(0, 32);
+  private static final LEDStrip kUpperLeftStrip = new LEDStrip(33, 65);
+  private static final LEDStrip kLowerRightStrip = new LEDStrip(66, 98);
+  private static final LEDStrip kUpperRightStrip = new LEDStrip(99, 131);
 
   //private static final Color8Bit kOff = new Color8Bit(0, 0, 0);
   //private static final Color8Bit kGreen = new Color8Bit(0, 255, 0);
@@ -51,7 +51,7 @@ public class Lighting extends SubsystemBase {
   */
   public Lighting() {
     m_led = new AddressableLED(1);
-    m_ledBuffer = new AddressableLEDBuffer(120);
+    m_ledBuffer = new AddressableLEDBuffer(132);
     m_lowerLeftSweep = new LEDPattern(kLowerLeftStrip.startIndex, kLowerLeftStrip.numLEDs, kYellow);
     m_upperLeftSweep = new LEDPattern(kUpperLeftStrip.startIndex, kUpperLeftStrip.numLEDs, kYellow);
     m_lowerRightSweep = new LEDPattern(kLowerRightStrip.startIndex, kLowerRightStrip.numLEDs, kYellow);
@@ -132,8 +132,11 @@ public class Lighting extends SubsystemBase {
       case "AutoBlueThree":
         AutoColor(false, 3);
         break;
-      case "AutoDrive":
+        case "AutoDrive":
         AllYellow();
+        break;      
+        case "AutoHighGoal":
+        All_LEDRainbow();
         break;
     }
   }
