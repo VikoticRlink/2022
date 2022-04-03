@@ -30,7 +30,7 @@ public class Lighting extends SubsystemBase {
   //private static final Color8Bit kGreen = new Color8Bit(0, 255, 0);
   private static final Color8Bit kRed = new Color8Bit(255, 0, 0);
   private static final Color8Bit kBlue = new Color8Bit(0, 0, 255);
-  private static final Color8Bit kYellow = new Color8Bit(255, 150, 0);
+  private static final Color8Bit kYellow = new Color8Bit(255, 120, 0);
 
   private static AddressableLED m_led;
   private static AddressableLEDBuffer m_ledBuffer;
@@ -94,7 +94,7 @@ public class Lighting extends SubsystemBase {
     }
 
     if (RobotState.isDisabled()) {
-      updateDisabled();
+      All_LEDRainbow();
     }
     
     if(RobotState.isEnabled() && RobotState.isTeleop()){
@@ -168,7 +168,7 @@ public class Lighting extends SubsystemBase {
   private void newLEDRY() {
     boolean colorchoice=false;
     for (var i = 0; i < m_ledBuffer.getLength(); i++) {
-      if((i+m_pixeloffset)%4 == 0){colorchoice=!colorchoice;}
+      if((i+m_pixeloffset)%8 == 0){colorchoice=!colorchoice;}
       if (colorchoice) {
         m_ledBuffer.setLED(i, kYellow);
       }
@@ -176,8 +176,8 @@ public class Lighting extends SubsystemBase {
         m_ledBuffer.setLED(i, kRed);
       }
     }
-    m_pixeloffset++;
-    if(m_pixeloffset==4){m_pixeloffset=0;}
+  //  m_pixeloffset++;
+  //  if(m_pixeloffset==4){m_pixeloffset=0;}
   }
 
   /////////////////////////////////////////////////////////////////////////////

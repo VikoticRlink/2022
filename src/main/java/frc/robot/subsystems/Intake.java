@@ -95,7 +95,7 @@ public class Intake extends SubsystemBase {
 
     // Run the intake motor to start pulling in balls
     m_takeUpMotor.set(TalonFXControlMode.PercentOutput, 
-                    Constants.MotorScaler.kIntakeMotorSpeed);
+                    -1* Constants.MotorScaler.kIntakeMotorSpeed);
 
     // Run the ball indexer to pull balls from the intake into the shooter
     RobotContainer.m_Shooter.runBallIndexer(Shooter.BallIndexerMode.FeedBall);

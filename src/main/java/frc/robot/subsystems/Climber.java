@@ -48,7 +48,7 @@ public class Climber extends SubsystemBase {
     ClimbMaster.configReverseSoftLimitThreshold(-450000, 0);
     ClimbMaster.configForwardSoftLimitThreshold(0, 0);
     ClimbMaster.configForwardSoftLimitEnable(false, 0);
-    ClimbMaster.configReverseSoftLimitEnable(false, 0);
+    ClimbMaster.configReverseSoftLimitEnable(true, 0);
   }
 
   @Override

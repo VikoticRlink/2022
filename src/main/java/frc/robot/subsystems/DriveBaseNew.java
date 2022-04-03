@@ -281,9 +281,9 @@ public class DriveBaseNew extends SubsystemBase {
     m_rightSlave.configSupplyCurrentLimit(limitConfig);
 
     // Configure current ramping (seconds required to ramp from neutral to full output)
-    m_leftMaster.configOpenloopRamp(kMotorRampTimeSec);
-    m_leftSlave.configOpenloopRamp(kMotorRampTimeSec);
-    m_rightMaster.configOpenloopRamp(kMotorRampTimeSec);
-    m_rightSlave.configOpenloopRamp(kMotorRampTimeSec);
+   // m_leftMaster.configOpenloopRamp(kMotorRampTimeSec);
+   // m_leftSlave.configOpenloopRamp(kMotorRampTimeSec);
+   // m_rightMaster.configOpenloopRamp(kMotorRampTimeSec);
+   // m_rightSlave.configOpenloopRamp(kMotorRampTimeSec);
   }
 }
