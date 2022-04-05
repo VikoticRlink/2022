@@ -279,6 +279,10 @@ public class DriveBaseNew extends SubsystemBase {
     m_rightMaster.configSupplyCurrentLimit(limitConfig);
     m_leftSlave.configSupplyCurrentLimit(limitConfig);
     m_rightSlave.configSupplyCurrentLimit(limitConfig);
+    m_rightSlave.setStatusFramePeriod(1, 255);
+    m_rightSlave.setStatusFramePeriod(2, 255);
+    m_leftSlave.setStatusFramePeriod(1, 250);
+    m_leftSlave.setStatusFramePeriod(2, 255);
 
     // Configure current ramping (seconds required to ramp from neutral to full output)
    // m_leftMaster.configOpenloopRamp(kMotorRampTimeSec);
