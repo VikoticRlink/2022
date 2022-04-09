@@ -58,7 +58,9 @@
       "/SmartDashboard/BackOffFlywheel": "Command",
       "/SmartDashboard/Fire Ball": "Command",
       "/SmartDashboard/Intake Ball": "Command",
-      "/SmartDashboard/SendableChooser[0]": "String Chooser"
+      "/SmartDashboard/SendableChooser[0]": "String Chooser",
+      "/SmartDashboard/SendableChooser[1]": "String Chooser",
+      "/SmartDashboard/SendableChooser[2]": "String Chooser"
     }
   },
   "NetworkTables": {

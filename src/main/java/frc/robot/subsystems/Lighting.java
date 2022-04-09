@@ -51,7 +51,7 @@ public class Lighting extends SubsystemBase {
   /** Creates an instance of the subsystem
   */
   public Lighting() {
-    m_led = new AddressableLED(1);
+    m_led = new AddressableLED(0);
     m_ledBuffer = new AddressableLEDBuffer(132);
     m_lowerLeftSweep = new LEDPattern(kLowerLeftStrip.startIndex, kLowerLeftStrip.numLEDs, kYellow);
     m_upperLeftSweep = new LEDPattern(kUpperLeftStrip.startIndex, kUpperLeftStrip.numLEDs, kYellow);

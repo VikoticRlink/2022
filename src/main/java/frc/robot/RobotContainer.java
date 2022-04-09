@@ -45,6 +45,7 @@ public class RobotContainer {
   public static RobotDirection DriveDirection = RobotDirection.Forward;
   public static boolean isRedAlliance = false;
   public static boolean RobotShooting = false;
+  public static boolean StealthMode = false;
 
   // The robot's subsystems are defined here...
   //private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
@@ -67,13 +68,15 @@ public class RobotContainer {
   private final AutoBlueThree Blue3 = new AutoBlueThree();
   private final AutoHighGoal m_AutoHighGoal = new AutoHighGoal(m_DriveBase, m_Intake, m_Shooter);
   public static SendableChooser<Command> m_chooser = new SendableChooser<>();
+  public static SendableChooser<String> m_stealthMode = new SendableChooser<>();
+  public static SendableChooser<String> m_NoLimits = new SendableChooser<>();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-    m_chooser.setDefaultOption("Simple Auto", m_autonomous);
-    m_chooser.addOption("High Auto", m_AutoHighGoal);  
+    m_chooser.setDefaultOption("High Auto", m_AutoHighGoal); 
+    m_chooser.addOption("Simple Auto", m_autonomous); 
     m_chooser.addOption("Red 1", Red1);
     m_chooser.addOption("Red 2", Red2);
     m_chooser.addOption("Red 3", Red3);
@@ -81,6 +84,12 @@ public class RobotContainer {
     m_chooser.addOption("Blue 2", Blue2);
     m_chooser.addOption("Blue 3", Blue3);   
     SmartDashboard.putData(m_chooser);
+m_NoLimits.setDefaultOption("Limits ON", "LimitsOn");
+m_NoLimits.addOption("Limits OFF", "LimitsOff");
+SmartDashboard.putData(m_NoLimits);
+m_stealthMode.setDefaultOption("Stealth OFF", "Normal");
+m_stealthMode.addOption("Stealth On", "Stealthy");
+SmartDashboard.putData(m_stealthMode);
   }
 
   /**

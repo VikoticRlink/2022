@@ -140,6 +140,14 @@ public class Robot extends TimedRobot {
     }
     RobotContainer.m_DriveBase.m_leftMaster.setSafetyEnabled(true);
     RobotContainer.m_DriveBase.m_rightMaster.setSafetyEnabled(true);
+    if(RobotContainer.m_stealthMode.getSelected()=="Stealthy"){
+      RobotContainer.StealthMode=true;
+    }else{
+      RobotContainer.StealthMode=false;
+    }
+    if(RobotContainer.m_NoLimits.getSelected()=="LimitsOn"){
+      RobotContainer.m_DriveBase.LimitMotors();
+    }
   }
 
   /** This function is called periodically during operator control. */

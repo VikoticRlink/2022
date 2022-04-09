@@ -44,7 +44,9 @@ public class BackOffFlywheel extends CommandBase {
       m_shooterSubsystem.runBallIndexer(Shooter.BallIndexerMode.Reverse);
       SpinNumber += 1;
     }*/
-    RobotContainer.RobotShooting = true;  // Set flag indicating we are shooting
+    if(RobotContainer.StealthMode == false){
+      RobotContainer.RobotShooting = true;  // Set flag indicating we are shooting
+    }
     m_shooterSubsystem.runBallIndexer(Shooter.BallIndexerMode.Backoff);
   }
 
