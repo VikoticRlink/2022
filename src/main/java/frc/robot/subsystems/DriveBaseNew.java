@@ -9,15 +9,13 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.RobotState;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
+import frc.robot.commands.DriveByJoysticks;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -46,7 +44,7 @@ public class DriveBaseNew extends SubsystemBase {
   private static final double kMotorCurrentLimitHoldoffSec = 0.05;
 
   /** Time (Seconds) it takes to ramp motors from neutral to full output */
-  private static final double kMotorRampTimeSec = 0.1;
+  //private static final double kMotorRampTimeSec = 0.1;
 
   
   //////////////////////////////////
@@ -73,7 +71,7 @@ public class DriveBaseNew extends SubsystemBase {
 
   // Odometry class for tracking robot pose
   private final DifferentialDriveOdometry m_odometry;
-  private static double DrivePowerModifer = 1;
+ // private static double DrivePowerModifer = 1;
 
   /////////////////////////////////////////////////////////////////////////////
   /** Creates an instance of the subsystem */
@@ -91,6 +89,11 @@ public class DriveBaseNew extends SubsystemBase {
     m_odometry = new DifferentialDriveOdometry(m_gyro.getRotation2d());
   }
 
+  ////////////////////////////
+  public void initDefaultCommand() {
+    // Set the default command for a subsystem here.
+    setDefaultCommand(new DriveByJoysticks());
+}
 
   /////////////////////////////////////////////////////////////////////////////
   @Override
@@ -100,7 +103,7 @@ public class DriveBaseNew extends SubsystemBase {
         m_leftMaster.getSelectedSensorPosition() * Constants.DriveConstants.kEncoderDistancePerPulse,
         m_rightMaster.getSelectedSensorPosition()
             * Constants.DriveConstants.kEncoderDistancePerPulse);
-
+/*
     if (RobotContainer.driverController.bumpRight.get()) {
       DrivePowerModifer = Constants.MotorScaler.DriveMidLimit;
       SmartDashboard.putString("Speed", "Medium");
@@ -127,7 +130,7 @@ public class DriveBaseNew extends SubsystemBase {
             -1 * DrivePowerModifer * RobotContainer.driverController.rightStickY());
       }
       m_drive.feed();
-    }
+    }*/
 
   }
 
@@ -175,6 +178,18 @@ public class DriveBaseNew extends SubsystemBase {
   public void tankDriveVolts(double leftVolts, double rightVolts) {
     m_leftMotors.setVoltage(leftVolts);
     m_rightMotors.setVoltage(rightVolts);
+    m_drive.feed();
+  }
+
+  /////////////////////////////////////////////////////////////////////////////
+  /**
+   * Controls the left and right sides of the drive directly with voltages.
+   *
+   * @param leftVolts  Voltage to apply to the left side of the drive base
+   * @param rightVolts Voltage to apply to the right side of the drive base
+   */
+  public void tankDrive(double Right, double Left) {
+    m_drive.tankDrive(Right, Left);
     m_drive.feed();
   }
 
