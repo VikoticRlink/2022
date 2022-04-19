@@ -8,13 +8,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.subsystems.DriveBaseNew;
 
 public class DriveByJoysticks extends CommandBase {
   private static double DrivePowerModifer = 1;
   /** Creates a new DriveByJoysticks. */
   public DriveByJoysticks() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.m_DriveBase);
+    //addRequirements(RobotContainer.m_DriveBase);
+    requires(RobotContainer.m_DriveBase);
+  }
+
+  private void requires(DriveBaseNew m_DriveBase) {
   }
 
   // Called when the command is initially scheduled.
@@ -51,6 +56,15 @@ public class DriveByJoysticks extends CommandBase {
       }
     
   }
+  // Called once the command ends or is interrupted.
+  @Override
+  public void end(boolean interrupted) {
+    RobotContainer.m_DriveBase.tankDrive(0,0);
+  }
 
-
+  // Returns true when the command should end.
+  @Override
+  public boolean isFinished() {
+    return false;
+  }
 }
