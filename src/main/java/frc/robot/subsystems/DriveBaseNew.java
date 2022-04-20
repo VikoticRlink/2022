@@ -89,13 +89,8 @@ public class DriveBaseNew extends SubsystemBase {
     m_odometry = new DifferentialDriveOdometry(m_gyro.getRotation2d());
   }
 
-  ////////////////////////////
-  public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    setDefaultCommand(new DriveByJoysticks());
-}
-
-  /////////////////////////////////////////////////////////////////////////////
+ 
+/////////////////////////////////////////////////////////////////////////////
   @Override
   public void periodic() {
     // Update the odometry in the periodic block

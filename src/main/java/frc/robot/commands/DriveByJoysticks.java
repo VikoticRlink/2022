@@ -6,21 +6,18 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.DriveBaseNew;
 
 public class DriveByJoysticks extends CommandBase {
   private static double DrivePowerModifer = 1;
   /** Creates a new DriveByJoysticks. */
   public DriveByJoysticks() {
     // Use addRequirements() here to declare subsystem dependencies.
-    //addRequirements(RobotContainer.m_DriveBase);
-    requires(RobotContainer.m_DriveBase);
+    addRequirements(RobotContainer.m_DriveBase);
   }
 
-  private void requires(DriveBaseNew m_DriveBase) {
-  }
 
   // Called when the command is initially scheduled.
   @Override
