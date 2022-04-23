@@ -49,70 +49,99 @@
 |                         .OOOOOOOOOOOOOOOOOOOOOOOOOOOOOO                      |
 \-----------------------------------------------------------------------------*/
 
-package frc.robot.commands.shooter.loadBallSubcommands;
+package frc.robot.utility.trajectoryLoader;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ShooterSubsystem;
+import java.io.File;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.io.IOException;
+
+import edu.wpi.first.math.trajectory.TrajectoryUtil;
 
 ///////////////////////////////////////////////////////////////////////////////
 /**
- * A command that 'chambers' a ball by running the ball indexer until a ball
- * reaches the limit sensor.
+ * A utility class used to create Trajectory objects from files in a given
+ * directory containing JSON trajectory files.
  * 
- * NOTE: this command does nothing if no balls are detected in the shooter.
+ * To use this class, create a TrajectoryLoader object, passing it the path
+ * of a directory containing JSON files to be loaded. Then, call the
+ * loadJSONFiles(), passing it an object that implements the interface
+ * iTrajectoryLoaderObserver.
  */
-public class ChamberBall extends CommandBase {
-  ShooterSubsystem m_shooterSubsystem;
-  boolean m_isDone = false;
+public class TrajectoryLoader {
 
-  ///////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////
   /**
-   * Creates an instance of the command
-   * 
-   * @param shooterSubsystem Shooter subsystem used by the command
+   * Validates the object's target directory, throwing an InvalidPathException
+   * if it is not valid
    */
-  public ChamberBall(ShooterSubsystem shooterSubsystem) {
-    m_shooterSubsystem = shooterSubsystem;
-    addRequirements(shooterSubsystem);
-  }
-
-  ///////////////////////////////////////////////////////////////////////////////
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-  }
-
-  ///////////////////////////////////////////////////////////////////////////////
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    if (m_shooterSubsystem.numBallsDetected() > 0) {
-      // Run the ball indexer to move ball(s) toward the top of the shooter
-      m_shooterSubsystem.runBallIndexer(ShooterSubsystem.BallIndexerMode.FeedBall);
+  private static void validateJSONDir(Path jsonDir) {
+    File dir = jsonDir.toFile();
+    if (!dir.exists()) {
+      throw new InvalidPathException(jsonDir.toString(), String.format("Directory does not exist"));
+    }
+    if (!dir.isDirectory()) {
+      throw new InvalidPathException(jsonDir.toString(), String.format("Path is not a directory"));
     }
   }
 
-  ///////////////////////////////////////////////////////////////////////////////
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-    // Stop the ball indexer
-    m_shooterSubsystem.runBallIndexer(ShooterSubsystem.BallIndexerMode.Stopped);
-    m_isDone = true;
+  /////////////////////////////////////////////////////////////////////////////
+  /**
+   * Iterate over files in a given directory and create Trajectory objects from
+   * each one.
+   * 
+   * @param jsonDir  Directory containing JSON files to be loaded as Trajectory
+   *                 objects
+   * 
+   * @param observer LoadObserver object used to handle the processing of JSON
+   *                 files
+   * 
+   * @remarks
+   *   This routine iterates over each JSON file in jsonDir and uses it to
+   *   construct a Trajectory object. On success, the name of the file and
+   *   the constructed Trajectory are passed to observer.onTrajectoryCreated().
+   *   If a file can't be loaded into a Trajectory object, observer.onLoadFailed()
+   *   is called with the path of the failed file.
+   * 
+   * @example
+   *          
+   *   Given the following JSON files in the directory /home/lvuser/deploy/paths:
+   *      PathA.wpilib.json
+   *      PathB.wpilib.json
+   *      PathZ.wpilib.json
+   *      DontGoThere.wpilib.txt (not a valid JSON file)
+   * 
+   *   The following calls will be made to an Observer object:
+   *      observer.onTrajectoryCreated("PathA", <Trajectory built from PathA.wpilib.json>)
+   *      observer.onTrajectoryCreated("PathB", <Trajectory built from PathA.wpilib.json>)
+   *      observer.onTrajectoryCreated("PathZ", <Trajectory built from PathA.wpilib.json>)
+   *      observer.onLoadFailed("DontGoThere.wpilib.txt")
+   * 
+   * @return The number of JSON files loaded successfully
+   * 
+   * @throws InvalidPathException if jsonDir does not exist or is not a directory
+   */
+  static public int loadJSONFiles(Path jsonDir, LoadObserver observer) {
+    int count = 0;
+
+    // Throw an exception if the target directory is invalid
+    validateJSONDir(jsonDir);
+
+    // Iterate over files in jsonDir
+    for (File f : jsonDir.toFile().listFiles()) {
+      Path filePath = Paths.get(f.getAbsolutePath());
+      String fileName = f.getName();
+
+      try {
+        observer.onTrajectoryCreated(fileName, TrajectoryUtil.fromPathweaverJson(filePath));
+        ++count;
+      } catch (IOException e) {
+        observer.onLoadFailed(filePath);
+      }
+    }
+
+    return count;
   }
 
-  ///////////////////////////////////////////////////////////////////////////////
-  /*
-   * Called after each time the scheduler runs the execute() method to determine
-   * whether the command has finished.
-   * 
-   * Returns true when the ball has reached the limit sensor or if no balls
-   * are detected anywhere in the shooter
-   */
-  @Override
-  public boolean isFinished() {
-    return (m_shooterSubsystem.numBallsDetected() < 1) ||
-        m_shooterSubsystem.getBallLimitSensor() ||
-        m_isDone;
-  }
 }

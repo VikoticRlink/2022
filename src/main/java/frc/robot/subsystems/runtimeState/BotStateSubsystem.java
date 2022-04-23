@@ -49,70 +49,55 @@
 |                         .OOOOOOOOOOOOOOOOOOOOOOOOOOOOOO                      |
 \-----------------------------------------------------------------------------*/
 
-package frc.robot.commands.shooter.loadBallSubcommands;
+package frc.robot.subsystems.runtimeState;
+import edu.wpi.first.wpilibj.RobotState;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ShooterSubsystem;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-///////////////////////////////////////////////////////////////////////////////
-/**
- * A command that 'chambers' a ball by running the ball indexer until a ball
- * reaches the limit sensor.
- * 
- * NOTE: this command does nothing if no balls are detected in the shooter.
- */
-public class ChamberBall extends CommandBase {
-  ShooterSubsystem m_shooterSubsystem;
-  boolean m_isDone = false;
+public class BotStateSubsystem extends SubsystemBase {
 
-  ///////////////////////////////////////////////////////////////////////////////
-  /**
-   * Creates an instance of the command
-   * 
-   * @param shooterSubsystem Shooter subsystem used by the command
-   */
-  public ChamberBall(ShooterSubsystem shooterSubsystem) {
-    m_shooterSubsystem = shooterSubsystem;
-    addRequirements(shooterSubsystem);
-  }
+  /////////////////////////////////////////////////////////////////////////////
+  /** Directions used when driving the robot */
+  public enum RobotDirection {
+    /** Forward commands drive the robot toward its front (normal) */
+    Forward,
+    
+    /** Forward commands drive the robot toward its rear */
+    Reverse;
 
-  ///////////////////////////////////////////////////////////////////////////////
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-  }
-
-  ///////////////////////////////////////////////////////////////////////////////
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    if (m_shooterSubsystem.numBallsDetected() > 0) {
-      // Run the ball indexer to move ball(s) toward the top of the shooter
-      m_shooterSubsystem.runBallIndexer(ShooterSubsystem.BallIndexerMode.FeedBall);
+    /** Get the human-readable name of the direction */
+    @Override
+    public String toString() {
+      return this.name();
     }
-  }
+  };
 
-  ///////////////////////////////////////////////////////////////////////////////
-  // Called once the command ends or is interrupted.
+  public boolean ManualControl = false;
+  public RobotDirection DriveDirection = RobotDirection.Forward;
+  public boolean isRedAlliance = false;
+  public boolean RobotShooting = false;
+  public boolean StealthMode = false;
+
+  /** Creates a new RobotRuntimeState. */
+  public BotStateSubsystem() 
+  {}
+
   @Override
-  public void end(boolean interrupted) {
-    // Stop the ball indexer
-    m_shooterSubsystem.runBallIndexer(ShooterSubsystem.BallIndexerMode.Stopped);
-    m_isDone = true;
+  public void periodic() {
+    // This method will be called once per scheduler run
+  }  
+
+  /** Invert the present drive direction of the bot */
+  public void invertDriveDirection() {
+    DriveDirection = (RobotDirection.Forward == DriveDirection) ?
+                        RobotDirection.Reverse : RobotDirection.Forward;
   }
 
-  ///////////////////////////////////////////////////////////////////////////////
-  /*
-   * Called after each time the scheduler runs the execute() method to determine
-   * whether the command has finished.
-   * 
-   * Returns true when the ball has reached the limit sensor or if no balls
-   * are detected anywhere in the shooter
+  /**
+   * Returns true if the robot is being driven in Manual, tele-operated mode
    */
-  @Override
-  public boolean isFinished() {
-    return (m_shooterSubsystem.numBallsDetected() < 1) ||
-        m_shooterSubsystem.getBallLimitSensor() ||
-        m_isDone;
+  public boolean robotIsInManualTeleOpMode() {
+    return (RobotState.isEnabled() && RobotState.isTeleop() && ManualControl);
   }
+
 }

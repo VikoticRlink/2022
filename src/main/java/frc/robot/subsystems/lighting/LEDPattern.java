@@ -1,3 +1,54 @@
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2022 FIRST and other WPILib contributors.
+// Open Source Software; you can modify and/or share it under the terms of
+// the WPILib BSD license file in the root directory of this project.
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+/*-----------------------------------------------------------------------------\
+|                                                                              |
+|                       ================================                       |
+|                       **    TEAM 5290 - Vikotics    **                       |
+|                       ================================                       |
+|                                                                              |
+|                            °        #°                                       |
+|                            *O       °@o                                      |
+|                            O@ °o@@#° o@@                                     |
+|                           #@@@@@@@@@@@@@@                                    |
+|                           @@@@@@@@@@@@@@@                                    |
+|                           @@@@@@@@@@@@@@°                                    |
+|                             #@@@@@@@@@@@@@O....   .                          |
+|                             o@@@@@@@@@@@@@@@@@@@@@o                          |
+|                             O@@@@@@@@@@@@@@@@@@@#°                    *      |
+|                             O@@@@@@@@@@@@@@@@@@@@@#O                O@@    O |
+|                            .@@@@@@@@°@@@@@@@@@@@@@@@@#            °@@@    °@@|
+|                            #@@O°°°°  @@@@@@@@@@@@@@@@@@°          @@@#*   @@@|
+|                         .#@@@@@  o#oo@@@@@@@@@@@@@@@@@@@@@.       O@@@@@@@@@@|
+|                        o@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@°     @@@@@@@@@°|
+|                        @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@   .@@@@@o°   |
+|          °***          @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  @@@@@o     |
+|     o#@@@@@@@@@@@@.   *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@o@@@@@@      |
+|OOo°@@@@@@@@@@@@O°#@#   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@       |
+|@@@@@@@@@@@@@@@@    o°  .@@@@@@@@@@@@@@@@@@@@@@@@#*@@@@@@@@@@@@@@@@@@@@       |
+|@@@@@@@@@@@@@@@*         O@@@@@@@@@@@@@@@@@@@@@@@   °@@@@@@@@@@@@@@@@@@o      |
+|@@@@#@@@@@@@@@            @@@@@@@@@@@@@@@@@@@@@@       .*@@@@@@@@@@@@@@.      |
+|@@@°      @@@@O           @@@@@@@@@@@@@@@@@@@@o           °@@@@@@@@@@@o       |
+|          @@@@@          .@@@@@@@@@@@@@@@@@@@*               O@@@@@@@*        |
+|           @@@@@        o@@@@@@@@@@@@@@@@@@@@.               #@@@@@O          |
+|           *@@@@@@@*  o@@@@@@@@@@@@@@@@@@@@@@°              o@@@@@            |
+|           @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@.              @@@@@#            |
+|          @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@O             #@@@@@             |
+|          .@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#           .@@@@@°             |
+|           @@@@@@@@@@O*    @@@@@@@@@@@@@@@@@@@@@°         °O@@@°              |
+|            °O@@@@@@       @@@@@@@@@@@@@@@@@@@@@@@                            |
+|              o@@@@@°      @@@@@@@@@@@@@@@@@@@@@@@@                           |
+|               @@@@@@.     @@@@@@@@@@@@@@@@@@@@@@@@@o                         |
+|                @@@@@@*    @@@@@@@@@@@@@@@@@@@@@@@@@@                         |
+|                o@@@@@@.  o@@@@@@@@@@@@@@@@@@@@@@@@@@@                        |
+|                 #@@@@@@  *@@@@@@@@@@@@@@@@@@@@@@@@@@@@                       |
+|                  °***    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@O                      |
+|                         .OOOOOOOOOOOOOOOOOOOOOOOOOOOOOO                      |
+\-----------------------------------------------------------------------------*/
+
 package frc.robot.subsystems.lighting;
 
 import edu.wpi.first.wpilibj.util.Color8Bit;
@@ -6,23 +57,33 @@ import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 public class LEDPattern {
     private final int kPatternLength = 6;
     private Color8Bit m_pattern[];
-    private int m_arraySize;  /**length of LED strip */
-    private int m_startIndex; /**starting index in the LED strip */
-    private int m_iteration;  /**number of times array has been processed */
-    private int m_arrayPos;  /**current position to start writing into the LED strip array */
-    private int m_patternStart; /**where in the pattern to begin to copy from */
-    private int m_patternEnd;  /**where in the pattern to stop copying */
+    /** length of LED strip */
+    private int m_arraySize;
+    /** starting index in the LED strip */
+    private int m_startIndex;
+    /** number of times array has been processed */
+    private int m_iteration;
+    /** current position to start writing into the LED strip array */
+    private int m_arrayPos;
+    /** where in the pattern to begin to copy from */
+    private int m_patternStart;
+    /** where in the pattern to stop copying */
+    private int m_patternEnd;
 
-    public enum Direction {kForward, kReverse};
+    public enum Direction {
+        kForward, kReverse
+    };
+
     private Direction m_direction;
 
     /**
      * Creates an LEDPattern object that will display a pattern
      * in an LED strip
-     * @param startIndex  Starting index in the LED array where
-     *                    the pattern will be displayed
-     * @param numLEDs Number of LEDs in the strip to walk the pattern through
-     * @param color   The color of the pattern
+     * 
+     * @param startIndex Starting index in the LED array where
+     *                   the pattern will be displayed
+     * @param numLEDs    Number of LEDs in the strip to walk the pattern through
+     * @param color      The color of the pattern
      */
     public LEDPattern(int startIndex, int numLEDs, Color8Bit color) {
         m_startIndex = startIndex;
@@ -31,12 +92,14 @@ public class LEDPattern {
         reset();
 
         // Initialize the LED pattern array
-        m_pattern =  new Color8Bit[kPatternLength];
+        m_pattern = new Color8Bit[kPatternLength];
         setColor(color);
     }
 
-    /** Sets the color displayed by the pattern
-     * @param color  The color the pattern should display
+    /**
+     * Sets the color displayed by the pattern
+     * 
+     * @param color The color the pattern should display
      */
     public void setColor(Color8Bit color) {
         m_pattern[0] = scaleIntensity(color, 1.0);
@@ -47,9 +110,10 @@ public class LEDPattern {
         m_pattern[5] = scaleIntensity(color, 0.06);
     }
 
-    /** Resets the LED pattern to its initial position in the target
-     *  LED strip
-    */
+    /**
+     * Resets the LED pattern to its initial position in the target
+     * LED strip
+     */
     public void reset() {
         m_iteration = 0;
         m_arrayPos = 0;
@@ -57,8 +121,9 @@ public class LEDPattern {
         m_patternEnd = 0;
     }
 
-    /** Translate an index in the LED array according to whether 
-     *  the pattern is being moved forward or reverse in the array
+    /**
+     * Translate an index in the LED array according to whether
+     * the pattern is being moved forward or reverse in the array
      */
     private int translateIndex(int index) {
         int result = index;
@@ -69,29 +134,31 @@ public class LEDPattern {
         return result;
     }
 
-    /** Helper function used to scale the intensity of a given Color to
-     *  produce a Color8Bit
+    /**
+     * Helper function used to scale the intensity of a given Color to
+     * produce a Color8Bit
      * 
-     * @param color  The color to scale
-     * @param intensity  Scale factor to apply the color intensity (0.0 to 1.0)
+     * @param color     The color to scale
+     * @param intensity Scale factor to apply the color intensity (0.0 to 1.0)
      */
     private static Color8Bit scaleIntensity(Color8Bit color, double scaleFactor) {
-        int red =  (int)(color.red * scaleFactor);
-        int green = (int)(color.green *scaleFactor);
-        int blue = (int)(color.blue *scaleFactor);
+        int red = (int) (color.red * scaleFactor);
+        int green = (int) (color.green * scaleFactor);
+        int blue = (int) (color.blue * scaleFactor);
         return new Color8Bit(red, green, blue);
     }
 
-    /** Display's this object's pattern on a given LED array
+    /**
+     * Display's this object's pattern on a given LED array
      * 
-     * @param ledBuffer  The LED strip array to display in
+     * @param ledBuffer The LED strip array to display in
      */
     public void process(AddressableLEDBuffer ledBuffer) {
         Color8Bit off = new Color8Bit(0, 0, 0);
         for (int i = m_startIndex; i < m_startIndex + m_arraySize; ++i) {
             ledBuffer.setLED(i, off);
         }
-        
+
         // Copy the pattern into ledArray starting at the current
         // array index
         int a = m_startIndex + translateIndex(m_arrayPos);
@@ -104,14 +171,12 @@ public class LEDPattern {
         m_iteration += 1;
         if (m_iteration > (m_arraySize + kPatternLength - 2)) {
             reset();
-        }
-        else {
+        } else {
             if (m_arrayPos < (m_arraySize - 1)) {
                 m_arrayPos += 1;
             }
 
-            if (m_iteration >= m_arraySize)
-            {
+            if (m_iteration >= m_arraySize) {
                 m_patternStart += 1;
             }
 

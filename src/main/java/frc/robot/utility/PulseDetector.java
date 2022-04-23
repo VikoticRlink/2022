@@ -49,70 +49,75 @@
 |                         .OOOOOOOOOOOOOOOOOOOOOOOOOOOOOO                      |
 \-----------------------------------------------------------------------------*/
 
-package frc.robot.commands.shooter.loadBallSubcommands;
+package frc.robot.utility;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ShooterSubsystem;
 
-///////////////////////////////////////////////////////////////////////////////
-/**
- * A command that 'chambers' a ball by running the ball indexer until a ball
- * reaches the limit sensor.
+/** This class implements detection of a pulse as a series of transitions in a boolean
+ * input:
  * 
- * NOTE: this command does nothing if no balls are detected in the shooter.
+ *  .   . ------------   .    .  TRUE
+ *        ^          |
+ *        |          |
+ *        |          |
+ *  ______|          v__________ FALSE
+ * 
+ *  FALSE --> TRUE --> FALSE
  */
-public class ChamberBall extends CommandBase {
-  ShooterSubsystem m_shooterSubsystem;
-  boolean m_isDone = false;
+public class PulseDetector {
 
-  ///////////////////////////////////////////////////////////////////////////////
-  /**
-   * Creates an instance of the command
-   * 
-   * @param shooterSubsystem Shooter subsystem used by the command
-   */
-  public ChamberBall(ShooterSubsystem shooterSubsystem) {
-    m_shooterSubsystem = shooterSubsystem;
-    addRequirements(shooterSubsystem);
-  }
-
-  ///////////////////////////////////////////////////////////////////////////////
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-  }
-
-  ///////////////////////////////////////////////////////////////////////////////
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    if (m_shooterSubsystem.numBallsDetected() > 0) {
-      // Run the ball indexer to move ball(s) toward the top of the shooter
-      m_shooterSubsystem.runBallIndexer(ShooterSubsystem.BallIndexerMode.FeedBall);
+    private enum State {
+        DetectRisingEdge,
+        DetectFallingEdge
     }
-  }
 
-  ///////////////////////////////////////////////////////////////////////////////
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-    // Stop the ball indexer
-    m_shooterSubsystem.runBallIndexer(ShooterSubsystem.BallIndexerMode.Stopped);
-    m_isDone = true;
-  }
+    private boolean m_lastInput;
+    private State m_state;
 
-  ///////////////////////////////////////////////////////////////////////////////
-  /*
-   * Called after each time the scheduler runs the execute() method to determine
-   * whether the command has finished.
-   * 
-   * Returns true when the ball has reached the limit sensor or if no balls
-   * are detected anywhere in the shooter
-   */
-  @Override
-  public boolean isFinished() {
-    return (m_shooterSubsystem.numBallsDetected() < 1) ||
-        m_shooterSubsystem.getBallLimitSensor() ||
-        m_isDone;
-  }
+    ///////////////////////////////////////////////////////////////////////////
+    /** Creates an instance of the object and sets it up to detect a pulse
+     */
+    PulseDetector() { 
+        reset();
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    /** Process the present input value
+     * 
+     * @param input  The present input value
+     * @return true if a pulse has been detected; else false
+     * @remarks
+     *   Once a complete pulse is detected, the detector is automatically reset
+     *   to detect a subsequent pulse
+     */
+    public boolean process(boolean input) {
+        boolean pulseDetected = false;
+
+        switch (m_state) {
+            case DetectRisingEdge: {
+                if (!m_lastInput && input) {
+                    m_state = State.DetectFallingEdge;
+                }
+                break;
+            }
+
+            case DetectFallingEdge: {
+                if (m_lastInput && !input) {
+                    pulseDetected = true;
+                    m_state = State.DetectRisingEdge;
+                }
+                break;
+            }
+        }
+
+        m_lastInput = input;
+        return pulseDetected;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    /** Reset the detector and make it ready to detect another pulse
+    */
+    public void reset() {
+        m_lastInput = false;
+        m_state = State.DetectRisingEdge;
+    }
 }

@@ -1,3 +1,54 @@
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2022 FIRST and other WPILib contributors.
+// Open Source Software; you can modify and/or share it under the terms of
+// the WPILib BSD license file in the root directory of this project.
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+/*-----------------------------------------------------------------------------\
+|                                                                              |
+|                       ================================                       |
+|                       **    TEAM 5290 - Vikotics    **                       |
+|                       ================================                       |
+|                                                                              |
+|                            °        #°                                       |
+|                            *O       °@o                                      |
+|                            O@ °o@@#° o@@                                     |
+|                           #@@@@@@@@@@@@@@                                    |
+|                           @@@@@@@@@@@@@@@                                    |
+|                           @@@@@@@@@@@@@@°                                    |
+|                             #@@@@@@@@@@@@@O....   .                          |
+|                             o@@@@@@@@@@@@@@@@@@@@@o                          |
+|                             O@@@@@@@@@@@@@@@@@@@#°                    *      |
+|                             O@@@@@@@@@@@@@@@@@@@@@#O                O@@    O |
+|                            .@@@@@@@@°@@@@@@@@@@@@@@@@#            °@@@    °@@|
+|                            #@@O°°°°  @@@@@@@@@@@@@@@@@@°          @@@#*   @@@|
+|                         .#@@@@@  o#oo@@@@@@@@@@@@@@@@@@@@@.       O@@@@@@@@@@|
+|                        o@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@°     @@@@@@@@@°|
+|                        @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@   .@@@@@o°   |
+|          °***          @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  @@@@@o     |
+|     o#@@@@@@@@@@@@.   *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@o@@@@@@      |
+|OOo°@@@@@@@@@@@@O°#@#   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@       |
+|@@@@@@@@@@@@@@@@    o°  .@@@@@@@@@@@@@@@@@@@@@@@@#*@@@@@@@@@@@@@@@@@@@@       |
+|@@@@@@@@@@@@@@@*         O@@@@@@@@@@@@@@@@@@@@@@@   °@@@@@@@@@@@@@@@@@@o      |
+|@@@@#@@@@@@@@@            @@@@@@@@@@@@@@@@@@@@@@       .*@@@@@@@@@@@@@@.      |
+|@@@°      @@@@O           @@@@@@@@@@@@@@@@@@@@o           °@@@@@@@@@@@o       |
+|          @@@@@          .@@@@@@@@@@@@@@@@@@@*               O@@@@@@@*        |
+|           @@@@@        o@@@@@@@@@@@@@@@@@@@@.               #@@@@@O          |
+|           *@@@@@@@*  o@@@@@@@@@@@@@@@@@@@@@@°              o@@@@@            |
+|           @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@.              @@@@@#            |
+|          @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@O             #@@@@@             |
+|          .@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#           .@@@@@°             |
+|           @@@@@@@@@@O*    @@@@@@@@@@@@@@@@@@@@@°         °O@@@°              |
+|            °O@@@@@@       @@@@@@@@@@@@@@@@@@@@@@@                            |
+|              o@@@@@°      @@@@@@@@@@@@@@@@@@@@@@@@                           |
+|               @@@@@@.     @@@@@@@@@@@@@@@@@@@@@@@@@o                         |
+|                @@@@@@*    @@@@@@@@@@@@@@@@@@@@@@@@@@                         |
+|                o@@@@@@.  o@@@@@@@@@@@@@@@@@@@@@@@@@@@                        |
+|                 #@@@@@@  *@@@@@@@@@@@@@@@@@@@@@@@@@@@@                       |
+|                  °***    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@O                      |
+|                         .OOOOOOOOOOOOOOOOOOOOOOOOOOOOOO                      |
+\-----------------------------------------------------------------------------*/
+
 package frc.robot.subsystems.driveBase;
 
 import edu.wpi.first.math.geometry.Pose2d;
@@ -16,12 +67,12 @@ import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 
 import frc.robot.Constants;
 
-
 ///////////////////////////////////////////////////////////////////////////////
 /**
- * This subsystem manages motors and odometry used to move the robot around the arena.
+ * This subsystem manages motors and odometry used to move the robot around the
+ * arena.
  */
-public class DriveBaseNew extends SubsystemBase {
+public class DriveBaseSubsystem extends SubsystemBase {
 
   //////////////////////////////////
   /// *** CONSTANTS ***
@@ -39,13 +90,15 @@ public class DriveBaseNew extends SubsystemBase {
   /** Current limiting threshold (Amps) applied to each drive motor */
   private static final double kMotorCurrentLimitThresholdAmps = kMotorCurrentLimitAmps * 0.95;
 
-  /** Time (Seconds) that motor current must exceed maximum before current limiting occurs */
+  /**
+   * Time (Seconds) that motor current must exceed maximum before current limiting
+   * occurs
+   */
   private static final double kMotorCurrentLimitHoldoffSec = 0.05;
 
   /** Time (Seconds) it takes to ramp motors from neutral to full output */
-  //private static final double kMotorRampTimeSec = 0.1;
+  // private static final double kMotorRampTimeSec = 0.1;
 
-  
   //////////////////////////////////
   /// *** ATTRIBUTES ***
   //////////////////////////////////
@@ -53,14 +106,12 @@ public class DriveBaseNew extends SubsystemBase {
   // The motors on the left side of the drive base.
   public WPI_TalonFX m_leftMaster = new WPI_TalonFX(Constants.MotorID.leftDriveMaster);
   WPI_TalonFX m_leftSlave = new WPI_TalonFX(Constants.MotorID.leftDriveSlave);
-  private final MotorControllerGroup m_leftMotors = 
-      new MotorControllerGroup(m_leftMaster, m_leftSlave);
+  private final MotorControllerGroup m_leftMotors = new MotorControllerGroup(m_leftMaster, m_leftSlave);
 
   // The motors on the right side of the drive base.
   public WPI_TalonFX m_rightMaster = new WPI_TalonFX(Constants.MotorID.rightDriveMaster);
   WPI_TalonFX m_rightSlave = new WPI_TalonFX(Constants.MotorID.rightDriveSlave);
-  private final MotorControllerGroup m_rightMotors = 
-      new MotorControllerGroup(m_rightMaster, m_rightSlave);
+  private final MotorControllerGroup m_rightMotors = new MotorControllerGroup(m_rightMaster, m_rightSlave);
 
   // Differential drive controller
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
@@ -70,11 +121,11 @@ public class DriveBaseNew extends SubsystemBase {
 
   // Odometry class for tracking robot pose
   private final DifferentialDriveOdometry m_odometry;
- // private static double DrivePowerModifer = 1;
+  // private static double DrivePowerModifer = 1;
 
   /////////////////////////////////////////////////////////////////////////////
   /** Creates an instance of the subsystem */
-  public DriveBaseNew() {
+  public DriveBaseSubsystem() {
     ConfigureMotors();
 
     // Sets the distance per pulse for the encoders
@@ -88,8 +139,7 @@ public class DriveBaseNew extends SubsystemBase {
     m_odometry = new DifferentialDriveOdometry(m_gyro.getRotation2d());
   }
 
- 
-/////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////
   @Override
   public void periodic() {
     // Update the odometry in the periodic block
@@ -97,34 +147,37 @@ public class DriveBaseNew extends SubsystemBase {
         m_leftMaster.getSelectedSensorPosition() * Constants.DriveConstants.kEncoderDistancePerPulse,
         m_rightMaster.getSelectedSensorPosition()
             * Constants.DriveConstants.kEncoderDistancePerPulse);
-/*
-    if (RobotContainer.driverController.bumpRight.get()) {
-      DrivePowerModifer = Constants.MotorScaler.DriveMidLimit;
-      SmartDashboard.putString("Speed", "Medium");
-    }
-    else {
-      if (RobotContainer.driverController.bumpLeft.get()) {
-        DrivePowerModifer = Constants.MotorScaler.DriveSlowLimit;
-        SmartDashboard.putString("Speed", "Slow");
-      }
-      else {
-        DrivePowerModifer = Constants.MotorScaler.DriveStandardLimit;
-        SmartDashboard.putString("Speed", "Normal");
-      }
-    }
-
-    if (RobotState.isEnabled() && RobotState.isTeleop()) {
-      if (RobotContainer.DriveDirection == RobotContainer.RobotDirection.Forward) {
-        m_drive.tankDrive(DrivePowerModifer * RobotContainer.driverController.rightStickY(),
-            DrivePowerModifer * RobotContainer.driverController.leftStickY());
-
-      }
-      else {
-        m_drive.tankDrive(-1 * DrivePowerModifer * RobotContainer.driverController.leftStickY(),
-            -1 * DrivePowerModifer * RobotContainer.driverController.rightStickY());
-      }
-      m_drive.feed();
-    }*/
+    /*
+     * if (RobotContainer.driverController.bumpRight.get()) {
+     * DrivePowerModifer = Constants.MotorScaler.DriveMidLimit;
+     * SmartDashboard.putString("Speed", "Medium");
+     * }
+     * else {
+     * if (RobotContainer.driverController.bumpLeft.get()) {
+     * DrivePowerModifer = Constants.MotorScaler.DriveSlowLimit;
+     * SmartDashboard.putString("Speed", "Slow");
+     * }
+     * else {
+     * DrivePowerModifer = Constants.MotorScaler.DriveStandardLimit;
+     * SmartDashboard.putString("Speed", "Normal");
+     * }
+     * }
+     * 
+     * if (RobotState.isEnabled() && RobotState.isTeleop()) {
+     * if (RobotContainer.DriveDirection == RobotContainer.RobotDirection.Forward) {
+     * m_drive.tankDrive(DrivePowerModifer *
+     * RobotContainer.driverController.rightStickY(),
+     * DrivePowerModifer * RobotContainer.driverController.leftStickY());
+     * 
+     * }
+     * else {
+     * m_drive.tankDrive(-1 * DrivePowerModifer *
+     * RobotContainer.driverController.leftStickY(),
+     * -1 * DrivePowerModifer * RobotContainer.driverController.rightStickY());
+     * }
+     * m_drive.feed();
+     * }
+     */
 
   }
 
@@ -142,7 +195,8 @@ public class DriveBaseNew extends SubsystemBase {
   }
 
   /////////////////////////////////////////////////////////////////////////////
-  /** Resets odometry to a specified pose
+  /**
+   * Resets odometry to a specified pose
    *
    * @param pose The pose to apply to odometry
    */
@@ -206,27 +260,8 @@ public class DriveBaseNew extends SubsystemBase {
 
   /////////////////////////////////////////////////////////////////////////////
   /**
-   * Gets the left drive encoder.
-   *
-   * @return the left drive encoder
-   */
-  // public Encoder getLeftEncoder() {
-  // return m_leftEncoder;
-  // }
-
-  /////////////////////////////////////////////////////////////////////////////
-  /**
-   * Gets the right drive encoder.
-   *
-   * @return the right drive encoder
-   */
-  // public Encoder getRightEncoder() {
-  // return m_rightEncoder;
-  // }
-
-  /////////////////////////////////////////////////////////////////////////////
-  /**
-   * Sets the max output of the drive. Useful for scaling the drive to drive more slowly.
+   * Sets the max output of the drive. Useful for scaling the drive to drive more
+   * slowly.
    *
    * @param maxOutput the maximum output to which the drive will be constrained
    */
@@ -274,33 +309,32 @@ public class DriveBaseNew extends SubsystemBase {
     // result in both sides moving forward. Depending on how your robot's
     // gearbox is constructed, you might have to invert the left side instead.
     m_rightMotors.setInverted(true);
-    
 
-   // m_rightSlave.setStatusFramePeriod(1, 255);
-   // m_rightSlave.setStatusFramePeriod(2, 255);
-   // m_leftSlave.setStatusFramePeriod(1, 255);
-   // m_leftSlave.setStatusFramePeriod(2, 255);
-
+    // m_rightSlave.setStatusFramePeriod(1, 255);
+    // m_rightSlave.setStatusFramePeriod(2, 255);
+    // m_leftSlave.setStatusFramePeriod(1, 255);
+    // m_leftSlave.setStatusFramePeriod(2, 255);
 
   }
-  public void LimitMotors(){
+
+  public void LimitMotors(boolean shouldLimit) {
     // Configure current limiting
-    SupplyCurrentLimitConfiguration limitConfig = 
-      new SupplyCurrentLimitConfiguration(
-          true,                     // Enable current limiting
-          kMotorCurrentLimitAmps,   // Current limit to apply (Amps)
-          kMotorCurrentLimitThresholdAmps,  // Threshold for current limiting
-          kMotorCurrentLimitHoldoffSec      // Time to wait before applying current limiting
-          );
+    SupplyCurrentLimitConfiguration limitConfig = new SupplyCurrentLimitConfiguration(
+        shouldLimit, // Enable/disable current limiting
+        kMotorCurrentLimitAmps, // Current limit to apply (Amps)
+        kMotorCurrentLimitThresholdAmps, // Threshold for current limiting
+        kMotorCurrentLimitHoldoffSec // Time to wait before applying current limiting
+    );
 
     m_leftMaster.configSupplyCurrentLimit(limitConfig);
     m_rightMaster.configSupplyCurrentLimit(limitConfig);
     m_leftSlave.configSupplyCurrentLimit(limitConfig);
     m_rightSlave.configSupplyCurrentLimit(limitConfig);
-        // Configure current ramping (seconds required to ramp from neutral to full output)
-   // m_leftMaster.configOpenloopRamp(kMotorRampTimeSec);
-   // m_leftSlave.configOpenloopRamp(kMotorRampTimeSec);
-   // m_rightMaster.configOpenloopRamp(kMotorRampTimeSec);
-   // m_rightSlave.configOpenloopRamp(kMotorRampTimeSec);
+    // Configure current ramping (seconds required to ramp from neutral to full
+    // output)
+    // m_leftMaster.configOpenloopRamp(kMotorRampTimeSec);
+    // m_leftSlave.configOpenloopRamp(kMotorRampTimeSec);
+    // m_rightMaster.configOpenloopRamp(kMotorRampTimeSec);
+    // m_rightSlave.configOpenloopRamp(kMotorRampTimeSec);
   }
 }

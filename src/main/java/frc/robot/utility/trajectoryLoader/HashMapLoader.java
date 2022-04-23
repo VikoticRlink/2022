@@ -49,70 +49,46 @@
 |                         .OOOOOOOOOOOOOOOOOOOOOOOOOOOOOO                      |
 \-----------------------------------------------------------------------------*/
 
-package frc.robot.commands.shooter.loadBallSubcommands;
+package frc.robot.utility.trajectoryLoader;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ShooterSubsystem;
+import java.util.HashMap;
+import java.util.Vector;
+import java.nio.file.Path;
 
-///////////////////////////////////////////////////////////////////////////////
+import edu.wpi.first.math.trajectory.Trajectory;
+
+/////////////////////////////////////////////////////////////////////////////
 /**
- * A command that 'chambers' a ball by running the ball indexer until a ball
- * reaches the limit sensor.
- * 
- * NOTE: this command does nothing if no balls are detected in the shooter.
+ * LoadObserver implementation that loads a hash map of Trajectory objects
+ * and accumulate a list of files that failed to load
  */
-public class ChamberBall extends CommandBase {
-  ShooterSubsystem m_shooterSubsystem;
-  boolean m_isDone = false;
+public class HashMapLoader implements LoadObserver {
+  public HashMap<String, Trajectory> trajectoryMap;
+  public Vector<String> failedFiles;
 
-  ///////////////////////////////////////////////////////////////////////////////
+  /** Creates an instance of the observer */
+  public HashMapLoader() {
+    trajectoryMap = new HashMap<String, Trajectory>();
+    failedFiles = new Vector<String>();
+  }
+
   /**
-   * Creates an instance of the command
+   * Method called when a Trajectory has been loaded successfully
    * 
-   * @param shooterSubsystem Shooter subsystem used by the command
+   * @param fileName   Name of the file the trajectory was loaded from
+   * @param trajectory Trajectory object that was loaded
    */
-  public ChamberBall(ShooterSubsystem shooterSubsystem) {
-    m_shooterSubsystem = shooterSubsystem;
-    addRequirements(shooterSubsystem);
+  public void onTrajectoryCreated(String fileName, Trajectory trajectory) {
+    trajectoryMap.put(fileName, trajectory);
   }
 
-  ///////////////////////////////////////////////////////////////////////////////
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-  }
-
-  ///////////////////////////////////////////////////////////////////////////////
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    if (m_shooterSubsystem.numBallsDetected() > 0) {
-      // Run the ball indexer to move ball(s) toward the top of the shooter
-      m_shooterSubsystem.runBallIndexer(ShooterSubsystem.BallIndexerMode.FeedBall);
-    }
-  }
-
-  ///////////////////////////////////////////////////////////////////////////////
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-    // Stop the ball indexer
-    m_shooterSubsystem.runBallIndexer(ShooterSubsystem.BallIndexerMode.Stopped);
-    m_isDone = true;
-  }
-
-  ///////////////////////////////////////////////////////////////////////////////
-  /*
-   * Called after each time the scheduler runs the execute() method to determine
-   * whether the command has finished.
+  /**
+   * Method called on failure to load the contents of a file into a
+   * Trajectory object
    * 
-   * Returns true when the ball has reached the limit sensor or if no balls
-   * are detected anywhere in the shooter
+   * @param filePath Path of the file that could not be loaded
    */
-  @Override
-  public boolean isFinished() {
-    return (m_shooterSubsystem.numBallsDetected() < 1) ||
-        m_shooterSubsystem.getBallLimitSensor() ||
-        m_isDone;
+  public void onLoadFailed(Path filePath) {
+    failedFiles.add(filePath.toString());
   }
 }

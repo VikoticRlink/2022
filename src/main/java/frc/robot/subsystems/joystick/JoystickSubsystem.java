@@ -49,70 +49,63 @@
 |                         .OOOOOOOOOOOOOOOOOOOOOOOOOOOOOO                      |
 \-----------------------------------------------------------------------------*/
 
-package frc.robot.commands.shooter.loadBallSubcommands;
+package frc.robot.subsystems.joystick;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+
+import frc.robot.commands.ManualMode;
+import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.runtimeState.BotStateSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.ShooterSubsystem.FlywheelSpeed;
+import frc.robot.commands.*;
 
-///////////////////////////////////////////////////////////////////////////////
 /**
- * A command that 'chambers' a ball by running the ball indexer until a ball
- * reaches the limit sensor.
- * 
- * NOTE: this command does nothing if no balls are detected in the shooter.
+ * A subsystem providing/managing Xbox controllers for driving the robot manually
  */
-public class ChamberBall extends CommandBase {
-  ShooterSubsystem m_shooterSubsystem;
-  boolean m_isDone = false;
+public class JoystickSubsystem extends SubsystemBase {
+  /** Xbox controller used by the robot driver */
+  public JoystickController driverController;
+  /** Xbox controller used by the robot operator */
+  public JoystickController operatorController;
 
-  ///////////////////////////////////////////////////////////////////////////////
+  /** Creates a new JoystickSubsystem. */
+  public JoystickSubsystem() {}
+
   /**
-   * Creates an instance of the command
-   * 
-   * @param shooterSubsystem Shooter subsystem used by the command
+   * Use this method to define your button->command mappings. Buttons can be
+   * created by
+   * instantiating a {@link GenericHID} or one of its subclasses ({@link
+   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing
+   * it to a {@link
+   * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  public ChamberBall(ShooterSubsystem shooterSubsystem) {
-    m_shooterSubsystem = shooterSubsystem;
-    addRequirements(shooterSubsystem);
+  public void configureButtonBindings(BotStateSubsystem botState, ShooterSubsystem shooterSubsystem,
+                                      IntakeSubsystem intakeSubsystem) {
+    driverController = new JoystickController(0);
+    driverController.leftStickYProc.sensitivity = 0.3;
+    driverController.rightStickYProc.sensitivity = 0.3;
+
+    operatorController = new JoystickController(1);
+    // Map buttons on operator controller
+    // operatorController.Start.whenPressed(new ManualModeToggle());
+    operatorController.bumpLeft.whenHeld(new ManualMode(botState, shooterSubsystem));
+    operatorController.bumpRight.whenHeld(new ManualMode(botState, shooterSubsystem));
+    operatorController.A.whenPressed(
+      new LoadAndFire(FlywheelSpeed.Low, botState, shooterSubsystem, operatorController.A));
+    operatorController.X.whenPressed(
+      new LoadAndFire(FlywheelSpeed.Medium, botState, shooterSubsystem, operatorController.X));
+    operatorController.Y.whenPressed(
+      new LoadAndFire(FlywheelSpeed.GreasedLightning, botState, shooterSubsystem, operatorController.Y));
+    operatorController.B.whenHeld(new IntakeBall(intakeSubsystem));
+    driverController.Start.whenPressed(new InstantCommand(botState::invertDriveDirection, botState));
   }
 
-  ///////////////////////////////////////////////////////////////////////////////
-  // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-  }
-
-  ///////////////////////////////////////////////////////////////////////////////
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    if (m_shooterSubsystem.numBallsDetected() > 0) {
-      // Run the ball indexer to move ball(s) toward the top of the shooter
-      m_shooterSubsystem.runBallIndexer(ShooterSubsystem.BallIndexerMode.FeedBall);
-    }
-  }
-
-  ///////////////////////////////////////////////////////////////////////////////
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-    // Stop the ball indexer
-    m_shooterSubsystem.runBallIndexer(ShooterSubsystem.BallIndexerMode.Stopped);
-    m_isDone = true;
-  }
-
-  ///////////////////////////////////////////////////////////////////////////////
-  /*
-   * Called after each time the scheduler runs the execute() method to determine
-   * whether the command has finished.
-   * 
-   * Returns true when the ball has reached the limit sensor or if no balls
-   * are detected anywhere in the shooter
-   */
-  @Override
-  public boolean isFinished() {
-    return (m_shooterSubsystem.numBallsDetected() < 1) ||
-        m_shooterSubsystem.getBallLimitSensor() ||
-        m_isDone;
+  public void periodic() {
+    // This method will be called once per scheduler run
   }
 }
