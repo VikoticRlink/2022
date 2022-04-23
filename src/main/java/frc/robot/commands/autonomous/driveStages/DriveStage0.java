@@ -5,7 +5,7 @@
 package frc.robot.commands.autonomous.driveStages;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveBaseNew;
+import frc.robot.subsystems.driveBase.DriveBaseNew;
 import frc.robot.subsystems.Intake;
 
 /** Implement Autonomous mode Drive stage 1 */
