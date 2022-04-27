@@ -62,7 +62,9 @@ import frc.robot.subsystems.ShooterSubsystem;
  * NOTE: this command does nothing if no balls are detected in the shooter.
  */
 public class ChamberBall extends CommandBase {
+  /** Shooter subsystem accessed by the command */
   ShooterSubsystem m_shooterSubsystem;
+  /** true when the command has finished */
   boolean m_isDone = false;
 
   ///////////////////////////////////////////////////////////////////////////////

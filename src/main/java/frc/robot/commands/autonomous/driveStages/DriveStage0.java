@@ -54,6 +54,7 @@ package frc.robot.commands.autonomous.driveStages;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.driveBase.DriveBaseSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.RobotContainer;
 
 /** Implement Autonomous mode Drive stage 1 */
 public class DriveStage0 extends CommandBase {
@@ -61,12 +62,11 @@ public class DriveStage0 extends CommandBase {
   IntakeSubsystem m_intakeSubsystem;
 
   /** Create an instance of the command */
-  public DriveStage0(DriveBaseSubsystem driveBaseSubsystem, IntakeSubsystem intakeSubsystem) {
-    m_driveBaseSubsystem = driveBaseSubsystem;
-    m_intakeSubsystem = intakeSubsystem;
+  public DriveStage0(RobotContainer botContainer) {
+    m_driveBaseSubsystem = botContainer.driveBaseSubsystem;
+    m_intakeSubsystem = botContainer.intakeSubsystem;
 
-    addRequirements(driveBaseSubsystem);
-    addRequirements(intakeSubsystem);
+    addRequirements(m_driveBaseSubsystem, m_intakeSubsystem);
   }
 
   // Called when the command is initially scheduled.

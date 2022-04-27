@@ -58,11 +58,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.commands.autonomous.*;
 import frc.robot.commands.*;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.runtimeState.BotStateSubsystem;
 import frc.robot.subsystems.runtimeState.BotStateSubsystem.RobotDirection;
-import frc.robot.subsystems.driveBase.DriveBaseSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+
+// TODO: DashboardSubsystem is ugly.  It needs to be cleaned up and refactored into submodules
 
 //import frc.robot.commands.shooter.fireBallSubcommands.FeedFlywheel;
 //import frc.robot.commands.shooter.loadBallSubcommands.BackOffFlywheel;
@@ -76,10 +77,9 @@ public class DashboardSubsystem extends SubsystemBase {
   private ShooterSubsystem m_shooterSubsystem;
 
   /** Creates a new Dashboard. */
-  public DashboardSubsystem(BotStateSubsystem botState, DriveBaseSubsystem driveBase, 
-                            IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsystem) {
-    m_botState = botState;
-    m_shooterSubsystem = shooterSubsystem;
+  public DashboardSubsystem(RobotContainer botContainer) {
+    m_botState = botContainer.botState;
+    m_shooterSubsystem = botContainer.shooterSubsystem;
     m_chooser = new SendableChooser<>();
     m_stealthMode = new SendableChooser<>();
     m_NoLimits = new SendableChooser<>();
@@ -93,10 +93,8 @@ public class DashboardSubsystem extends SubsystemBase {
     SmartDashboard.putData(m_stealthMode);
 
     // Set up the autonomous chooser
-    m_chooser.setDefaultOption("High Auto",
-        new AutoHighGoal(botState, driveBase, intakeSubsystem, shooterSubsystem));
-    m_chooser.addOption("Simple Auto", 
-        new AutoDrive(botState, driveBase, intakeSubsystem, shooterSubsystem));
+    m_chooser.setDefaultOption("High Auto", new AutoHighGoal(botContainer));
+    m_chooser.addOption("Simple Auto", new AutoDrive(botContainer));
     m_chooser.addOption("Red 1", new AutoRedOne());
     m_chooser.addOption("Red 2", new AutoRedTwo());
     m_chooser.addOption("Red 3", new AutoRedThree());

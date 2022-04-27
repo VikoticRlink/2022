@@ -52,16 +52,14 @@
 package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.subsystems.runtimeState.BotStateSubsystem;
 import frc.robot.commands.shooter.loadBallSubcommands.*;
+import frc.robot.RobotContainer;
 
 /////////////////////////////////////////////////////////////////////////////////
 /**
  * A command that chambers a ball and gets it ready to fire
  *
- * This command sequentially executes the ChamberBall and BackOffFlywheel
- * commands
+ * This command sequentially executes the ChamberBall and BackOffFlywheel commands
  */
 public class LoadBall extends SequentialCommandGroup {
 
@@ -69,13 +67,13 @@ public class LoadBall extends SequentialCommandGroup {
   /**
    * Creates an instance of the command
    * 
-   * @param botState Handle to the present bot state
-   * @param shooterSubsystem Shooter subsystem the command will use
+   * @param botState     Handle to the present bot state
+   * @param botContainer Object providing access to robot subsystems
    */
-  public LoadBall(BotStateSubsystem botState, ShooterSubsystem shooterSubsystem) {
+  public LoadBall(RobotContainer botContainer) {
     addCommands(
         // new ChamberBall(shooterSubsystem)
         // .withTimeout(Constants.ShooterConstants.kChamberBallTimeoutSeconds),
-        new BackOffFlywheel(botState, shooterSubsystem));
+        new BackOffFlywheel(botContainer));
   }
 }

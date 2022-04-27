@@ -57,7 +57,6 @@ import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.util.Color8Bit;
 
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.dashboard.DashboardSubsystem;
 import frc.robot.subsystems.runtimeState.BotStateSubsystem;
 

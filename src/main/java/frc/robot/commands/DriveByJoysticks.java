@@ -55,6 +55,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.driveBase.DriveBaseSubsystem;
 import frc.robot.subsystems.joystick.JoystickSubsystem;
 import frc.robot.subsystems.runtimeState.BotStateSubsystem;
@@ -66,16 +67,22 @@ public class DriveByJoysticks extends CommandBase {
   private DriveBaseSubsystem m_driveBaseSubsystem;
   private double m_drivePowerModifer = 1;
 
-  /** Creates a new DriveByJoysticks. */
-  public DriveByJoysticks(BotStateSubsystem botState,
-                          DriveBaseSubsystem driveBaseSubsystem, 
-                          JoystickSubsystem joystickSubsystem) {
-    m_botState = botState;
-    m_driveBaseSubsystem = driveBaseSubsystem;
-    m_joystickSubsystem = joystickSubsystem;
+  /////////////////////////////////////////////////////////////////////////////
+  /**
+   * Creates an instance of the command
+   * 
+   * @param muzzleVelocity Speed to fire the ball
+   * @param botContainer       Object providing access to robot subsystems
+   * @param fireButton     Joystick button used to fire in manual tele-operated
+   *                       mode
+   */
+  public DriveByJoysticks(RobotContainer botContainer) {
+    m_botState = botContainer.botState;
+    m_driveBaseSubsystem = botContainer.driveBaseSubsystem;
+    m_joystickSubsystem = botContainer.joystickSubsystem;
 
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(driveBaseSubsystem);
+    addRequirements(m_botState, m_driveBaseSubsystem, m_joystickSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -86,6 +93,7 @@ public class DriveByJoysticks extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    // TODO: move dashboard code in DriveByJoystick into the DashboardSubsystem
     if (m_joystickSubsystem.driverController.bumpRight.get()) {
       m_drivePowerModifer = Constants.MotorScaler.DriveMidLimit;
       SmartDashboard.putString("Speed", "Medium");

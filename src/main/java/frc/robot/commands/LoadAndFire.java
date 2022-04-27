@@ -57,8 +57,8 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.shooter.LoadBall;
 import frc.robot.commands.shooter.FireBall;
 import frc.robot.subsystems.runtimeState.BotStateSubsystem;
-import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.ShooterSubsystem.FlywheelSpeed;
+import frc.robot.RobotContainer;
 
 ///////////////////////////////////////////////////////////////////////////////
 /**
@@ -67,32 +67,29 @@ import frc.robot.subsystems.ShooterSubsystem.FlywheelSpeed;
  * This command sequentially executes the LoadBall and FireBall commands
  */
 public class LoadAndFire extends SequentialCommandGroup {
-  /** Handle to the current bot state */
+  /** Handle to the bot state information */
   BotStateSubsystem m_botState;
 
   /////////////////////////////////////////////////////////////////////////////
   /**
    * Creates an instance of the command
    * 
-   * @param muzzleVelocity   Speed to fire the ball
-   * @param shooterSubsystem Shooter subsystem the command will use
-   * @param fireButton       Joystick button used to fire in manual tele-operated
-   *                         mode
+   * @param muzzleVelocity Speed to fire the ball
+   * @param botContainer   Object providing access to robot subsystems
+   * @param fireButton     Joystick button used to fire in manual tele-operated mode
    */
-  public LoadAndFire(FlywheelSpeed muzzleVelocity, BotStateSubsystem botState,
-                     ShooterSubsystem shooterSubsystem, JoystickButton fireButton) {
+  public LoadAndFire(FlywheelSpeed muzzleVelocity, RobotContainer botContainer,
+      JoystickButton fireButton) {
 
-    m_botState = botState;
-
-    addCommands(
-        new LoadBall(botState, shooterSubsystem),
-        new FireBall(muzzleVelocity, shooterSubsystem, fireButton));
+    m_botState = botContainer.botState;
+    addRequirements(m_botState);
+    addCommands(new LoadBall(botContainer), new FireBall(muzzleVelocity, botContainer, fireButton));
   }
 
   /////////////////////////////////////////////////////////////////////////////
   /**
-   * Called when all sub-commands executed by this command have been executed
-   * or the command is interrupted
+   * Called when all sub-commands executed by this command have been executed or the command is
+   * interrupted
    */
   @Override
   public void end(boolean interrupted) {

@@ -84,9 +84,18 @@ public class ShooterSubsystem extends SubsystemBase {
   // 1 revolution = 2048 counts
   // 1 minutes = 60 * 10 * 100ms
   // conversion is 600 / 2048
-  private double ticks2RPm = 600.0 / 2048.0;
+  private static final double ticks2RPm = 600.0 / 2048.0;
 
-  private boolean IndexerDone = false;
+  /**
+   * Talon FX motors support multiple (cascaded) PID loops that are identified
+   * by index. This subsystem requires just one PID loop whose index is given
+   * by this constant.
+   */
+  public static final int kPIDIndex = 0;
+
+  /** Timeout used when setting Talon PID parameters */
+  private static final int kPIDTimeoutMs = 30;
+
   //////////////////////////////////
   /// *** ATTRIBUTES ***
   //////////////////////////////////
@@ -118,28 +127,26 @@ public class ShooterSubsystem extends SubsystemBase {
    */
   private DigitalInput m_ballSensorLower;
 
+  private boolean IndexerDone = false;
 
+  // TODO: clean use utility.Gains class for constants here
   // PID coefficients (starting point)
   // Small initial kFF and kP values, probably just big enough to do *something*
   // and *probably* too small to overdrive an untuned system.
-  private double kFF = 0.055;
-  private double kP = 0.22;
-  private double kI = 0.002;
-  private double kD = 0;
-  private double kIz = 100;
-  final int kPIDLoopIdx = 0;
-  final int kTimeoutMs = 30;
+  private static final double kFF = 0.055;
+  private static final double kP = 0.22;
+  private static final double kI = 0.002;
+  private static final double kD = 0;
+  private static final double kIz = 100;
 
-  private double IndexkFF = 0.02;
-  private double IndexkP = 0.04;
-  private double IndexkI = 0.0;
-  private double IndexkD = 0;
-  private double IndexkIz = 0;
-  final int IndexkPIDLoopIdx = 0;
-  final int IndexkTimeoutMs = 30;
-
+  private static final double IndexkFF = 0.02;
+  private static final double IndexkP = 0.04;
+  private static final double IndexkI = 0.0;
+  private static final double IndexkD = 0;
+  private static final double IndexkIz = 0;
+  
   // free speed of Falcon 500 is listed as 6380
-  private double maxRPM = 6300;
+  private static final double maxRPM = 6300;
   private boolean ShooterAtSpeed = false;
 
 
@@ -158,26 +165,26 @@ public class ShooterSubsystem extends SubsystemBase {
     m_flywheelMotor.setInverted(kInvertFlywheelMotor);
 
     // set Flywheel PID coefficients
-    m_flywheelMotor.config_kF(kPIDLoopIdx, kFF, kTimeoutMs);
-    m_flywheelMotor.config_kP(kPIDLoopIdx, kP, kTimeoutMs);
-    m_flywheelMotor.config_kI(kPIDLoopIdx, kI, kTimeoutMs);
-    m_flywheelMotor.config_kD(kPIDLoopIdx, kD, kTimeoutMs);
-    m_flywheelMotor.config_IntegralZone(kPIDLoopIdx, kIz, kTimeoutMs);
-    m_flywheelMotor.configNominalOutputForward(0, kTimeoutMs);
-    m_flywheelMotor.configNominalOutputReverse(0, kTimeoutMs);
-    m_flywheelMotor.configPeakOutputForward(1, kTimeoutMs);
-    m_flywheelMotor.configPeakOutputReverse(-1, kTimeoutMs);
+    m_flywheelMotor.config_kF(kPIDIndex, kFF, kPIDTimeoutMs);
+    m_flywheelMotor.config_kP(kPIDIndex, kP, kPIDTimeoutMs);
+    m_flywheelMotor.config_kI(kPIDIndex, kI, kPIDTimeoutMs);
+    m_flywheelMotor.config_kD(kPIDIndex, kD, kPIDTimeoutMs);
+    m_flywheelMotor.config_IntegralZone(kPIDIndex, kIz, kPIDTimeoutMs);
+    m_flywheelMotor.configNominalOutputForward(0, kPIDTimeoutMs);
+    m_flywheelMotor.configNominalOutputReverse(0, kPIDTimeoutMs);
+    m_flywheelMotor.configPeakOutputForward(1, kPIDTimeoutMs);
+    m_flywheelMotor.configPeakOutputReverse(-1, kPIDTimeoutMs);
 
     // set Indexer PID coefficients
-    m_indexMotor.config_kF(kPIDLoopIdx, IndexkFF, IndexkTimeoutMs);
-    m_indexMotor.config_kP(kPIDLoopIdx, IndexkP, IndexkTimeoutMs);
-    m_indexMotor.config_kI(kPIDLoopIdx, IndexkI, IndexkTimeoutMs);
-    m_indexMotor.config_kD(kPIDLoopIdx, IndexkD, IndexkTimeoutMs);
-    m_indexMotor.config_IntegralZone(kPIDLoopIdx, IndexkIz, IndexkTimeoutMs);
-    m_indexMotor.configNominalOutputForward(0, IndexkTimeoutMs);
-    m_indexMotor.configNominalOutputReverse(0, IndexkTimeoutMs);
-    m_indexMotor.configPeakOutputForward(1, IndexkTimeoutMs);
-    m_indexMotor.configPeakOutputReverse(-1, IndexkTimeoutMs);
+    m_indexMotor.config_kF(kPIDIndex, IndexkFF, kPIDTimeoutMs);
+    m_indexMotor.config_kP(kPIDIndex, IndexkP, kPIDTimeoutMs);
+    m_indexMotor.config_kI(kPIDIndex, IndexkI, kPIDTimeoutMs);
+    m_indexMotor.config_kD(kPIDIndex, IndexkD, kPIDTimeoutMs);
+    m_indexMotor.config_IntegralZone(kPIDIndex, IndexkIz, kPIDTimeoutMs);
+    m_indexMotor.configNominalOutputForward(0, kPIDTimeoutMs);
+    m_indexMotor.configNominalOutputReverse(0, kPIDTimeoutMs);
+    m_indexMotor.configPeakOutputForward(1, kPIDTimeoutMs);
+    m_indexMotor.configPeakOutputReverse(-1, kPIDTimeoutMs);
   }
 
   /////////////////////////////////////////////////////////////////////////////

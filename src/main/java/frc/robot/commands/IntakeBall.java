@@ -52,40 +52,51 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.IntakeSubsystem;
 
 public class IntakeBall extends CommandBase {
-  /** Creates a new IntakeBall. */
+  /** Intake subsystem accessed by the command */
   private IntakeSubsystem m_intakeSubsystem;
 
-  /** < Reference to the Intake subsystem */
-  public IntakeBall(IntakeSubsystem intakeSubsystem) {
-    // Use addRequirements() here to declare subsystem dependencies.
-    m_intakeSubsystem = intakeSubsystem;
-
-    addRequirements(intakeSubsystem);
+  /** 
+   * Creates a new instance of the command
+   * @param botContainer Container providing access to robot subsystems
+   */
+  public IntakeBall(RobotContainer botContainer) {
+    m_intakeSubsystem = botContainer.intakeSubsystem;
+    addRequirements(m_intakeSubsystem);
   }
 
-  // Called when the command is initially scheduled.
+  /**
+   * Called when the command is initially scheduled
+   */ 
   @Override
   public void initialize() {
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
+  /**
+   * Called every time the scheduler runs while the command is scheduled
+   */
   @Override
   public void execute() {
     m_intakeSubsystem.getBalls();
   }
 
-  // Called once the command ends or is interrupted.
+  /**
+   * Called once the command ends or is interrupted
+   */
   @Override
   public void end(boolean interrupted) {
     m_intakeSubsystem.disableIntake();
   }
 
-  // Returns true when the command should end.
+  /**
+   * Returns true when the command should end
+   */
   @Override
   public boolean isFinished() {
+    // TODO: determine if a PerpetualCommand should be used for IntakeBall
     return false;
   }
 }

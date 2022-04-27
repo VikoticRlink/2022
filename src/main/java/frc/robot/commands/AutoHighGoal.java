@@ -55,19 +55,17 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.autonomous.driveStages.*;
-import frc.robot.subsystems.driveBase.DriveBaseSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.runtimeState.BotStateSubsystem;
-import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.ShooterSubsystem.FlywheelSpeed;
+import frc.robot.RobotContainer;
 
 public class AutoHighGoal extends SequentialCommandGroup {
 
-  public AutoHighGoal(BotStateSubsystem botState, DriveBaseSubsystem driveBaseSubsystem, 
-                      IntakeSubsystem intakeSubsystem, ShooterSubsystem shooterSubsystem) {
-    addCommands(new DriveStage0(driveBaseSubsystem, intakeSubsystem), new WaitCommand(2.25),
-        new InstantCommand(intakeSubsystem::disableIntake, intakeSubsystem),
-        new LoadAndFire(FlywheelSpeed.GreasedLightning, botState, shooterSubsystem, null),
-        new InstantCommand(driveBaseSubsystem::CoastMode, driveBaseSubsystem));
+  public AutoHighGoal(RobotContainer botContainer) {
+    addCommands(
+        new DriveStage0(botContainer), new WaitCommand(2.25),
+        new InstantCommand(botContainer.intakeSubsystem::disableIntake,
+            botContainer.intakeSubsystem),
+        new LoadAndFire(FlywheelSpeed.GreasedLightning, botContainer, null), new InstantCommand(
+            botContainer.driveBaseSubsystem::CoastMode, botContainer.driveBaseSubsystem));
   }
 }

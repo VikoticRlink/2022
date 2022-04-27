@@ -54,7 +54,7 @@ package frc.robot.commands.shooter;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
-import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.ShooterSubsystem.FlywheelSpeed;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.shooter.fireBallSubcommands.*;
@@ -66,24 +66,23 @@ public class FireBall extends SequentialCommandGroup {
   /**
    * Creates an instance of the command
    * 
-   * @param muzzleVelocity   Velocity to fire the ball at
-   * @param shooterSubsystem Shooter subsystem used by the command
-   * @param fireButton       Button used to fire balls in tele-operated mode
+   * @param muzzleVelocity Velocity to fire the ball at
+   * @param botContainer   Container for robot subsystems
+   * @param fireButton     Button used to fire balls in tele-operated mode
    */
-  public FireBall(FlywheelSpeed muzzleVelocity, ShooterSubsystem shooterSubsystem,
+  public FireBall(FlywheelSpeed muzzleVelocity, RobotContainer botContainer,
       JoystickButton fireButton) {
     // Add commands in the order in which they will be carried out
-    addCommands(
-        new SpinUpFlywheel(muzzleVelocity, shooterSubsystem)
-            // .perpetually()
-            .withTimeout(1),
+    addCommands(new SpinUpFlywheel(muzzleVelocity, botContainer.shooterSubsystem)
+        // .perpetually()
+        .withTimeout(1),
 
-        new FeedFlywheel(shooterSubsystem, fireButton)
+        new FeedFlywheel(botContainer.shooterSubsystem, fireButton)
             .withTimeout(Constants.ShooterConstants.kFeedFlywheelTimeoutSeconds),
         new WaitCommand(0.25),
-        new FeedFlywheel(shooterSubsystem, fireButton)
+        new FeedFlywheel(botContainer.shooterSubsystem, fireButton)
             .withTimeout(Constants.ShooterConstants.kFeedFlywheelTimeoutSeconds),
-        new SpinUpFlywheel(FlywheelSpeed.Stopped, shooterSubsystem));
+        new SpinUpFlywheel(FlywheelSpeed.Stopped, botContainer.shooterSubsystem));
 
   }
 }

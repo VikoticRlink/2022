@@ -171,7 +171,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledPeriodic() {
-    m_robotContainer.m_botState.isRedAlliance = 
+    m_robotContainer.botState.isRedAlliance = 
       (DriverStation.Alliance.Red == DriverStation.getAlliance());
   }
 
@@ -182,13 +182,13 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     // Reset all encoders to 0
-    m_robotContainer.m_DriveBase.resetEncoders();
-    m_robotContainer.m_Climber.resetEncoders();
-    m_robotContainer.m_Intake.resetEncoders();
-    m_robotContainer.m_tRex.resetEncoders();
-    m_robotContainer.m_Shooter.resetIndexEncoder();
+    m_robotContainer.driveBaseSubsystem.resetEncoders();
+    m_robotContainer.climberSubsystem.resetEncoders();
+    m_robotContainer.intakeSubsystem.resetEncoders();
+    m_robotContainer.tRexSubsystem.resetEncoders();
+    m_robotContainer.shooterSubsystem.resetIndexEncoder();
 
-    m_autonomousCommand = m_robotContainer.m_Dashboard.getAutonomousCommand();
+    m_autonomousCommand = m_robotContainer.dashboardSubsystem.getAutonomousCommand();
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
@@ -210,13 +210,13 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    m_robotContainer.m_DriveBase.m_leftMaster.setSafetyEnabled(true);
-    m_robotContainer.m_DriveBase.m_rightMaster.setSafetyEnabled(true);
-    m_robotContainer.m_botState.StealthMode = 
-        ("Stealthy" == m_robotContainer.m_Dashboard.m_stealthMode.getSelected());
+    m_robotContainer.driveBaseSubsystem.m_leftMaster.setSafetyEnabled(true);
+    m_robotContainer.driveBaseSubsystem.m_rightMaster.setSafetyEnabled(true);
+    m_robotContainer.botState.StealthMode = 
+        ("Stealthy" == m_robotContainer.dashboardSubsystem.m_stealthMode.getSelected());
     
-    boolean currentLimitingEnabled = (m_robotContainer.m_Dashboard.m_NoLimits.getSelected() == "LimitsOn");
-    m_robotContainer.m_DriveBase.LimitMotors(currentLimitingEnabled);
+    boolean currentLimitingEnabled = (m_robotContainer.dashboardSubsystem.m_NoLimits.getSelected() == "LimitsOn");
+    m_robotContainer.driveBaseSubsystem.LimitMotors(currentLimitingEnabled);
   }
 
   /** This function is called periodically during operator control. */

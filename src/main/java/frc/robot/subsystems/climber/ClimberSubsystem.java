@@ -67,14 +67,14 @@ public class ClimberSubsystem extends SubsystemBase {
   /** Handle to the joystick subsystem */
   JoystickSubsystem m_joystickSubsystem;
 
-  /** Creates a new Climber. */
-  WPI_TalonFX ClimbMaster = new WPI_TalonFX(Constants.MotorID.climberMaster);
-  WPI_TalonFX ClimbSlave = new WPI_TalonFX(Constants.MotorID.climberSlave);
+  /** Talon motor driving the climber arms */
+  WPI_TalonFX m_masterMotor = new WPI_TalonFX(Constants.MotorID.climberMaster);
+  /** Talon motor driving the climber arms */
+  WPI_TalonFX m_slaveMotor = new WPI_TalonFX(Constants.MotorID.climberSlave);
 
   /**
-   * Talon FX motors support multiple (cascaded) PID loops that are identified
-   * by index. This subsystem requires just one PID loop whose index is given
-   * by this constant.
+   * Talon FX motors support multiple (cascaded) PID loops that are identified by index. This
+   * subsystem requires just one PID loop whose index is given by this constant.
    */
   public static final int kPIDIndex = 0;
 
@@ -102,21 +102,27 @@ public class ClimberSubsystem extends SubsystemBase {
     }
   };
 
+  /**
+   * Creates an instance of the subsystem
+   * 
+   * @param botState          Handle to information about the present state of the bot
+   * @param joystickSubsystem Subsystem used to process joystick commands
+   */
   public ClimberSubsystem(BotStateSubsystem botState, JoystickSubsystem joystickSubsystem) {
     m_botState = botState;
     m_joystickSubsystem = joystickSubsystem;
 
-    ClimbSlave.setInverted(true);
-    ClimbSlave.follow(ClimbMaster);
-    ClimbSlave.setNeutralMode(NeutralMode.Brake);
-    ClimbMaster.setNeutralMode(NeutralMode.Brake);
-    ClimbMaster.setSelectedSensorPosition(0, 0, 0);
+    m_slaveMotor.setInverted(true);
+    m_slaveMotor.follow(m_masterMotor);
+    m_slaveMotor.setNeutralMode(NeutralMode.Brake);
+    m_masterMotor.setNeutralMode(NeutralMode.Brake);
+    m_masterMotor.setSelectedSensorPosition(0, 0, 0);
 
-    ClimbMaster.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 0);
-    ClimbMaster.configReverseSoftLimitThreshold(-450000, 0);
-    ClimbMaster.configForwardSoftLimitThreshold(0, 0);
-    ClimbMaster.configForwardSoftLimitEnable(false, 0);
-    ClimbMaster.configReverseSoftLimitEnable(true, 0);
+    m_masterMotor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 0);
+    m_masterMotor.configReverseSoftLimitThreshold(-450000, 0);
+    m_masterMotor.configForwardSoftLimitThreshold(0, 0);
+    m_masterMotor.configForwardSoftLimitEnable(false, 0);
+    m_masterMotor.configReverseSoftLimitEnable(true, 0);
   }
 
   @Override
@@ -126,7 +132,7 @@ public class ClimberSubsystem extends SubsystemBase {
       // runClimberElevator(ClimberMode.Manual);
       double climbAmount = m_joystickSubsystem.operatorController.leftStickY();
       climbAmount *= Constants.MotorScaler.kClimberSpeed;
-      ClimbMaster.set(TalonFXControlMode.PercentOutput, climbAmount);
+      m_masterMotor.set(TalonFXControlMode.PercentOutput, climbAmount);
     }
   }
 
@@ -143,28 +149,28 @@ public class ClimberSubsystem extends SubsystemBase {
       percentOutput *= Constants.MotorScaler.kClimberSpeed;
     }
     switch (mode) {
-      case Stopped:
-        percentOutput = 0;
-        break;
-      case Manual:
-        m_joystickSubsystem.operatorController.leftStickY();
-        break;
-      default:
-        percentOutput *= Constants.MotorScaler.kClimberSpeed;
-        break;
+    case Stopped:
+      percentOutput = 0;
+      break;
+    case Manual:
+      m_joystickSubsystem.operatorController.leftStickY();
+      break;
+    default:
+      percentOutput *= Constants.MotorScaler.kClimberSpeed;
+      break;
     }
-    ClimbMaster.set(TalonFXControlMode.PercentOutput, percentOutput);
+    m_masterMotor.set(TalonFXControlMode.PercentOutput, percentOutput);
   }
 
   /////////////////////////////////////////////////////////////////////////////
   /** Returns the raw encoder count of the T-rex arm master motor */
   public double getClimberPosition() {
-    return ClimbMaster.getSelectedSensorPosition(kPIDIndex);
+    return m_masterMotor.getSelectedSensorPosition(kPIDIndex);
   }
 
   /** Resets the encoders to currently read a position of 0. */
   public void resetEncoders() {
-    ClimbMaster.setSelectedSensorPosition(0, 0, 0);
+    m_masterMotor.setSelectedSensorPosition(0, 0, 0);
   }
 
 }

@@ -78,7 +78,9 @@ public class BotStateSubsystem extends SubsystemBase {
   public boolean RobotShooting = false;
   public boolean StealthMode = false;
 
-  /** Creates a new RobotRuntimeState. */
+  /** 
+   * Creates an instance of the object
+  */
   public BotStateSubsystem() 
   {}
 
@@ -87,7 +89,9 @@ public class BotStateSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }  
 
-  /** Invert the present drive direction of the bot */
+  /**
+   * Inverts the present drive direction of the bot
+  */
   public void invertDriveDirection() {
     DriveDirection = (RobotDirection.Forward == DriveDirection) ?
                         RobotDirection.Reverse : RobotDirection.Forward;

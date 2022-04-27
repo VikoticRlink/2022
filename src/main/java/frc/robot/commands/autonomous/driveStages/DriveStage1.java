@@ -55,6 +55,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.subsystems.driveBase.DriveBaseSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.RobotContainer;
 
 // Make sure ball is intaked.
 // Run getballs for 2 seconds
@@ -62,12 +63,12 @@ public class DriveStage1 extends CommandBase {
   DriveBaseSubsystem m_driveBaseSubsystem;
   IntakeSubsystem m_intakeSubsystem;
 
-  public DriveStage1(DriveBaseSubsystem driveBaseSubsystem, IntakeSubsystem intakeSubsystem) {
-    m_driveBaseSubsystem = driveBaseSubsystem;
-    m_intakeSubsystem = intakeSubsystem;
+  public DriveStage1(RobotContainer botContainer) {
+    m_driveBaseSubsystem = botContainer.driveBaseSubsystem;
+    m_intakeSubsystem = botContainer.intakeSubsystem;
 
-    addRequirements(driveBaseSubsystem);
-    addRequirements(intakeSubsystem);
+    addRequirements(m_driveBaseSubsystem);
+    addRequirements(m_intakeSubsystem);
   }
 
   // Called when the command is initially scheduled.

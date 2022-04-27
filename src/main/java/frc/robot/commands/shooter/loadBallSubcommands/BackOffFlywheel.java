@@ -58,14 +58,16 @@ import frc.robot.subsystems.runtimeState.BotStateSubsystem;
 
 ///////////////////////////////////////////////////////////////////////////////
 /**
- * A command used to back off a ball that has been moved up to the limit
- * switch by the ChamberBall comand, moving it backwards in the shooter, away
- * from the flywheels until it clears the limit sensor.
+ * A command used to back off a ball that has been moved up to the limit switch by the ChamberBall
+ * comand, moving it backwards in the shooter, away from the flywheels until it clears the limit
+ * sensor.
  * 
  * NOTE: this command does nothing if no balls are detected in the shooter.
  */
 public class BackOffFlywheel extends CommandBase {
+  /** Handle to information about the current state of the bot */
   BotStateSubsystem m_botState;
+  /** Shooter subsystem accessed by the command */
   ShooterSubsystem m_shooterSubsystem;
   // int SpinNumber = 0;
 
@@ -73,12 +75,12 @@ public class BackOffFlywheel extends CommandBase {
   /**
    * Creates an instance of the command
    * 
-   * @param shooterSubsystem Shooter subsystem used by the command
+   * @param botContainer Object providing access to robot subsystems
    */
-  public BackOffFlywheel(BotStateSubsystem botState, ShooterSubsystem shooterSubsystem) {
-    m_botState = botState;
-    m_shooterSubsystem = shooterSubsystem;
-    addRequirements(shooterSubsystem);
+  public BackOffFlywheel(RobotContainer botContainer) {
+    m_botState = botContainer.botState;
+    m_shooterSubsystem = botContainer.shooterSubsystem;
+    addRequirements(m_botState, m_shooterSubsystem);
   }
 
   /////////////////////////////////////////////////////////////////////////////
@@ -95,9 +97,7 @@ public class BackOffFlywheel extends CommandBase {
   public void execute() {
     /*
      * if (m_shooterSubsystem.numBallsDetected() > 0) {
-     * m_shooterSubsystem.runBallIndexer(Shooter.BallIndexerMode.Reverse);
-     * SpinNumber += 1;
-     * }
+     * m_shooterSubsystem.runBallIndexer(Shooter.BallIndexerMode.Reverse); SpinNumber += 1; }
      */
     if (m_botState.StealthMode == false) {
       m_botState.RobotShooting = true; // Set flag indicating we are shooting
@@ -114,11 +114,11 @@ public class BackOffFlywheel extends CommandBase {
 
   ///////////////////////////////////////////////////////////////////////////////
   /*
-   * Called after each time the scheduler runs the execute() method to determine
-   * whether the command has finished.
+   * Called after each time the scheduler runs the execute() method to determine whether the command
+   * has finished.
    * 
-   * Returns true when the ball has backed off sufficiently from the limit
-   * sensor or if no balls are detected anywhere in the shooter
+   * Returns true when the ball has backed off sufficiently from the limit sensor or if no balls are
+   * detected anywhere in the shooter
    */
   @Override
   public boolean isFinished() {

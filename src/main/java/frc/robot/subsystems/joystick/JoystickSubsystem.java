@@ -57,9 +57,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 import frc.robot.commands.ManualMode;
-import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.runtimeState.BotStateSubsystem;
-import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.ShooterSubsystem.FlywheelSpeed;
 import frc.robot.commands.*;
 
@@ -73,18 +71,18 @@ public class JoystickSubsystem extends SubsystemBase {
   public JoystickController operatorController;
 
   /** Creates a new JoystickSubsystem. */
-  public JoystickSubsystem() {}
+  public JoystickSubsystem() {
+  }
 
   /**
-   * Use this method to define your button->command mappings. Buttons can be
-   * created by
-   * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing
-   * it to a {@link
-   * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
+   * Use this method to define your button->command mappings. Buttons can be created by
+   * instantiating a {@link GenericHID} or one of its subclasses
+   * ({@link edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a
+   * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
+   * 
+   * @param botContainer Object providing access to robot subsystems
    */
-  public void configureButtonBindings(BotStateSubsystem botState, ShooterSubsystem shooterSubsystem,
-                                      IntakeSubsystem intakeSubsystem) {
+  public void configureButtonBindings(RobotContainer botContainer) {
     driverController = new JoystickController(0);
     driverController.leftStickYProc.sensitivity = 0.3;
     driverController.rightStickYProc.sensitivity = 0.3;
@@ -92,16 +90,17 @@ public class JoystickSubsystem extends SubsystemBase {
     operatorController = new JoystickController(1);
     // Map buttons on operator controller
     // operatorController.Start.whenPressed(new ManualModeToggle());
-    operatorController.bumpLeft.whenHeld(new ManualMode(botState, shooterSubsystem));
-    operatorController.bumpRight.whenHeld(new ManualMode(botState, shooterSubsystem));
-    operatorController.A.whenPressed(
-      new LoadAndFire(FlywheelSpeed.Low, botState, shooterSubsystem, operatorController.A));
-    operatorController.X.whenPressed(
-      new LoadAndFire(FlywheelSpeed.Medium, botState, shooterSubsystem, operatorController.X));
+    operatorController.bumpLeft.whenHeld(new ManualMode(botContainer));
+    operatorController.bumpRight.whenHeld(new ManualMode(botContainer));
+    operatorController.A
+        .whenPressed(new LoadAndFire(FlywheelSpeed.Low, botContainer, operatorController.A));
+    operatorController.X
+        .whenPressed(new LoadAndFire(FlywheelSpeed.Medium, botContainer, operatorController.X));
     operatorController.Y.whenPressed(
-      new LoadAndFire(FlywheelSpeed.GreasedLightning, botState, shooterSubsystem, operatorController.Y));
-    operatorController.B.whenHeld(new IntakeBall(intakeSubsystem));
-    driverController.Start.whenPressed(new InstantCommand(botState::invertDriveDirection, botState));
+        new LoadAndFire(FlywheelSpeed.GreasedLightning, botContainer, operatorController.Y));
+    operatorController.B.whenHeld(new IntakeBall(botContainer));
+    driverController.Start.whenPressed(
+        new InstantCommand(botContainer.botState::invertDriveDirection, botContainer.botState));
   }
 
   @Override

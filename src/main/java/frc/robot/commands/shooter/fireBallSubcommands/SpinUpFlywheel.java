@@ -63,8 +63,10 @@ import frc.robot.subsystems.ShooterSubsystem.FlywheelSpeed;
  * execute forever. It must be scheduled using a timeout decorator.
  */
 public class SpinUpFlywheel extends CommandBase {
+  /** Shooter subsystem accessed by the command */
   ShooterSubsystem m_shooterSubsystem;
-  private FlywheelSpeed m_flywheelSpeed; /** Speed the flywheel will be run at */
+  /** Flywheel speed used when executing the command */
+  private FlywheelSpeed m_flywheelSpeed;
   // private int cycleCount = 0;
 
   /////////////////////////////////////////////////////////////////////////////

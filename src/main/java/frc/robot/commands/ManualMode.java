@@ -54,20 +54,27 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.subsystems.runtimeState.BotStateSubsystem;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.ShooterSubsystem.BallIndexerMode;
 import frc.robot.subsystems.ShooterSubsystem.FlywheelSpeed;
 
 public class ManualMode extends CommandBase {
+  /** Handle to information about the present state of the bot */
   BotStateSubsystem m_botState;
+  /** Shooter subsystem accessed by the command */
   ShooterSubsystem m_shooterSubsystem;
-  Boolean HasRan = false;
 
-  /** Creates a new ManualModeToggle. */
-  public ManualMode(BotStateSubsystem botState, ShooterSubsystem shooterSubsystem) {
-    m_botState = botState;
-    m_shooterSubsystem = shooterSubsystem;
-    addRequirements(shooterSubsystem, m_botState);
+  /////////////////////////////////////////////////////////////////////////////
+  /**
+   * Creates an instance of the command
+   * 
+   * @param botContainer Object providing access to robot subsystems
+   */
+  public ManualMode(RobotContainer botContainer) {
+    m_botState = botContainer.botState;
+    m_shooterSubsystem = botContainer.shooterSubsystem;
+    addRequirements(m_botState, m_shooterSubsystem);
   }
 
   // Called when the command is initially scheduled.
