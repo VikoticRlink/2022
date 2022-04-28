@@ -52,23 +52,20 @@
 package frc.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.driveBase.DriveBaseSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.driveBase.WestCoastDriveSubsystem;
 
 import edu.wpi.first.wpilibj.Timer;
 
 public class Auto extends CommandBase {
-  DriveBaseSubsystem m_driveBaseSubsystem;
-  IntakeSubsystem m_IntakeSubsystem;
+  WestCoastDriveSubsystem m_driveBaseSubsystem;
   int driveStage = 0;
   boolean IsDone;
   double startimer;
 
   /** Creates a new Auto. */
-  public Auto(DriveBaseSubsystem driveBaseSubsystem, IntakeSubsystem intakeSubsystem) {
+  public Auto(WestCoastDriveSubsystem driveBaseSubsystem) {
     m_driveBaseSubsystem = driveBaseSubsystem;
-    m_IntakeSubsystem = intakeSubsystem;
-    addRequirements(driveBaseSubsystem, intakeSubsystem);
+    addRequirements(driveBaseSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -86,7 +83,6 @@ public class Auto extends CommandBase {
     switch (driveStage) {
       case 0:
         if (m_driveBaseSubsystem.m_rightMaster.getSelectedSensorPosition() < 79000) {
-          m_IntakeSubsystem.getBalls();
           m_driveBaseSubsystem.tankDriveVolts(-2, -2);
         } else {
           m_driveBaseSubsystem.tankDriveVolts(0, 0);
@@ -99,7 +95,6 @@ public class Auto extends CommandBase {
         // Run getballs for 2 seconds
         if (Timer.getFPGATimestamp() - startimer > 2) {
           driveStage = 2;
-          m_IntakeSubsystem.disableIntake();
         }
         break;
       case 2:

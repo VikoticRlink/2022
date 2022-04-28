@@ -56,7 +56,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.driveBase.DriveBaseSubsystem;
+import frc.robot.subsystems.driveBase.WestCoastDriveSubsystem;
 import frc.robot.subsystems.joystick.JoystickSubsystem;
 import frc.robot.subsystems.runtimeState.BotStateSubsystem;
 import frc.robot.subsystems.runtimeState.BotStateSubsystem.RobotDirection;;
@@ -64,7 +64,7 @@ import frc.robot.subsystems.runtimeState.BotStateSubsystem.RobotDirection;;
 public class DriveByJoysticks extends CommandBase {
   private BotStateSubsystem m_botState;
   private JoystickSubsystem m_joystickSubsystem;
-  private DriveBaseSubsystem m_driveBaseSubsystem;
+  private WestCoastDriveSubsystem m_driveBaseSubsystem;
   private double m_drivePowerModifer = 1;
 
   /////////////////////////////////////////////////////////////////////////////

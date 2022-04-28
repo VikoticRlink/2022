@@ -183,10 +183,6 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     // Reset all encoders to 0
     m_robotContainer.driveBaseSubsystem.resetEncoders();
-    m_robotContainer.climberSubsystem.resetEncoders();
-    m_robotContainer.intakeSubsystem.resetEncoders();
-    m_robotContainer.tRexSubsystem.resetEncoders();
-    m_robotContainer.shooterSubsystem.resetIndexEncoder();
 
     m_autonomousCommand = m_robotContainer.dashboardSubsystem.getAutonomousCommand();
 

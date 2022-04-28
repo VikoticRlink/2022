@@ -57,11 +57,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.commands.autonomous.*;
-import frc.robot.commands.*;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.runtimeState.BotStateSubsystem;
 import frc.robot.subsystems.runtimeState.BotStateSubsystem.RobotDirection;
-import frc.robot.subsystems.ShooterSubsystem;
 
 // TODO: DashboardSubsystem is ugly.  It needs to be cleaned up and refactored into submodules
 
@@ -74,12 +72,10 @@ public class DashboardSubsystem extends SubsystemBase {
   public SendableChooser<String> m_NoLimits;
 
   private BotStateSubsystem m_botState;
-  private ShooterSubsystem m_shooterSubsystem;
 
   /** Creates a new Dashboard. */
   public DashboardSubsystem(RobotContainer botContainer) {
     m_botState = botContainer.botState;
-    m_shooterSubsystem = botContainer.shooterSubsystem;
     m_chooser = new SendableChooser<>();
     m_stealthMode = new SendableChooser<>();
     m_NoLimits = new SendableChooser<>();
@@ -93,31 +89,13 @@ public class DashboardSubsystem extends SubsystemBase {
     SmartDashboard.putData(m_stealthMode);
 
     // Set up the autonomous chooser
-    m_chooser.setDefaultOption("High Auto", new AutoHighGoal(botContainer));
-    m_chooser.addOption("Simple Auto", new AutoDrive(botContainer));
+    m_chooser.addOption("Simple Auto", new Auto(botContainer.driveBaseSubsystem));
     m_chooser.addOption("Red 1", new AutoRedOne());
     m_chooser.addOption("Red 2", new AutoRedTwo());
     m_chooser.addOption("Red 3", new AutoRedThree());
     m_chooser.addOption("Blue 1", new AutoBlueOne());
     m_chooser.addOption("Blue 2", new AutoBlueTwo());
     m_chooser.addOption("Blue 3", new AutoBlueThree());
-
-    // SmartDashboard.putData("Fire Ball", new
-    // LoadAndFire(Shooter.FlywheelSpeed.Autonomous, RobotContainer.m_Shooter,
-    // null));
-    // SmartDashboard.putData("DriveStage 0", new
-    // DriveStage0(RobotContainer.m_DriveBase, RobotContainer.m_Intake));
-
-    // SmartDashboard.putData("Fire Ball", new FireBall(RobotContainer.m_Shooter));
-    // SmartDashboard.putData("Intake Ball", new
-    // IntakeBall(RobotContainer.m_Intake));
-    // SmartDashboard.putData("BackOffFlywheel", new
-    // BackOffFlywheel(RobotContainer.m_Shooter));
-    // SmartDashboard.putData("Back Off Flywheel", new
-    // BackOffFlywheel(RobotContainer.m_Shooter));
-
-    // SmartDashboard.putData("Feed Ball", new
-    // FeedFlywheel(RobotContainer.m_Shooter, null));
   }
 
   @Override
@@ -132,22 +110,6 @@ public class DashboardSubsystem extends SubsystemBase {
         m_botState.DriveDirection == RobotDirection.Forward);
     SmartDashboard.putBoolean("Manual Mode", m_botState.ManualControl);
     SmartDashboard.putBoolean("Alliance", m_botState.isRedAlliance);
-    SmartDashboard.putNumber("Flywheel", m_shooterSubsystem.getShooterRPM());
-    SmartDashboard.putBoolean("At Flywheel speed", m_shooterSubsystem.IndexAtLocation());
-    // SmartDashboard.putNumber("Indexer",
-    // RobotContainer.m_Shooter.getIndexPosition());
-    // SmartDashboard.putBoolean("First Ball",
-    // RobotContainer.m_Shooter.upperBallIsPresent());
-    // SmartDashboard.putBoolean("Second Ball",
-    // RobotContainer.m_Shooter.lowerBallIsPresent());
-    // SmartDashboard.putBoolean("Ball Against Flywheel",
-    // RobotContainer.m_Shooter.getBallLimitSensor());
-    // SmartDashboard.putNumber("Intake Arm Position",
-    // RobotContainer.m_Intake.getIntakeArmPositionRaw());
-    // SmartDashboard.putNumber("Climber Position",
-    // RobotContainer.m_Climber.getClimberPosition());
-    // SmartDashboard.putNumber("tRex Position",
-    // RobotContainer.m_tRex.getArmPositionRaw());
 
     // SmartDashboard.putNumber("leftDrive",
     // RobotContainer.m_DriveBase.leftMaster.getSelectedSensorPosition());

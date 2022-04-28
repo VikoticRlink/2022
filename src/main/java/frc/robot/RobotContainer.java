@@ -65,13 +65,10 @@
 package frc.robot;
 
 import frc.robot.commands.DriveByJoysticks;
-import frc.robot.subsystems.driveBase.DriveBaseSubsystem;
+import frc.robot.subsystems.driveBase.WestCoastDriveSubsystem;
 import frc.robot.subsystems.joystick.JoystickSubsystem;
-import frc.robot.subsystems.lighting.LightingSubsystem;
-import frc.robot.subsystems.climber.*;
-import frc.robot.subsystems.dashboard.*;
-import frc.robot.subsystems.runtimeState.*;
-import frc.robot.subsystems.*;
+import frc.robot.subsystems.dashboard.DashboardSubsystem;
+import frc.robot.subsystems.runtimeState.BotStateSubsystem;
 
 /////////////////////////////////////////////////////////////////////////////
 /**
@@ -87,12 +84,7 @@ public class RobotContainer {
   // ----------------------------------
   public JoystickSubsystem joystickSubsystem;
   public BotStateSubsystem botState;
-  public ClimberSubsystem climberSubsystem;
-  public T_rexSubsystem tRexSubsystem;
-  public DriveBaseSubsystem driveBaseSubsystem;
-  public ShooterSubsystem shooterSubsystem;
-  public IntakeSubsystem intakeSubsystem;
-  public LightingSubsystem lightingSubsystem;
+  public WestCoastDriveSubsystem driveBaseSubsystem;
   public DashboardSubsystem dashboardSubsystem;
 
   /**
@@ -101,12 +93,7 @@ public class RobotContainer {
   public RobotContainer() {
     joystickSubsystem = new JoystickSubsystem();
     botState = new BotStateSubsystem();
-    driveBaseSubsystem = new DriveBaseSubsystem();
-    lightingSubsystem = new LightingSubsystem(botState);
-    climberSubsystem = new ClimberSubsystem(botState, joystickSubsystem);
-    tRexSubsystem = new T_rexSubsystem(botState, joystickSubsystem);
-    shooterSubsystem = new ShooterSubsystem(botState, joystickSubsystem);
-    intakeSubsystem = new IntakeSubsystem(botState, tRexSubsystem, shooterSubsystem);
+    driveBaseSubsystem = new WestCoastDriveSubsystem();
     dashboardSubsystem = new DashboardSubsystem(this);
 
     // Configure the button bindings

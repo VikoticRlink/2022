@@ -56,10 +56,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
-import frc.robot.commands.ManualMode;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.ShooterSubsystem.FlywheelSpeed;
-import frc.robot.commands.*;
 
 /**
  * A subsystem providing/managing Xbox controllers for driving the robot manually
@@ -90,15 +87,13 @@ public class JoystickSubsystem extends SubsystemBase {
     operatorController = new JoystickController(1);
     // Map buttons on operator controller
     // operatorController.Start.whenPressed(new ManualModeToggle());
-    operatorController.bumpLeft.whenHeld(new ManualMode(botContainer));
-    operatorController.bumpRight.whenHeld(new ManualMode(botContainer));
-    operatorController.A
-        .whenPressed(new LoadAndFire(FlywheelSpeed.Low, botContainer, operatorController.A));
-    operatorController.X
-        .whenPressed(new LoadAndFire(FlywheelSpeed.Medium, botContainer, operatorController.X));
-    operatorController.Y.whenPressed(
-        new LoadAndFire(FlywheelSpeed.GreasedLightning, botContainer, operatorController.Y));
-    operatorController.B.whenHeld(new IntakeBall(botContainer));
+    operatorController.bumpLeft.whenHeld(new InstantCommand(this::doNothing, this));
+    operatorController.bumpRight.whenHeld(new InstantCommand(this::doNothing, this));
+    operatorController.A.whenPressed(new InstantCommand(this::doNothing, this));
+    operatorController.B.whenHeld(new InstantCommand(this::doNothing, this));
+    operatorController.X.whenPressed(new InstantCommand(this::doNothing, this));
+    operatorController.Y.whenPressed(new InstantCommand(this::doNothing, this));
+
     driverController.Start.whenPressed(
         new InstantCommand(botContainer.botState::invertDriveDirection, botContainer.botState));
   }
@@ -106,5 +101,9 @@ public class JoystickSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  }
+
+  /** Placeholder used for empty commands mapped to joystick */
+  public void doNothing() {
   }
 }
